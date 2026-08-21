@@ -22,8 +22,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <title>Akizen — Web experiences, automation & digital systems</title>
   <link rel="stylesheet" href="style.css?v=akizen-restored-1">
-  <link rel="stylesheet" href="hero.css?v=hero-1">
-  <script src="script.js?v=akizen-restored-1" defer></script>
+  <link rel="stylesheet" href="hero.css?v=hero-motion-2">
+  <script src="script.js?v=hero-motion-2" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -42,7 +42,7 @@
 </header>
 
 <main id="main">
-  <section class="hero shell" id="top">
+  <section class="hero shell" id="top" data-hero>
     <div class="hero-copy reveal">
       <div class="status-pill"><span></span> Available for selected projects</div>
       <p class="hero-kicker">Digital studio · Web · Systems · Automation</p>
@@ -79,7 +79,46 @@
         <span><i></i> Useful before oversized</span>
         <span><i></i> Built to stay maintainable</span>
       </div>
-      <a class="hero-scroll" href="#work">Scroll to work</a>
+      <a class="hero-scroll" href="#device-story">Scroll to explore</a>
+    </div>
+  </section>
+
+  <section class="device-story" id="device-story" data-device-story aria-label="How Akizen turns messy workflows into clear systems">
+    <div class="device-sticky">
+      <div class="device-scene" data-device-scene>
+        <div class="laptop" aria-hidden="true">
+          <div class="laptop-lid">
+            <div class="laptop-screen">
+              <div class="screen-top"><i></i><i></i><i></i><span>akizen / flow</span></div>
+              <div class="screen-body">
+                <aside><b></b><b></b><b></b><b></b></aside>
+                <div class="screen-main">
+                  <span class="screen-kicker">CONNECTED WORKFLOW</span>
+                  <h3 data-screen-title>See the whole process.</h3>
+                  <div class="screen-flow">
+                    <span>Enquiry</span><i></i><b>Akizen Flow</b><i></i><span>Action</span>
+                  </div>
+                  <div class="screen-status"><i></i><div><strong data-screen-status>Waiting for input</strong><small data-screen-detail>Everything starts in one place.</small></div><em>LIVE</em></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="laptop-hinge"></div>
+          <div class="laptop-base"><div class="trackpad"></div></div>
+        </div>
+
+        <div class="story-copy" data-story-copy>
+          <p class="section-kicker">From friction to flow</p>
+          <h2>Turn scattered work into one clear system.</h2>
+          <p>Akizen connects the pieces that already exist so information moves once, the right action happens next, and the business becomes easier to see.</p>
+          <div class="story-steps">
+            <div class="story-step active" data-story-step="0"><span>01</span><div><strong>Capture</strong><small>Bring enquiries and information into one reliable starting point.</small></div></div>
+            <div class="story-step" data-story-step="1"><span>02</span><div><strong>Automate</strong><small>Move data, notify people and trigger the next step automatically.</small></div></div>
+            <div class="story-step" data-story-step="2"><span>03</span><div><strong>See clearly</strong><small>Give the team one useful view instead of another place to check.</small></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="story-progress" aria-hidden="true"><span data-story-progress></span></div>
     </div>
   </section>
 
@@ -90,68 +129,23 @@
     </div>
 
     <article class="feature-project reveal" data-glow-card>
-      <div class="feature-copy">
-        <div class="project-index">01 · Internal systems</div>
-        <h3>Operations without spreadsheet archaeology.</h3>
-        <p>A focused dashboard concept for stock visibility, status and operational context—designed to make useful information obvious.</p>
-        <div class="project-tags"><span>Interface design</span><span>Operations</span><span>Reporting</span></div>
-      </div>
+      <div class="feature-copy"><div class="project-index">01 · Internal systems</div><h3>Operations without spreadsheet archaeology.</h3><p>A focused dashboard concept for stock visibility, status and operational context—designed to make useful information obvious.</p><div class="project-tags"><span>Interface design</span><span>Operations</span><span>Reporting</span></div></div>
       <div class="feature-visual"><img src="assets/images/project-inventory.svg" alt="Inventory operations dashboard interface" loading="lazy"></div>
     </article>
 
     <div class="supporting-grid">
-      <article class="support-card support-dark reveal" data-glow-card>
-        <div class="project-index">02 · Automation</div>
-        <div class="automation-map" aria-hidden="true"><span>Input</span><i></i><b>Logic</b><i></i><span>Action</span></div>
-        <div><h3>Let routine work happen quietly.</h3><p>Connect existing tools, move information once, and trigger the right next action automatically.</p></div>
-      </article>
-
-      <article class="support-card reveal" data-glow-card>
-        <div class="project-index">03 · Web experience</div>
-        <div class="web-preview" aria-hidden="true"><div><b>YOUR BRAND</b><span>Work&nbsp;&nbsp;About</span></div><small>A BETTER FIRST IMPRESSION</small><strong>Clear enough to trust.<br>Distinctive enough to remember.</strong></div>
-        <div><h3>Web that feels intentional.</h3><p>Strong hierarchy, purposeful motion and a clear path toward action.</p></div>
-      </article>
+      <article class="support-card support-dark reveal" data-glow-card><div class="project-index">02 · Automation</div><div class="automation-map" aria-hidden="true"><span>Input</span><i></i><b>Logic</b><i></i><span>Action</span></div><div><h3>Let routine work happen quietly.</h3><p>Connect existing tools, move information once, and trigger the right next action automatically.</p></div></article>
+      <article class="support-card reveal" data-glow-card><div class="project-index">03 · Web experience</div><div class="web-preview" aria-hidden="true"><div><b>YOUR BRAND</b><span>Work&nbsp;&nbsp;About</span></div><small>A BETTER FIRST IMPRESSION</small><strong>Clear enough to trust.<br>Distinctive enough to remember.</strong></div><div><h3>Web that feels intentional.</h3><p>Strong hierarchy, purposeful motion and a clear path toward action.</p></div></article>
     </div>
   </section>
 
-  <section class="capabilities-section shell reveal">
-    <div class="capabilities-copy"><p class="section-kicker">Capabilities</p><h2>A focused range.</h2><p>Enough breadth to connect the pieces without turning every project into a giant platform.</p></div>
-    <div class="capability-list">
-      <div><span>01</span><strong>Web experiences</strong><small>Responsive business sites, landing pages and conversion-focused interfaces.</small></div>
-      <div><span>02</span><strong>Automation & integrations</strong><small>APIs, connected workflows and repetitive-process removal.</small></div>
-      <div><span>03</span><strong>Internal tools & prototypes</strong><small>Focused dashboards, portals and fast validation builds.</small></div>
-    </div>
-  </section>
+  <section class="capabilities-section shell reveal"><div class="capabilities-copy"><p class="section-kicker">Capabilities</p><h2>A focused range.</h2><p>Enough breadth to connect the pieces without turning every project into a giant platform.</p></div><div class="capability-list"><div><span>01</span><strong>Web experiences</strong><small>Responsive business sites, landing pages and conversion-focused interfaces.</small></div><div><span>02</span><strong>Automation & integrations</strong><small>APIs, connected workflows and repetitive-process removal.</small></div><div><span>03</span><strong>Internal tools & prototypes</strong><small>Focused dashboards, portals and fast validation builds.</small></div></div></section>
 
-  <section class="about-section shell" id="about">
-    <div class="about-copy reveal">
-      <p class="section-kicker">The studio</p>
-      <h2>Akizen is built around making complicated work feel obvious.</h2>
-      <p>Akizen is a focused digital practice for businesses with a messy workflow, a vague product idea, or a digital experience that technically works but feels harder than it should.</p>
-      <p>The approach is simple: understand the bottleneck, reduce unnecessary complexity, build the smallest useful solution, then improve it from real use.</p>
-      <div class="about-facts"><div><span>Based in</span><strong>Malaysia</strong></div><div><span>Focus</span><strong>Web · Systems · Automation</strong></div></div>
-    </div>
-    <div class="portrait-card reveal" data-glow-card aria-label="Akizen studio identity"><div class="portrait-inner"><span>A</span><small>AKIZEN</small></div><p>Clear systems.<br>Distinctive web.<br>Useful outcomes.</p></div>
-  </section>
+  <section class="about-section shell" id="about"><div class="about-copy reveal"><p class="section-kicker">The studio</p><h2>Akizen is built around making complicated work feel obvious.</h2><p>Akizen is a focused digital practice for businesses with a messy workflow, a vague product idea, or a digital experience that technically works but feels harder than it should.</p><p>The approach is simple: understand the bottleneck, reduce unnecessary complexity, build the smallest useful solution, then improve it from real use.</p><div class="about-facts"><div><span>Based in</span><strong>Malaysia</strong></div><div><span>Focus</span><strong>Web · Systems · Automation</strong></div></div></div><div class="portrait-card reveal" data-glow-card aria-label="Akizen studio identity"><div class="portrait-inner"><span>A</span><small>AKIZEN</small></div><p>Clear systems.<br>Distinctive web.<br>Useful outcomes.</p></div></section>
 
-  <section class="contact-section shell" id="contact">
-    <div class="contact-panel reveal">
-      <div class="contact-copy"><p class="section-kicker">Start a project</p><h2>What should feel better in your business?</h2><p>Send the website, workflow or idea. You do not need a polished brief—just explain what feels stuck and what a better outcome would look like.</p><div class="contact-note"><span>A useful first message</span><strong>“Here’s what happens now, and here’s what we wish happened instead.”</strong></div></div>
-      <form id="project-form" class="project-form" novalidate>
-        <div class="field"><label for="name">Name</label><input id="name" name="name" autocomplete="name" required placeholder="Your name"></div>
-        <div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="you@company.com"></div>
-        <div class="field field-full"><label for="message">What do you want to improve?</label><textarea id="message" name="message" rows="5" minlength="10" required placeholder="A website, workflow, internal tool, or something else..."></textarea></div>
-        <button class="button button-primary" type="submit">Prepare project enquiry <span aria-hidden="true">↗</span></button>
-        <p class="form-note" id="form-note" aria-live="polite">This opens your email app. Nothing is stored on this website.</p>
-      </form>
-    </div>
-  </section>
+  <section class="contact-section shell" id="contact"><div class="contact-panel reveal"><div class="contact-copy"><p class="section-kicker">Start a project</p><h2>What should feel better in your business?</h2><p>Send the website, workflow or idea. You do not need a polished brief—just explain what feels stuck and what a better outcome would look like.</p><div class="contact-note"><span>A useful first message</span><strong>“Here’s what happens now, and here’s what we wish happened instead.”</strong></div></div><form id="project-form" class="project-form" novalidate><div class="field"><label for="name">Name</label><input id="name" name="name" autocomplete="name" required placeholder="Your name"></div><div class="field"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required placeholder="you@company.com"></div><div class="field field-full"><label for="message">What do you want to improve?</label><textarea id="message" name="message" rows="5" minlength="10" required placeholder="A website, workflow, internal tool, or something else..."></textarea></div><button class="button button-primary" type="submit">Prepare project enquiry <span aria-hidden="true">↗</span></button><p class="form-note" id="form-note" aria-live="polite">This opens your email app. Nothing is stored on this website.</p></form></div></section>
 </main>
 
-<footer class="footer shell">
-  <a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">A</span><span>Akizen.my</span></a>
-  <div class="social-links"><a href="#work">Selected work</a><a href="mailto:hello@akizen.my">Email ↗</a></div>
-  <p>© <span id="year"></span> Akizen.my</p>
-</footer>
+<footer class="footer shell"><a class="brand footer-brand" href="#top"><span class="brand-mark" aria-hidden="true">A</span><span>Akizen.my</span></a><div class="social-links"><a href="#work">Selected work</a><a href="mailto:hello@akizen.my">Email ↗</a></div><p>© <span id="year"></span> Akizen.my</p></footer>
 </body>
 </html>
