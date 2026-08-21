@@ -1,5 +1,16 @@
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+document.querySelectorAll('img').forEach(img => {
+  const markFailed = () => {
+    img.hidden = true;
+    const holder = img.closest('.hero-image, .campus-photo, .program-card');
+    if (holder) holder.classList.add('image-fallback');
+  };
+
+  if (img.complete && img.naturalWidth === 0) markFailed();
+  else img.addEventListener('error', markFailed, { once: true });
+});
+
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', event => {
     const selector = link.getAttribute('href');
