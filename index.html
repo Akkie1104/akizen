@@ -22,9 +22,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <title>Akizen — Web experiences, automation & digital systems</title>
   <link rel="stylesheet" href="style.css?v=akizen-restored-1">
-  <link rel="stylesheet" href="hero.css?v=hero-motion-2">
-  <link rel="stylesheet" href="device-motion.css?v=device-motion-1">
-  <script src="script.js?v=hero-motion-3" defer></script>
+  <link rel="stylesheet" href="hero.css?v=continuous-1">
+  <script src="script.js?v=continuous-1" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -34,106 +33,69 @@
 <header class="site-header" data-header>
   <div class="nav-shell">
     <a class="brand" href="#top" aria-label="Akizen home"><span class="brand-mark" aria-hidden="true">A</span><span>Akizen.my</span></a>
-    <nav aria-label="Primary navigation">
-      <a href="#work">Work</a>
-      <a href="#about">Studio</a>
-      <a class="nav-cta" href="#contact">Start a project <span aria-hidden="true">↗</span></a>
-    </nav>
+    <nav aria-label="Primary navigation"><a href="#work">Work</a><a href="#about">Studio</a><a class="nav-cta" href="#contact">Start a project <span aria-hidden="true">↗</span></a></nav>
   </div>
 </header>
 
 <main id="main">
-  <section class="hero shell" id="top" data-hero>
-    <div class="hero-copy reveal">
-      <div class="status-pill"><span></span> Available for selected projects</div>
-      <p class="hero-kicker">Digital studio · Web · Systems · Automation</p>
-      <h1>Websites that <span class="accent">look sharper.</span><br>Systems that <span class="soft">work smarter.</span></h1>
-      <p class="hero-lead">Akizen designs distinctive digital experiences and practical systems that help businesses look more credible, reduce repeated work and move with less friction.</p>
-      <div class="hero-actions">
-        <a class="button button-primary" href="#work">Explore selected work</a>
-        <a class="button button-secondary" href="#contact">Tell us what feels stuck</a>
-      </div>
-      <div class="hero-proof" aria-label="Primary capabilities"><span>Web experiences</span><span>Automation</span><span>APIs</span><span>Internal systems</span></div>
-    </div>
-
-    <div class="hero-demo reveal" data-glow-card aria-label="Interactive example of an Akizen business system">
-      <div class="demo-window">
-        <div class="demo-top"><i></i><i></i><i></i><small>akizen / workflow</small></div>
-        <div class="demo-body">
-          <aside aria-hidden="true"><b></b><b></b><b></b><b></b></aside>
-          <div class="demo-main">
-            <span class="ui-kicker">OPERATIONS</span>
-            <h2>One clear view.<br>Less chasing.</h2>
-            <div class="demo-metrics"><div><small>Open tasks</small><strong>12</strong></div><div><small>Automated today</small><strong>38</strong></div></div>
-            <div class="demo-event"><span></span><div><b>New enquiry routed</b><small>Follow-up created automatically</small></div><em>Now</em></div>
-            <div class="demo-event"><span></span><div><b>Weekly report prepared</b><small>No manual export needed</small></div><em>09:42</em></div>
-          </div>
+  <section class="hero-transition" id="top" data-hero-transition>
+    <div class="hero-stage">
+      <div class="hero-scene shell" data-hero-scene>
+        <div class="hero-copy reveal" data-hero-copy>
+          <div class="status-pill"><span></span> Available for selected projects</div>
+          <p class="hero-kicker">Digital studio · Web · Systems · Automation</p>
+          <h1>Websites that <span class="accent">look sharper.</span><br>Systems that <span class="soft">work smarter.</span></h1>
+          <p class="hero-lead">Akizen designs distinctive digital experiences and practical systems that help businesses look more credible, reduce repeated work and move with less friction.</p>
+          <div class="hero-actions"><a class="button button-primary" href="#work">Explore selected work</a><a class="button button-secondary" href="#contact">Tell us what feels stuck</a></div>
+          <div class="hero-proof"><span>Web experiences</span><span>Automation</span><span>APIs</span><span>Internal systems</span></div>
         </div>
-      </div>
-      <div class="demo-chip chip-one">Website → CRM ✓</div>
-      <div class="demo-chip chip-two">3 manual steps removed</div>
-    </div>
 
-    <div class="hero-foot" aria-label="Akizen principles">
-      <div class="hero-foot-proof">
-        <span><i></i> Clear before clever</span>
-        <span><i></i> Useful before oversized</span>
-        <span><i></i> Built to stay maintainable</span>
-      </div>
-      <a class="hero-scroll" href="#device-story">Scroll to explore</a>
-    </div>
-  </section>
-
-  <section class="device-story" id="device-story" data-device-story aria-label="How Akizen turns messy workflows into clear systems">
-    <div class="device-sticky">
-      <div class="device-scene" data-device-scene>
-        <div class="laptop" aria-hidden="true">
-          <div class="laptop-lid">
-            <div class="laptop-screen">
-              <div class="screen-top"><i></i><i></i><i></i><span>akizen / flow</span></div>
-              <div class="screen-body">
-                <aside><b></b><b></b><b></b><b></b></aside>
-                <div class="screen-main">
-                  <span class="screen-kicker">CONNECTED WORKFLOW</span>
-                  <h3 data-screen-title>See the whole process.</h3>
-                  <div class="screen-flow">
-                    <span>Enquiry</span><i></i><b>Akizen Flow</b><i></i><span>Action</span>
+        <div class="hero-device-wrap reveal" data-hero-device>
+          <div class="laptop">
+            <div class="laptop-lid">
+              <div class="laptop-screen">
+                <div class="screen-top"><i></i><i></i><i></i><span>akizen / flow</span></div>
+                <div class="screen-body">
+                  <aside aria-hidden="true"><b></b><b></b><b></b><b></b></aside>
+                  <div class="screen-main">
+                    <span class="screen-kicker">OPERATIONS</span>
+                    <h2 data-screen-title>One clear view.<br>Less chasing.</h2>
+                    <div class="screen-metrics"><div><small>Open tasks</small><strong>12</strong></div><div><small>Automated</small><strong>38</strong></div></div>
+                    <div class="screen-flow"><span>Enquiry</span><i></i><b>Akizen Flow</b><i></i><span>Action</span></div>
+                    <div class="screen-status"><i></i><div><strong data-screen-status>System ready</strong><small data-screen-detail>Everything starts in one place.</small></div><em>LIVE</em></div>
                   </div>
-                  <div class="screen-status"><i></i><div><strong data-screen-status>Waiting for input</strong><small data-screen-detail>Everything starts in one place.</small></div><em>LIVE</em></div>
                 </div>
               </div>
             </div>
+            <div class="laptop-hinge"></div>
+            <div class="laptop-base"><div class="trackpad"></div></div>
           </div>
-          <div class="laptop-hinge"></div>
-          <div class="laptop-base"><div class="trackpad"></div></div>
+          <div class="device-chip chip-one">Website → CRM ✓</div>
+          <div class="device-chip chip-two">3 manual steps removed</div>
         </div>
 
-        <div class="story-copy" data-story-copy>
+        <div class="transition-copy" data-transition-copy>
           <p class="section-kicker">From friction to flow</p>
           <h2>Turn scattered work into one clear system.</h2>
           <p>Akizen connects the pieces that already exist so information moves once, the right action happens next, and the business becomes easier to see.</p>
-          <div class="story-steps">
-            <div class="story-step active" data-story-step="0"><span>01</span><div><strong>Capture</strong><small>Bring enquiries and information into one reliable starting point.</small></div></div>
-            <div class="story-step" data-story-step="1"><span>02</span><div><strong>Automate</strong><small>Move data, notify people and trigger the next step automatically.</small></div></div>
-            <div class="story-step" data-story-step="2"><span>03</span><div><strong>See clearly</strong><small>Give the team one useful view instead of another place to check.</small></div></div>
+          <div class="transition-steps">
+            <div class="transition-step active" data-transition-step="0"><span>01</span><div><strong>Capture</strong><small>Bring enquiries and information into one reliable starting point.</small></div></div>
+            <div class="transition-step" data-transition-step="1"><span>02</span><div><strong>Automate</strong><small>Move data, notify people and trigger the next step automatically.</small></div></div>
+            <div class="transition-step" data-transition-step="2"><span>03</span><div><strong>See clearly</strong><small>Give the team one useful view instead of another place to check.</small></div></div>
           </div>
         </div>
+
+        <div class="hero-foot" data-hero-foot>
+          <div class="hero-foot-proof"><span><i></i> Clear before clever</span><span><i></i> Useful before oversized</span><span><i></i> Built to stay maintainable</span></div>
+          <span class="hero-scroll">Scroll to explore</span>
+        </div>
       </div>
-      <div class="story-progress" aria-hidden="true"><span data-story-progress></span></div>
     </div>
   </section>
 
   <section class="work-section shell" id="work">
-    <div class="section-heading reveal">
-      <div><p class="section-kicker">Selected work</p><h2>Useful systems with a strong point of view.</h2></div>
-      <p>Akizen works where interface design, workflow thinking and implementation all matter.</p>
-    </div>
-
-    <article class="feature-project reveal" data-glow-card>
-      <div class="feature-copy"><div class="project-index">01 · Internal systems</div><h3>Operations without spreadsheet archaeology.</h3><p>A focused dashboard concept for stock visibility, status and operational context—designed to make useful information obvious.</p><div class="project-tags"><span>Interface design</span><span>Operations</span><span>Reporting</span></div></div>
-      <div class="feature-visual"><img src="assets/images/project-inventory.svg" alt="Inventory operations dashboard interface" loading="lazy"></div>
-    </article>
-
+    <div class="section-heading reveal"><div><p class="section-kicker">Selected work</p><h2>Useful systems with a strong point of view.</h2></div><p>Akizen works where interface design, workflow thinking and implementation all matter.</p></div>
+    <article class="feature-project reveal" data-glow-card><div class="feature-copy"><div class="project-index">01 · Internal systems</div><h3>Operations without spreadsheet archaeology.</h3><p>A focused dashboard concept for stock visibility, status and operational context—designed to make useful information obvious.</p><div class="project-tags"><span>Interface design</span><span>Operations</span><span>Reporting</span></div></div><div class="feature-visual"><img src="assets/images/project-inventory.svg" alt="Inventory operations dashboard interface" loading="lazy"></div></article>
     <div class="supporting-grid">
       <article class="support-card support-dark reveal" data-glow-card><div class="project-index">02 · Automation</div><div class="automation-map" aria-hidden="true"><span>Input</span><i></i><b>Logic</b><i></i><span>Action</span></div><div><h3>Let routine work happen quietly.</h3><p>Connect existing tools, move information once, and trigger the right next action automatically.</p></div></article>
       <article class="support-card reveal" data-glow-card><div class="project-index">03 · Web experience</div><div class="web-preview" aria-hidden="true"><div><b>YOUR BRAND</b><span>Work&nbsp;&nbsp;About</span></div><small>A BETTER FIRST IMPRESSION</small><strong>Clear enough to trust.<br>Distinctive enough to remember.</strong></div><div><h3>Web that feels intentional.</h3><p>Strong hierarchy, purposeful motion and a clear path toward action.</p></div></article>
