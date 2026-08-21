@@ -4,6 +4,7 @@
   const desktopMotion = window.matchMedia('(min-width: 901px)').matches;
   const header = document.querySelector('[data-header]');
   const transition = document.querySelector('[data-hero-transition]');
+  const stage = transition?.querySelector('.hero-stage');
   const heroCopy = document.querySelector('[data-hero-copy]');
   const deviceWrap = document.querySelector('[data-hero-device]');
   const laptopLid = document.querySelector('.laptop-lid');
@@ -23,50 +24,61 @@
     ['See what matters.', 'System clear', 'One useful view replaces another place to check.']
   ];
 
-  if (deviceWrap) deviceWrap.style.perspectiveOrigin = '50% 72%';
-  if (laptopLid && desktopMotion && !reduced) laptopLid.style.transform = 'rotateX(-46deg)';
-
   let ticking = false;
+  const setHeaderTheme = (light) => {
+    if (!header) return;
+    header.style.background = light ? 'rgba(247,247,245,.94)' : 'rgba(21,21,21,.94)';
+    header.style.color = light ? '#171717' : '#f4f4f4';
+    header.style.borderColor = light ? '#d8d8d6' : '#333';
+    const mark = header.querySelector('.brand-mark');
+    if (mark) {
+      mark.style.borderColor = light ? '#c9c9c7' : '#555';
+      mark.style.color = light ? '#6d28d9' : '#ddd';
+    }
+  };
+
   const update = () => {
     ticking = false;
-    header?.classList.toggle('scrolled', window.scrollY > 16);
-    if (!transition || reduced || !desktopMotion) return;
+    if (!transition || reduced || !desktopMotion) {
+      header?.classList.toggle('scrolled', window.scrollY > 16);
+      return;
+    }
 
     const rect = transition.getBoundingClientRect();
     const distance = Math.max(1, transition.offsetHeight - window.innerHeight);
     const p = clamp(-rect.top / distance);
+    const fadeHero = smooth(range(p, .06, .32));
+    const open = smooth(range(p, .12, .5));
+    const wash = smooth(range(p, .34, .66));
+    const shift = smooth(range(p, .48, .78));
+    const revealCopy = smooth(range(p, .55, .78));
 
-    const fadeHero = smooth(range(p, .08, .38));
-    const open = smooth(range(p, .05, .48));
-    const shift = smooth(range(p, .42, .82));
-    const revealCopy = smooth(range(p, .48, .76));
+    if (stage) stage.style.setProperty('--wash', wash.toFixed(4));
+    setHeaderTheme(p > .5 && rect.bottom > 0);
 
     if (heroCopy) {
       heroCopy.style.opacity = String(1 - fadeHero);
-      heroCopy.style.transform = `translate3d(0,${-28 * fadeHero}px,0)`;
-      heroCopy.style.pointerEvents = fadeHero > .85 ? 'none' : '';
+      heroCopy.style.transform = `translate3d(0,${-38 * fadeHero}px,0)`;
+      heroCopy.style.pointerEvents = fadeHero > .9 ? 'none' : '';
     }
-    if (heroFoot) heroFoot.style.opacity = String(1 - smooth(range(p, .06, .3)));
-
-    // The hinge is the lower edge of the display. A negative X rotation makes
-    // the lid lean away from the viewer, then resolve to 0deg as it opens.
-    if (laptopLid) laptopLid.style.transform = `rotateX(${-46 * (1 - open)}deg)`;
-
+    if (heroFoot) heroFoot.style.opacity = String(1 - smooth(range(p, .05, .24)));
+    if (laptopLid) laptopLid.style.transform = `rotateX(${-52 * (1 - open)}deg)`;
     if (deviceWrap) {
-      const x = -34 * shift;
-      const scale = 1 + .08 * open;
-      deviceWrap.style.transform = `translate3d(${x}%,0,0) scale(${scale})`;
+      const x = -31 * shift;
+      const y = -2 * shift;
+      const scale = .94 + .1 * open;
+      deviceWrap.style.transform = `translate3d(${x}%,${y}%,0) scale(${scale})`;
     }
     if (transitionCopy) {
       transitionCopy.style.opacity = String(revealCopy);
-      transitionCopy.style.transform = `translateY(-42%) translateX(${34 * (1 - revealCopy)}px)`;
-      transitionCopy.style.pointerEvents = revealCopy > .8 ? 'auto' : 'none';
+      transitionCopy.style.transform = `translateY(-45%) translateX(${24 * (1 - revealCopy)}px)`;
+      transitionCopy.style.pointerEvents = revealCopy > .82 ? 'auto' : 'none';
     }
 
-    const stateIndex = p < .6 ? 0 : p < .78 ? 1 : 2;
+    const stateIndex = p < .66 ? 0 : p < .81 ? 1 : 2;
     steps.forEach((step, index) => step.classList.toggle('active', index === stateIndex));
     const [title, status, detail] = states[stateIndex];
-    if (screenTitle) screenTitle.innerHTML = title;
+    if (screenTitle) screenTitle.textContent = title;
     if (screenStatus) screenStatus.textContent = status;
     if (screenDetail) screenDetail.textContent = detail;
   };
