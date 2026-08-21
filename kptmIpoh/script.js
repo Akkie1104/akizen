@@ -1,8 +1,3 @@
-const photoStyles = document.createElement('link');
-photoStyles.rel = 'stylesheet';
-photoStyles.href = 'image-upgrade.css?v=20260821a';
-document.head.appendChild(photoStyles);
-
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 document.querySelectorAll('a[href^="#"]').forEach(link => {
