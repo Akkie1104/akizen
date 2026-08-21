@@ -3,80 +3,76 @@
   const finePointer = window.matchMedia('(pointer:fine)').matches;
   const desktopMotion = window.matchMedia('(min-width: 901px)').matches;
   const header = document.querySelector('[data-header]');
-  const hero = document.querySelector('[data-hero]');
-  const heroCopy = hero?.querySelector('.hero-copy');
-  const heroDemo = hero?.querySelector('.hero-demo');
-  const heroFoot = hero?.querySelector('.hero-foot');
-  const story = document.querySelector('[data-device-story]');
-  const scene = document.querySelector('[data-device-scene]');
-  const progressBar = document.querySelector('[data-story-progress]');
-  const storySteps = [...document.querySelectorAll('[data-story-step]')];
+  const transition = document.querySelector('[data-hero-transition]');
+  const heroCopy = document.querySelector('[data-hero-copy]');
+  const deviceWrap = document.querySelector('[data-hero-device]');
+  const laptopLid = document.querySelector('.laptop-lid');
+  const transitionCopy = document.querySelector('[data-transition-copy]');
+  const heroFoot = document.querySelector('[data-hero-foot]');
+  const steps = [...document.querySelectorAll('[data-transition-step]')];
   const screenTitle = document.querySelector('[data-screen-title]');
   const screenStatus = document.querySelector('[data-screen-status]');
   const screenDetail = document.querySelector('[data-screen-detail]');
 
-  const clamp = (value, min = 0, max = 1) => Math.min(max, Math.max(min, value));
-  const range = (value, start, end) => clamp((value - start) / (end - start));
-  const ease = (value) => value * value * (3 - 2 * value);
-
-  const storyStates = [
+  const clamp = (v, min = 0, max = 1) => Math.min(max, Math.max(min, v));
+  const range = (v, start, end) => clamp((v - start) / (end - start));
+  const smooth = (v) => v * v * (3 - 2 * v);
+  const states = [
     ['Capture the signal.', 'Enquiry captured', 'Everything starts in one reliable place.'],
     ['Let the system move it.', 'Flow triggered', 'The right data moves and the next action happens automatically.'],
-    ['See what matters.', 'System clear', 'The team gets one useful view instead of another place to check.']
+    ['See what matters.', 'System clear', 'One useful view replaces another place to check.']
   ];
 
   let ticking = false;
-  const updateScrollScene = () => {
+  const update = () => {
     ticking = false;
     header?.classList.toggle('scrolled', window.scrollY > 16);
+    if (!transition || reduced || !desktopMotion) return;
 
-    if (!reduced && desktopMotion && hero) {
-      const heroRect = hero.getBoundingClientRect();
-      const heroExit = clamp((-heroRect.top) / Math.max(1, heroRect.height * .72));
-      const fade = ease(range(heroExit, .42, .92));
-      if (heroCopy) {
-        heroCopy.style.opacity = String(1 - fade * .88);
-        heroCopy.style.transform = `translate3d(0,${fade * -34}px,0)`;
-      }
-      if (heroDemo) {
-        heroDemo.style.opacity = String(1 - fade * .72);
-        heroDemo.style.transform = `translate3d(0,${fade * -18}px,0) scale(${1 - fade * .035})`;
-      }
-      if (heroFoot) heroFoot.style.opacity = String(1 - fade);
+    const rect = transition.getBoundingClientRect();
+    const distance = Math.max(1, transition.offsetHeight - window.innerHeight);
+    const p = clamp(-rect.top / distance);
+
+    const fadeHero = smooth(range(p, .08, .38));
+    const open = smooth(range(p, .05, .48));
+    const shift = smooth(range(p, .42, .82));
+    const revealCopy = smooth(range(p, .48, .76));
+
+    if (heroCopy) {
+      heroCopy.style.opacity = String(1 - fadeHero);
+      heroCopy.style.transform = `translate3d(0,${-28 * fadeHero}px,0)`;
+      heroCopy.style.pointerEvents = fadeHero > .85 ? 'none' : '';
+    }
+    if (heroFoot) heroFoot.style.opacity = String(1 - smooth(range(p, .06, .3)));
+    if (laptopLid) laptopLid.style.transform = `rotateX(${46 * (1 - open)}deg)`;
+    if (deviceWrap) {
+      const x = -34 * shift;
+      const scale = 1 + .08 * open;
+      deviceWrap.style.transform = `translate3d(${x}%,0,0) scale(${scale})`;
+    }
+    if (transitionCopy) {
+      transitionCopy.style.opacity = String(revealCopy);
+      transitionCopy.style.transform = `translateY(-42%) translateX(${34 * (1 - revealCopy)}px)`;
+      transitionCopy.style.pointerEvents = revealCopy > .8 ? 'auto' : 'none';
     }
 
-    if (!story || !scene || reduced || !desktopMotion) return;
-
-    const rect = story.getBoundingClientRect();
-    const distance = Math.max(1, rect.height - window.innerHeight);
-    const p = clamp(-rect.top / distance);
-    const open = ease(range(p, .02, .42));
-    const shift = ease(range(p, .48, .78));
-    const copy = ease(range(p, .52, .76));
-
-    scene.style.setProperty('--p', p.toFixed(4));
-    scene.style.setProperty('--open', open.toFixed(4));
-    scene.style.setProperty('--shift', shift.toFixed(4));
-    scene.style.setProperty('--copy', copy.toFixed(4));
-    if (progressBar) progressBar.style.width = `${p * 100}%`;
-
-    const activeIndex = p < .58 ? 0 : p < .78 ? 1 : 2;
-    storySteps.forEach((step, index) => step.classList.toggle('active', index === activeIndex));
-    const [title, status, detail] = storyStates[activeIndex];
-    if (screenTitle) screenTitle.textContent = title;
+    const stateIndex = p < .6 ? 0 : p < .78 ? 1 : 2;
+    steps.forEach((step, index) => step.classList.toggle('active', index === stateIndex));
+    const [title, status, detail] = states[stateIndex];
+    if (screenTitle) screenTitle.innerHTML = title;
     if (screenStatus) screenStatus.textContent = status;
     if (screenDetail) screenDetail.textContent = detail;
   };
 
-  const requestScrollUpdate = () => {
+  const requestUpdate = () => {
     if (ticking) return;
     ticking = true;
-    requestAnimationFrame(updateScrollScene);
+    requestAnimationFrame(update);
   };
 
-  updateScrollScene();
-  window.addEventListener('scroll', requestScrollUpdate, { passive: true });
-  window.addEventListener('resize', requestScrollUpdate, { passive: true });
+  update();
+  window.addEventListener('scroll', requestUpdate, { passive: true });
+  window.addEventListener('resize', requestUpdate, { passive: true });
 
   if (!reduced && 'IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries, obs) => {
@@ -85,10 +81,10 @@
         entry.target.classList.add('visible');
         obs.unobserve(entry.target);
       });
-    }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
-    document.querySelectorAll('.reveal').forEach((element) => observer.observe(element));
+    }, { threshold: .12, rootMargin: '0px 0px -7% 0px' });
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
   } else {
-    document.querySelectorAll('.reveal').forEach((element) => element.classList.add('visible'));
+    document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
   }
 
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
@@ -113,15 +109,11 @@
   const form = document.getElementById('project-form');
   if (form) {
     form.addEventListener('submit', (event) => {
+      event.preventDefault();
       const fields = [...form.querySelectorAll('[required]')];
       const invalid = fields.find((field) => !field.checkValidity());
-      if (invalid) {
-        event.preventDefault();
-        fields.forEach((field) => field.setAttribute('aria-invalid', String(!field.checkValidity())));
-        invalid.focus();
-        return;
-      }
-      event.preventDefault();
+      fields.forEach((field) => field.setAttribute('aria-invalid', String(!field.checkValidity())));
+      if (invalid) return invalid.focus();
       const data = new FormData(form);
       const subject = encodeURIComponent(`Project enquiry from ${data.get('name')}`);
       const body = encodeURIComponent(`Name: ${data.get('name')}\nEmail: ${data.get('email')}\n\nProject:\n${data.get('message')}`);
