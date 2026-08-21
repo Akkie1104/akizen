@@ -1,10 +1,10 @@
-import { animate, stagger } from 'https://cdn.jsdelivr.net/npm/animejs@4.5.0/+esm';
-
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 document.querySelectorAll('a[href^="#"]').forEach(link => {
   link.addEventListener('click', event => {
-    const target = document.querySelector(link.getAttribute('href'));
+    const selector = link.getAttribute('href');
+    if (!selector || selector === '#') return;
+    const target = document.querySelector(selector);
     if (!target) return;
     event.preventDefault();
     target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
@@ -12,47 +12,47 @@ document.querySelectorAll('a[href^="#"]').forEach(link => {
 });
 
 if (!reduceMotion) {
+  enhanceWithAnime().catch(() => {
+    document.documentElement.classList.add('motion-fallback');
+  });
+}
+
+async function enhanceWithAnime() {
+  const { animate, stagger } = await import('https://cdn.jsdelivr.net/npm/animejs@4.5.0/+esm');
+
   animate('.motion-item', {
     opacity: { from: 0, to: 1 },
-    y: { from: 28, to: 0 },
-    duration: 850,
-    delay: stagger(110),
+    y: { from: 24, to: 0 },
+    duration: 760,
+    delay: stagger(90),
     ease: 'outExpo'
   });
 
   animate('.image-one', {
     opacity: { from: 0, to: 1 },
-    x: { from: 45, to: 0 },
-    rotate: { from: 7, to: 2.2 },
-    scale: { from: .94, to: 1 },
-    duration: 1100,
-    delay: 260,
+    x: { from: 36, to: 0 },
+    rotate: { from: 6, to: 2.2 },
+    scale: { from: .96, to: 1 },
+    duration: 950,
+    delay: 220,
     ease: 'outExpo'
   });
 
   animate('.image-two', {
     opacity: { from: 0, to: 1 },
-    x: { from: -35, to: 0 },
-    y: { from: 30, to: 0 },
-    rotate: { from: -10, to: -5 },
-    duration: 1050,
-    delay: 430,
+    x: { from: -28, to: 0 },
+    y: { from: 24, to: 0 },
+    rotate: { from: -9, to: -5 },
+    duration: 900,
+    delay: 360,
     ease: 'outExpo'
   });
 
-  animate('.stage-note', {
+  animate('.stage-note, .scribble', {
     opacity: { from: 0, to: 1 },
-    scale: { from: .9, to: 1 },
-    duration: 700,
-    delay: stagger(130, { start: 760 }),
-    ease: 'outBack'
-  });
-
-  animate('.scribble', {
-    opacity: { from: 0, to: 1 },
-    scale: { from: .82, to: 1 },
-    duration: 750,
-    delay: 950,
+    scale: { from: .94, to: 1 },
+    duration: 620,
+    delay: stagger(90, { start: 620 }),
     ease: 'outExpo'
   });
 
@@ -67,49 +67,30 @@ if (!reduceMotion) {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
       animate(entry.target, {
-        opacity: { from: 0, to: 1 },
-        y: { from: 34, to: 0 },
-        duration: 850,
+        opacity: { from: .35, to: 1 },
+        y: { from: 22, to: 0 },
+        duration: 700,
         ease: 'outExpo'
       });
       revealObserver.unobserve(entry.target);
     });
-  }, { threshold: .14 });
+  }, { threshold: .1 });
 
-  document.querySelectorAll('.reveal-section').forEach(section => {
-    section.style.opacity = '0';
-    revealObserver.observe(section);
-  });
-
-  const cardObserver = new IntersectionObserver(entries => {
-    const visible = entries.filter(entry => entry.isIntersecting).map(entry => entry.target);
-    if (!visible.length) return;
-    animate(visible, {
-      opacity: { from: 0, to: 1 },
-      y: { from: 30, to: 0 },
-      scale: { from: .97, to: 1 },
-      duration: 760,
-      delay: stagger(85),
-      ease: 'outExpo'
-    });
-    visible.forEach(card => cardObserver.unobserve(card));
-  }, { threshold: .12 });
-
-  document.querySelectorAll('.program-card').forEach(card => {
-    card.style.opacity = '0';
-    cardObserver.observe(card);
+  document.querySelectorAll('.reveal-section, .program-card').forEach(element => {
+    revealObserver.observe(element);
   });
 
   const hero = document.querySelector('.hero');
   const stage = document.querySelector('.hero-stage');
-  if (hero && stage && matchMedia('(pointer:fine)').matches) {
+  if (hero && stage && window.matchMedia('(pointer:fine)').matches) {
     hero.addEventListener('pointermove', event => {
-      const x = (event.clientX / window.innerWidth - .5) * 12;
-      const y = (event.clientY / window.innerHeight - .5) * 10;
-      animate(stage, { x, y, duration: 650, ease: 'outExpo' });
+      const rect = hero.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width - .5) * 8;
+      const y = ((event.clientY - rect.top) / rect.height - .5) * 6;
+      animate(stage, { x, y, duration: 500, ease: 'outExpo' });
     });
     hero.addEventListener('pointerleave', () => {
-      animate(stage, { x: 0, y: 0, duration: 800, ease: 'outExpo' });
+      animate(stage, { x: 0, y: 0, duration: 650, ease: 'outExpo' });
     });
   }
 }
