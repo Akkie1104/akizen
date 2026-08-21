@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Akizen.my Production Test</title>
+<style>
+body{margin:0;background:#08080a;color:#f4f4f6;font:15px system-ui;padding:32px}.wrap{max-width:900px;margin:auto}
+h1{font-size:38px;margin:0 0 8px}.sub{color:#9b9ba5;margin-bottom:28px}.panel{border:1px solid #2b2b33;background:#101014;border-radius:16px;padding:20px;margin-bottom:18px}
+.row{display:grid;grid-template-columns:1fr auto;gap:20px;padding:12px 0;border-bottom:1px solid #222228}.row:last-child{border-bottom:0}.pass{color:#a7d7b4}.fail{color:#ff7888}.wait{color:#9b9ba5}
+a{color:#c6b8ff}.btn{display:inline-block;background:#f33b52;color:white;text-decoration:none;padding:11px 15px;border-radius:10px;font-weight:700}
+code{background:#1a1a20;padding:2px 6px;border-radius:6px}.meta{color:#8b8b95;font-size:13px}
+</style>
+</head>
+<body><main class="wrap">
+<h1>Akizen.my production test</h1>
+<p class="sub">Open this page through a web server, not directly with <code>file://</code>. It verifies the important static production files.</p>
+<div class="panel"><a class="btn" href="index.html">Open homepage</a> <span class="meta">Test page: /test.html</span></div>
+<div class="panel"><div id="results"></div></div>
+<div class="panel">
+<strong>Manual checks</strong>
+<p class="meta">Resize to mobile width, open the navigation, submit the contact form with empty fields, then test with valid data. Confirm favicon and project images load.</p>
+</div>
+<script>
+const tests = [
+  ['Homepage', 'index.html', 'text/html'],
+  ['Stylesheet', 'style.css', 'text/css'],
+  ['JavaScript', 'script.js', 'javascript'],
+  ['Logo image', 'assets/images/akizen-mark.png', 'image/'],
+  ['Inventory visual', 'assets/images/project-inventory.svg', 'image/'],
+  ['Automation visual', 'assets/images/project-automation.svg', 'image/'],
+  ['AI visual', 'assets/images/project-ai.svg', 'image/'],
+  ['Open Graph image', 'assets/images/og-image.jpg', 'image/'],
+  ['Web manifest', 'site.webmanifest', 'manifest'],
+  ['Robots', 'robots.txt', 'text/plain'],
+  ['Sitemap', 'sitemap.xml', 'xml'],
+  ['404 page', '404.html', 'text/html'],
+  ['SPA homepage route', 'index.html#/home', 'text/html'],
+  ['SPA services route', 'index.html#/services', 'text/html'],
+  ['SPA work route', 'index.html#/work', 'text/html'],
+  ['SPA about route', 'index.html#/about', 'text/html'],
+  ['SPA contact route', 'index.html#/contact', 'text/html']
+];
+const results = document.getElementById('results');
+Promise.all(tests.map(async ([name,url,type]) => {
+  const row = document.createElement('div'); row.className='row';
+  row.innerHTML = `<span>${name}<br><span class="meta">${url}</span></span><strong class="wait">checking...</strong>`;
+  results.appendChild(row);
+  const status = row.querySelector('strong');
+  try {
+    const res = await fetch(url, {cache:'no-store'});
+    const contentType = res.headers.get('content-type') || '';
+    const typeOk = type === 'javascript' ? /javascript|text\/plain/.test(contentType) : contentType.includes(type);
+    if (res.ok && typeOk) { status.textContent='PASS'; status.className='pass'; }
+    else { status.textContent=`FAIL ${res.status}`; status.className='fail'; }
+  } catch (e) { status.textContent='FAIL'; status.className='fail'; }
+})).then(() => {
+  const all = [...results.querySelectorAll('strong')];
+  document.title = all.every(x=>x.classList.contains('pass')) ? 'PASS — Akizen.my Test' : 'FAIL — Akizen.my Test';
+});
+</script>
+</main></body></html>

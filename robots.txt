@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://akizen.my/sitemap.xml
