@@ -1,16 +1,45 @@
 (() => {
   const routes = ['home', 'services', 'work', 'about', 'contact'];
   const titles = {
-    home: 'Akizen.my — Build smarter digital systems',
+    home: 'Akizen.my — Practical automation for small businesses',
     services: 'Services — Akizen.my',
-    work: 'Work — Akizen.my',
+    work: 'Solutions — Akizen.my',
     about: 'About — Akizen.my',
-    contact: 'Contact — Akizen.my'
+    contact: 'Free Workflow Audit — Akizen.my'
   };
 
   const menuButton = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.site-nav');
   const pageContent = document.getElementById('page-content');
+  const themeToggle = document.querySelector('.theme-toggle');
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+
+  const applyTheme = (theme, persist = true) => {
+    const isDark = theme === 'dark';
+    if (isDark) document.documentElement.dataset.theme = 'dark';
+    else delete document.documentElement.dataset.theme;
+
+    if (themeToggle) {
+      themeToggle.setAttribute('aria-pressed', String(isDark));
+      themeToggle.setAttribute('aria-label', isDark ? 'Switch to light theme' : 'Switch to dark theme');
+      themeToggle.title = isDark ? 'Switch to light theme' : 'Switch to dark theme';
+    }
+
+    if (themeMeta) themeMeta.setAttribute('content', isDark ? '#060607' : '#f7f5f0');
+
+    if (persist) {
+      try { localStorage.setItem('akizen-theme', isDark ? 'dark' : 'light'); } catch (_) {}
+    }
+  };
+
+  applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light', false);
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+      applyTheme(nextTheme, true);
+    });
+  }
 
   const routeFromHash = () => {
     const value = location.hash.replace(/^#\/?/, '').split(/[/?]/)[0].toLowerCase();
@@ -71,8 +100,6 @@
       if (!routes.includes(targetRoute)) return;
       const currentRoute = routeFromHash();
 
-      // Hash URLs are used so this remains compatible with basic static hosting.
-      // When revisiting the already-active route, still behave like navigation.
       if (targetRoute === currentRoute) {
         event.preventDefault();
         closeMenu();
@@ -112,9 +139,9 @@
       }
 
       const data = new FormData(form);
-      const subject = encodeURIComponent(`Project enquiry from ${data.get('name')}`);
+      const subject = encodeURIComponent(`Free workflow audit request from ${data.get('name')}`);
       const body = encodeURIComponent(
-        `Name: ${data.get('name')}\nEmail: ${data.get('email')}\n\nProject / problem:\n${data.get('message')}`
+        `Name: ${data.get('name')}\nEmail: ${data.get('email')}\n\nWorkflow bottleneck:\n${data.get('message')}`
       );
       window.location.href = `mailto:hello@akizen.my?subject=${subject}&body=${body}`;
     });
