@@ -23,6 +23,9 @@
     ['See what matters.', 'System clear', 'One useful view replaces another place to check.']
   ];
 
+  if (deviceWrap) deviceWrap.style.perspectiveOrigin = '50% 72%';
+  if (laptopLid && desktopMotion && !reduced) laptopLid.style.transform = 'rotateX(-46deg)';
+
   let ticking = false;
   const update = () => {
     ticking = false;
@@ -44,7 +47,11 @@
       heroCopy.style.pointerEvents = fadeHero > .85 ? 'none' : '';
     }
     if (heroFoot) heroFoot.style.opacity = String(1 - smooth(range(p, .06, .3)));
-    if (laptopLid) laptopLid.style.transform = `rotateX(${46 * (1 - open)}deg)`;
+
+    // The hinge is the lower edge of the display. A negative X rotation makes
+    // the lid lean away from the viewer, then resolve to 0deg as it opens.
+    if (laptopLid) laptopLid.style.transform = `rotateX(${-46 * (1 - open)}deg)`;
+
     if (deviceWrap) {
       const x = -34 * shift;
       const scale = 1 + .08 * open;
