@@ -1,97 +1,34 @@
 (() => {
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const finePointer = window.matchMedia('(pointer:fine)').matches;
-  const desktopMotion = window.matchMedia('(min-width: 901px)').matches;
   const header = document.querySelector('[data-header]');
-  const transition = document.querySelector('[data-hero-transition]');
-  const stage = transition?.querySelector('.hero-stage');
-  const heroCopy = document.querySelector('[data-hero-copy]');
-  const deviceWrap = document.querySelector('[data-hero-device]');
-  const laptopLid = document.querySelector('.laptop-lid');
-  const transitionCopy = document.querySelector('[data-transition-copy]');
-  const heroFoot = document.querySelector('[data-hero-foot]');
-  const steps = [...document.querySelectorAll('[data-transition-step]')];
-  const screenTitle = document.querySelector('[data-screen-title]');
-  const screenStatus = document.querySelector('[data-screen-status]');
-  const screenDetail = document.querySelector('[data-screen-detail]');
+  const menuButton = document.querySelector('.menu-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const heroVisual = document.querySelector('[data-hero-visual]');
 
-  const clamp = (v, min = 0, max = 1) => Math.min(max, Math.max(min, v));
-  const range = (v, start, end) => clamp((v - start) / (end - start));
-  const smooth = (v) => v * v * (3 - 2 * v);
-  const states = [
-    ['Capture the signal.', 'Enquiry captured', 'Everything starts in one reliable place.'],
-    ['Let the system move it.', 'Flow triggered', 'The right data moves and the next action happens automatically.'],
-    ['See what matters.', 'System clear', 'One useful view replaces another place to check.']
-  ];
+  const updateHeader = () => header?.classList.toggle('scrolled', window.scrollY > 18);
+  updateHeader();
+  window.addEventListener('scroll', updateHeader, { passive: true });
 
-  let ticking = false;
-  const setHeaderTheme = (light) => {
-    if (!header) return;
-    header.style.background = light ? 'rgba(247,247,245,.94)' : 'rgba(21,21,21,.94)';
-    header.style.color = light ? '#171717' : '#f4f4f4';
-    header.style.borderColor = light ? '#d8d8d6' : '#333';
-    const mark = header.querySelector('.brand-mark');
-    if (mark) {
-      mark.style.borderColor = light ? '#c9c9c7' : '#555';
-      mark.style.color = light ? '#6d28d9' : '#ddd';
-    }
-  };
-
-  const update = () => {
-    ticking = false;
-    if (!transition || reduced || !desktopMotion) {
-      header?.classList.toggle('scrolled', window.scrollY > 16);
-      return;
-    }
-
-    const rect = transition.getBoundingClientRect();
-    const distance = Math.max(1, transition.offsetHeight - window.innerHeight);
-    const p = clamp(-rect.top / distance);
-    const fadeHero = smooth(range(p, .06, .32));
-    const open = smooth(range(p, .12, .5));
-    const wash = smooth(range(p, .34, .66));
-    const shift = smooth(range(p, .48, .78));
-    const revealCopy = smooth(range(p, .55, .78));
-
-    if (stage) stage.style.setProperty('--wash', wash.toFixed(4));
-    setHeaderTheme(p > .5 && rect.bottom > 0);
-
-    if (heroCopy) {
-      heroCopy.style.opacity = String(1 - fadeHero);
-      heroCopy.style.transform = `translate3d(0,${-38 * fadeHero}px,0)`;
-      heroCopy.style.pointerEvents = fadeHero > .9 ? 'none' : '';
-    }
-    if (heroFoot) heroFoot.style.opacity = String(1 - smooth(range(p, .05, .24)));
-    if (laptopLid) laptopLid.style.transform = `rotateX(${-52 * (1 - open)}deg)`;
-    if (deviceWrap) {
-      const x = -31 * shift;
-      const y = -2 * shift;
-      const scale = .94 + .1 * open;
-      deviceWrap.style.transform = `translate3d(${x}%,${y}%,0) scale(${scale})`;
-    }
-    if (transitionCopy) {
-      transitionCopy.style.opacity = String(revealCopy);
-      transitionCopy.style.transform = `translateY(-45%) translateX(${24 * (1 - revealCopy)}px)`;
-      transitionCopy.style.pointerEvents = revealCopy > .82 ? 'auto' : 'none';
-    }
-
-    const stateIndex = p < .66 ? 0 : p < .81 ? 1 : 2;
-    steps.forEach((step, index) => step.classList.toggle('active', index === stateIndex));
-    const [title, status, detail] = states[stateIndex];
-    if (screenTitle) screenTitle.textContent = title;
-    if (screenStatus) screenStatus.textContent = status;
-    if (screenDetail) screenDetail.textContent = detail;
-  };
-
-  const requestUpdate = () => {
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(update);
-  };
-
-  update();
-  window.addEventListener('scroll', requestUpdate, { passive: true });
-  window.addEventListener('resize', requestUpdate, { passive: true });
+  if (menuButton && mobileMenu) {
+    const closeMenu = () => {
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', 'Open menu');
+      mobileMenu.classList.remove('open');
+      mobileMenu.hidden = true;
+      document.body.style.overflow = '';
+    };
+    menuButton.addEventListener('click', () => {
+      const open = menuButton.getAttribute('aria-expanded') === 'true';
+      if (open) return closeMenu();
+      menuButton.setAttribute('aria-expanded', 'true');
+      menuButton.setAttribute('aria-label', 'Close menu');
+      mobileMenu.hidden = false;
+      mobileMenu.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+    mobileMenu.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeMenu));
+    window.addEventListener('resize', () => { if (window.innerWidth > 760) closeMenu(); }, { passive: true });
+  }
 
   if (!reduced && 'IntersectionObserver' in window) {
     const observer = new IntersectionObserver((entries, obs) => {
@@ -100,7 +37,7 @@
         entry.target.classList.add('visible');
         obs.unobserve(entry.target);
       });
-    }, { threshold: .12, rootMargin: '0px 0px -7% 0px' });
+    }, { threshold: 0.1, rootMargin: '0px 0px -6% 0px' });
     document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
   } else {
     document.querySelectorAll('.reveal').forEach((el) => el.classList.add('visible'));
@@ -108,37 +45,79 @@
 
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener('click', (event) => {
-      const target = document.querySelector(link.getAttribute('href'));
+      const selector = link.getAttribute('href');
+      if (!selector || selector === '#') return;
+      const target = document.querySelector(selector);
       if (!target) return;
       event.preventDefault();
       target.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
     });
   });
 
-  if (!reduced && finePointer) {
-    document.querySelectorAll('[data-glow-card]').forEach((card) => {
-      card.addEventListener('pointermove', (event) => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty('--mx', `${((event.clientX - rect.left) / rect.width) * 100}%`);
-        card.style.setProperty('--my', `${((event.clientY - rect.top) / rect.height) * 100}%`);
-      });
-    });
+  document.querySelectorAll('.context-whatsapp').forEach((link) => {
+    const message = link.dataset.message;
+    if (message) link.href = `https://wa.me/?text=${encodeURIComponent(message)}`;
+  });
+
+  if (!reduced && heroVisual && window.matchMedia('(min-width: 1000px)').matches) {
+    const browser = heroVisual.querySelector('.browser-main');
+    let ticking = false;
+    const updateHero = () => {
+      ticking = false;
+      const rect = heroVisual.getBoundingClientRect();
+      const viewport = window.innerHeight || 1;
+      const p = Math.max(0, Math.min(1, (viewport - rect.top) / (viewport + rect.height)));
+      if (browser) browser.style.transform = `rotate(${2.6 - p * 1.8}deg) translateY(${p * -8}px) scale(${1 + p * .012})`;
+    };
+    window.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateHero);
+    }, { passive: true });
+    updateHero();
   }
 
+  document.querySelectorAll('.accordion details').forEach((detail) => {
+    detail.addEventListener('toggle', () => {
+      if (!detail.open) return;
+      document.querySelectorAll('.accordion details').forEach((other) => {
+        if (other !== detail) other.open = false;
+      });
+    });
+  });
+
   const form = document.getElementById('project-form');
+  const status = document.getElementById('form-status');
   if (form) {
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      const fields = [...form.querySelectorAll('[required]')];
-      const invalid = fields.find((field) => !field.checkValidity());
-      fields.forEach((field) => field.setAttribute('aria-invalid', String(!field.checkValidity())));
-      if (invalid) return invalid.focus();
+      const required = [...form.querySelectorAll('[required]')];
+      const invalid = required.find((field) => !field.checkValidity());
+      required.forEach((field) => field.setAttribute('aria-invalid', String(!field.checkValidity())));
+      if (invalid) {
+        invalid.focus();
+        if (status) status.textContent = 'Please complete the required fields before sending.';
+        return;
+      }
       const data = new FormData(form);
-      const subject = encodeURIComponent(`Project enquiry from ${data.get('name')}`);
-      const body = encodeURIComponent(`Name: ${data.get('name')}\nEmail: ${data.get('email')}\n\nProject:\n${data.get('message')}`);
-      location.href = `mailto:hello@akizen.my?subject=${subject}&body=${body}`;
+      const subject = encodeURIComponent(`Akizen project enquiry — ${data.get('name')}`);
+      const body = encodeURIComponent([
+        `Name: ${data.get('name')}`,
+        `Business / organisation: ${data.get('business') || 'Not provided'}`,
+        `What they need: ${data.get('need')}`,
+        `Current website: ${data.get('website') || 'Not provided'}`,
+        `Contact: ${data.get('contact')}`,
+        '',
+        'Project details:',
+        data.get('message')
+      ].join('\n'));
+      window.location.href = `mailto:hello@akizen.my?subject=${subject}&body=${body}`;
+      if (status) status.textContent = "Got it. Your email app should open with the project details prepared.";
     });
-    form.addEventListener('input', (event) => event.target.removeAttribute('aria-invalid'));
+    form.addEventListener('input', (event) => {
+      event.target.removeAttribute('aria-invalid');
+      if (status) status.textContent = 'This prepares an email to hello@akizen.my. Nothing is stored on this website.';
+    });
   }
 
   const year = document.getElementById('year');
