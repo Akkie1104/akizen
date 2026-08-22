@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://akizen.my/</loc><changefreq>monthly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://akizen.my/portfolio/northline/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://akizen.my/portfolio/hush/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://akizen.my/portfolio/room-01/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
 </urlset>
