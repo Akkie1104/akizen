@@ -1,0 +1,16 @@
+/* Focused polish added after homepage conversion review */
+.project { position: relative; }
+.project-link-stretch::after { content: ""; position: absolute; inset: 0; z-index: 2; }
+.project-link-stretch { position: relative; z-index: 3; }
+.project a:not(.project-link-stretch) { position: relative; z-index: 3; }
+.project { transition: transform .25s ease, box-shadow .25s ease; }
+.project:hover { transform: translateY(-4px); }
+.project:focus-within { outline: 2px solid currentColor; outline-offset: 5px; }
+.project footer a { font-weight: 700; }
+.project footer a::after { content: " ↗"; }
+.founder-placeholder { min-height: 300px; }
+.founder-placeholder span { font-size: clamp(2rem, 5vw, 4rem); letter-spacing: -.05em; }
+.founder-placeholder small { max-width: 15ch; text-align: center; line-height: 1.35; }
+.form-helper { margin: 0; font-size: .85rem; opacity: .72; }
+.hp-field { position: absolute !important; left: -9999px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
+@media (prefers-reduced-motion: reduce) { .project { transition: none; } }
