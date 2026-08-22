@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
   <title>Akizen — Websites for Malaysian businesses</title>
-  <link rel="stylesheet" href="style.css?v=motion-1">
+  <link rel="stylesheet" href="style.css?v=motion-2">
   <script src="script.js?v=motion-1" defer></script>
 </head>
 <body>
@@ -61,7 +61,15 @@
         <div class="hero-preview reveal" data-hero-preview aria-label="Animated previews of Akizen concept projects">
           <div class="preview-orbit" aria-hidden="true"></div>
           <div class="preview-browser" data-preview-browser>
-            <div class="preview-bar"><span></span><span></span><span></span><small data-preview-url>northline.studio</small></div>
+            <div class="windows-titlebar" aria-hidden="true">
+              <div class="browser-tab"><span class="tab-favicon">A</span><small data-preview-url>northline.studio</small></div>
+              <div class="window-controls"><span class="win-minimize"></span><span class="win-maximize"></span><span class="win-close"></span></div>
+            </div>
+            <div class="windows-toolbar" aria-hidden="true">
+              <span class="nav-arrow">‹</span><span class="nav-arrow faded">›</span><span class="nav-refresh">↻</span>
+              <div class="address-bar"><span class="lock-dot">●</span><small data-preview-address>northline.studio</small></div>
+              <span class="toolbar-menu">•••</span>
+            </div>
             <div class="preview-screen preview-northline" data-preview-screen>
               <div class="preview-nav"><b data-preview-brand>NORTHLINE</b><span data-preview-meta>Advisory · Malaysia</span></div>
               <div class="preview-content">
@@ -82,10 +90,7 @@
 
   <section class="section" id="services">
     <div class="shell">
-      <div class="section-intro reveal">
-        <p class="eyebrow">Services</p>
-        <h2>Only what you actually need.</h2>
-      </div>
+      <div class="section-intro reveal"><p class="eyebrow">Services</p><h2>Only what you actually need.</h2></div>
       <div class="service-list reveal">
         <article><div class="service-number">01</div><div><h3>Business websites</h3><p>A professional home for your business, services and contact points.</p></div><div class="service-price">From RM1,500</div></article>
         <article><div class="service-number">02</div><div><h3>Website redesigns</h3><p>For an existing website that feels dated, unclear or no longer represents the business well.</p></div><div class="service-price">From RM1,500</div></article>
@@ -96,11 +101,7 @@
 
   <section class="section work" id="work">
     <div class="shell">
-      <div class="section-intro reveal">
-        <p class="eyebrow">Selected work</p>
-        <h2>Three directions.<br>One standard.</h2>
-        <p class="section-copy">These are independent concept projects created to demonstrate Akizen’s range. They are not presented as paid client work.</p>
-      </div>
+      <div class="section-intro reveal"><p class="eyebrow">Selected work</p><h2>Three directions.<br>One standard.</h2><p class="section-copy">These are independent concept projects created to demonstrate Akizen’s range. They are not presented as paid client work.</p></div>
       <div class="work-grid">
         <a class="work-card work-card-large reveal" href="portfolio/northline/"><div class="work-art northline-art" aria-hidden="true"><div class="mini-window"><div class="mini-top"><b>NORTHLINE</b><span>Advisory · Malaysia</span></div><strong>Clarity for decisions that matter.</strong><i></i></div></div><div class="work-meta"><div><span>Concept Project · Professional Services</span><h3>Northline Advisory</h3></div><b>View project ↗</b></div></a>
         <a class="work-card reveal" href="portfolio/hush/"><div class="work-art hush-art" aria-hidden="true"><div><span>HUSH</span><strong>Slow mornings.<br>Good coffee.</strong><small>Local business concept</small></div></div><div class="work-meta"><div><span>Demo Build · Local Business</span><h3>Hush Coffee</h3></div><b>View project ↗</b></div></a>
@@ -116,9 +117,7 @@
     </div>
   </section>
 
-  <section class="contact" id="contact">
-    <div class="shell contact-inner reveal"><p class="eyebrow">Have something in mind?</p><h2>Send me the rough version.</h2><p>You do not need a polished brief. A website link, a rough idea or a few notes are enough to start.</p><div class="contact-actions"><a class="button light" href="https://wa.me/60174201247?text=Hi%2C%20I%27d%20like%20to%20talk%20about%20a%20website.%20Here%27s%20what%20I%20have%20in%20mind%3A" target="_blank" rel="noopener">Message me on WhatsApp →</a><a class="contact-email" href="mailto:hello@akizen.my">hello@akizen.my</a></div></div>
-  </section>
+  <section class="contact" id="contact"><div class="shell contact-inner reveal"><p class="eyebrow">Have something in mind?</p><h2>Send me the rough version.</h2><p>You do not need a polished brief. A website link, a rough idea or a few notes are enough to start.</p><div class="contact-actions"><a class="button light" href="https://wa.me/60174201247?text=Hi%2C%20I%27d%20like%20to%20talk%20about%20a%20website.%20Here%27s%20what%20I%20have%20in%20mind%3A" target="_blank" rel="noopener">Message me on WhatsApp →</a><a class="contact-email" href="mailto:hello@akizen.my">hello@akizen.my</a></div></div></section>
 </main>
 
 <footer class="footer"><div class="shell footer-inner"><a class="brand" href="#top">AKIZEN</a><p>Independent web studio · Malaysia</p><p>© <span id="year"></span> Akizen</p></div></footer>
