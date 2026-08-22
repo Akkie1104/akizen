@@ -4,6 +4,7 @@
   const menuButton = document.querySelector('.menu-toggle');
   const mobileMenu = document.getElementById('mobile-menu');
   const heroVisual = document.querySelector('[data-hero-visual]');
+  const whatsappNumber = '60174201247';
 
   const updateHeader = () => header?.classList.toggle('scrolled', window.scrollY > 18);
   updateHeader();
@@ -54,9 +55,15 @@
     });
   });
 
+  document.querySelectorAll('.whatsapp-link').forEach((link) => {
+    const url = new URL(link.href, window.location.href);
+    const message = url.searchParams.get('text') || "Hi, I'm interested in getting a website built. Here's what I have in mind:";
+    link.href = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  });
+
   document.querySelectorAll('.context-whatsapp').forEach((link) => {
     const message = link.dataset.message;
-    if (message) link.href = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    link.href = `https://wa.me/${whatsappNumber}${message ? `?text=${encodeURIComponent(message)}` : ''}`;
   });
 
   if (!reduced && heroVisual && window.matchMedia('(min-width: 1000px)').matches) {
@@ -90,33 +97,20 @@
   const status = document.getElementById('form-status');
   if (form) {
     form.addEventListener('submit', (event) => {
-      event.preventDefault();
       const required = [...form.querySelectorAll('[required]')];
       const invalid = required.find((field) => !field.checkValidity());
       required.forEach((field) => field.setAttribute('aria-invalid', String(!field.checkValidity())));
       if (invalid) {
+        event.preventDefault();
         invalid.focus();
         if (status) status.textContent = 'Please complete the required fields before sending.';
         return;
       }
-      const data = new FormData(form);
-      const subject = encodeURIComponent(`Akizen project enquiry — ${data.get('name')}`);
-      const body = encodeURIComponent([
-        `Name: ${data.get('name')}`,
-        `Business / organisation: ${data.get('business') || 'Not provided'}`,
-        `What they need: ${data.get('need')}`,
-        `Current website: ${data.get('website') || 'Not provided'}`,
-        `Contact: ${data.get('contact')}`,
-        '',
-        'Project details:',
-        data.get('message')
-      ].join('\n'));
-      window.location.href = `mailto:hello@akizen.my?subject=${subject}&body=${body}`;
-      if (status) status.textContent = "Got it. Your email app should open with the project details prepared.";
+      if (status) status.textContent = 'Sending your enquiry…';
     });
     form.addEventListener('input', (event) => {
       event.target.removeAttribute('aria-invalid');
-      if (status) status.textContent = 'This prepares an email to hello@akizen.my. Nothing is stored on this website.';
+      if (status) status.textContent = 'Your enquiry will be sent directly to Akizen.';
     });
   }
 
