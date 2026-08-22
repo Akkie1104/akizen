@@ -19,9 +19,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
   <title>Akizen — Websites for Malaysian businesses</title>
-  <link rel="stylesheet" href="style.css?v=calm-2">
-  <style>.hero-inner{width:min(calc(100% - clamp(28px,3vw,48px)),var(--max));margin-inline:auto}</style>
-  <script src="script.js?v=calm-1" defer></script>
+  <link rel="stylesheet" href="style.css?v=motion-1">
+  <script src="script.js?v=motion-1" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -48,15 +47,35 @@
 <main id="main">
   <section class="hero" id="top">
     <div class="shell hero-inner">
-      <p class="eyebrow reveal">Independent web studio · Malaysia</p>
-      <h1 class="reveal">A better website.<br><span>Without the agency fuss.</span></h1>
-      <div class="hero-bottom reveal">
-        <p>Akizen designs and builds polished business websites, redesigns and landing pages with clear scope and direct communication.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="https://wa.me/60174201247?text=Hi%2C%20I%27d%20like%20to%20talk%20about%20a%20website." target="_blank" rel="noopener">Tell me about your website →</a>
-          <a class="text-link" href="#work">See selected work</a>
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow reveal">Independent web studio · Malaysia</p>
+          <h1 class="reveal">A better website.<br><span>Without the agency fuss.</span></h1>
+          <p class="hero-description reveal">Akizen designs and builds polished business websites, redesigns and landing pages with clear scope and direct communication.</p>
+          <div class="hero-actions reveal">
+            <a class="button primary" href="https://wa.me/60174201247?text=Hi%2C%20I%27d%20like%20to%20talk%20about%20a%20website." target="_blank" rel="noopener">Tell me about your website →</a>
+            <a class="text-link" href="#work">See selected work</a>
+          </div>
+        </div>
+
+        <div class="hero-preview reveal" data-hero-preview aria-label="Animated previews of Akizen concept projects">
+          <div class="preview-orbit" aria-hidden="true"></div>
+          <div class="preview-browser" data-preview-browser>
+            <div class="preview-bar"><span></span><span></span><span></span><small data-preview-url>northline.studio</small></div>
+            <div class="preview-screen preview-northline" data-preview-screen>
+              <div class="preview-nav"><b data-preview-brand>NORTHLINE</b><span data-preview-meta>Advisory · Malaysia</span></div>
+              <div class="preview-content">
+                <small data-preview-kicker>STRATEGIC ADVISORY</small>
+                <strong data-preview-title>Clarity for decisions that matter.</strong>
+                <p data-preview-copy>Practical thinking for organisations navigating change, risk and opportunity.</p>
+              </div>
+              <div class="preview-footer"><span data-preview-label>Professional services concept</span><i></i></div>
+            </div>
+          </div>
+          <div class="preview-caption"><span data-preview-count>01 / 03</span><strong data-preview-name>Northline Advisory</strong></div>
         </div>
       </div>
+
       <div class="hero-note reveal"><span>Landing pages from RM800</span><span>Business websites from RM1,500</span></div>
     </div>
   </section>
@@ -68,21 +87,9 @@
         <h2>Only what you actually need.</h2>
       </div>
       <div class="service-list reveal">
-        <article>
-          <div class="service-number">01</div>
-          <div><h3>Business websites</h3><p>A professional home for your business, services and contact points.</p></div>
-          <div class="service-price">From RM1,500</div>
-        </article>
-        <article>
-          <div class="service-number">02</div>
-          <div><h3>Website redesigns</h3><p>For an existing website that feels dated, unclear or no longer represents the business well.</p></div>
-          <div class="service-price">From RM1,500</div>
-        </article>
-        <article>
-          <div class="service-number">03</div>
-          <div><h3>Landing pages</h3><p>One focused page for one campaign, service, product or offer.</p></div>
-          <div class="service-price">From RM800</div>
-        </article>
+        <article><div class="service-number">01</div><div><h3>Business websites</h3><p>A professional home for your business, services and contact points.</p></div><div class="service-price">From RM1,500</div></article>
+        <article><div class="service-number">02</div><div><h3>Website redesigns</h3><p>For an existing website that feels dated, unclear or no longer represents the business well.</p></div><div class="service-price">From RM1,500</div></article>
+        <article><div class="service-number">03</div><div><h3>Landing pages</h3><p>One focused page for one campaign, service, product or offer.</p></div><div class="service-price">From RM800</div></article>
       </div>
     </div>
   </section>
@@ -94,58 +101,26 @@
         <h2>Three directions.<br>One standard.</h2>
         <p class="section-copy">These are independent concept projects created to demonstrate Akizen’s range. They are not presented as paid client work.</p>
       </div>
-
       <div class="work-grid">
-        <a class="work-card work-card-large reveal" href="portfolio/northline/">
-          <div class="work-art northline-art" aria-hidden="true">
-            <div class="mini-window"><div class="mini-top"><b>NORTHLINE</b><span>Advisory · Malaysia</span></div><strong>Clarity for decisions that matter.</strong><i></i></div>
-          </div>
-          <div class="work-meta"><div><span>Concept Project · Professional Services</span><h3>Northline Advisory</h3></div><b>View project ↗</b></div>
-        </a>
-
-        <a class="work-card reveal" href="portfolio/hush/">
-          <div class="work-art hush-art" aria-hidden="true"><div><span>HUSH</span><strong>Slow mornings.<br>Good coffee.</strong><small>Local business concept</small></div></div>
-          <div class="work-meta"><div><span>Demo Build · Local Business</span><h3>Hush Coffee</h3></div><b>View project ↗</b></div>
-        </a>
-
-        <a class="work-card reveal" href="portfolio/room-01/">
-          <div class="work-art room-art" aria-hidden="true"><div><span>ROOM / 01</span><strong>Make room<br>for what matters.</strong><small>Campaign landing page</small></div></div>
-          <div class="work-meta"><div><span>Independent Campaign Concept</span><h3>Room / 01</h3></div><b>View project ↗</b></div>
-        </a>
+        <a class="work-card work-card-large reveal" href="portfolio/northline/"><div class="work-art northline-art" aria-hidden="true"><div class="mini-window"><div class="mini-top"><b>NORTHLINE</b><span>Advisory · Malaysia</span></div><strong>Clarity for decisions that matter.</strong><i></i></div></div><div class="work-meta"><div><span>Concept Project · Professional Services</span><h3>Northline Advisory</h3></div><b>View project ↗</b></div></a>
+        <a class="work-card reveal" href="portfolio/hush/"><div class="work-art hush-art" aria-hidden="true"><div><span>HUSH</span><strong>Slow mornings.<br>Good coffee.</strong><small>Local business concept</small></div></div><div class="work-meta"><div><span>Demo Build · Local Business</span><h3>Hush Coffee</h3></div><b>View project ↗</b></div></a>
+        <a class="work-card reveal" href="portfolio/room-01/"><div class="work-art room-art" aria-hidden="true"><div><span>ROOM / 01</span><strong>Make room<br>for what matters.</strong><small>Campaign landing page</small></div></div><div class="work-meta"><div><span>Independent Campaign Concept</span><h3>Room / 01</h3></div><b>View project ↗</b></div></a>
       </div>
     </div>
   </section>
 
   <section class="section about" id="about">
     <div class="shell about-grid">
-      <div class="about-copy reveal">
-        <p class="eyebrow">About Akizen</p>
-        <h2>Small by design.</h2>
-        <p>Akizen is an independent Malaysian web studio. You work directly with the person designing and building your website.</p>
-        <p>No account-manager layers. No oversized process. Just a clear scope, direct communication and a website built properly.</p>
-      </div>
-      <div class="founder reveal">
-        <div class="portrait-placeholder" aria-label="Founder portrait placeholder"><span>MSH</span><small>Portrait coming soon</small></div>
-        <div><h3>Muhammad Salman Hakim<br>bin Shaiful Nizam</h3><p>Founder · Web Designer & Developer</p></div>
-      </div>
+      <div class="about-copy reveal"><p class="eyebrow">About Akizen</p><h2>Small by design.</h2><p>Akizen is an independent Malaysian web studio. You work directly with the person designing and building your website.</p><p>No account-manager layers. No oversized process. Just a clear scope, direct communication and a website built properly.</p></div>
+      <div class="founder reveal"><div class="portrait-placeholder" aria-label="Founder portrait placeholder"><span>MSH</span><small>Portrait coming soon</small></div><div><h3>Muhammad Salman Hakim<br>bin Shaiful Nizam</h3><p>Founder · Web Designer & Developer</p></div></div>
     </div>
   </section>
 
   <section class="contact" id="contact">
-    <div class="shell contact-inner reveal">
-      <p class="eyebrow">Have something in mind?</p>
-      <h2>Send me the rough version.</h2>
-      <p>You do not need a polished brief. A website link, a rough idea or a few notes are enough to start.</p>
-      <div class="contact-actions">
-        <a class="button light" href="https://wa.me/60174201247?text=Hi%2C%20I%27d%20like%20to%20talk%20about%20a%20website.%20Here%27s%20what%20I%20have%20in%20mind%3A" target="_blank" rel="noopener">Message me on WhatsApp →</a>
-        <a class="contact-email" href="mailto:hello@akizen.my">hello@akizen.my</a>
-      </div>
-    </div>
+    <div class="shell contact-inner reveal"><p class="eyebrow">Have something in mind?</p><h2>Send me the rough version.</h2><p>You do not need a polished brief. A website link, a rough idea or a few notes are enough to start.</p><div class="contact-actions"><a class="button light" href="https://wa.me/60174201247?text=Hi%2C%20I%27d%20like%20to%20talk%20about%20a%20website.%20Here%27s%20what%20I%20have%20in%20mind%3A" target="_blank" rel="noopener">Message me on WhatsApp →</a><a class="contact-email" href="mailto:hello@akizen.my">hello@akizen.my</a></div></div>
   </section>
 </main>
 
-<footer class="footer">
-  <div class="shell footer-inner"><a class="brand" href="#top">AKIZEN</a><p>Independent web studio · Malaysia</p><p>© <span id="year"></span> Akizen</p></div>
-</footer>
+<footer class="footer"><div class="shell footer-inner"><a class="brand" href="#top">AKIZEN</a><p>Independent web studio · Malaysia</p><p>© <span id="year"></span> Akizen</p></div></footer>
 </body>
 </html>
