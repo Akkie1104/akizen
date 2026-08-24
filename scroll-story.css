@@ -69,6 +69,23 @@
   .story-browser-screen{min-height:350px}
 }
 
+@media (max-height:760px) and (min-width:901px){
+  .story-services-sticky{padding:76px 0 24px}
+  .story-services-copy .section-intro{margin-bottom:24px}
+  .story-services-copy .section-intro h2{font-size:clamp(38px,4.8vw,60px)}
+  .story-service-tab{padding:14px 0}
+  .story-demo{min-height:470px}
+  .story-browser-screen{min-height:300px;padding:28px}
+  .story-browser-content{margin:52px 0 44px}
+  .story-browser-title{font-size:clamp(38px,4.4vw,56px)}
+  .work-story-sticky{padding:74px 0 24px}
+  .work-story-head{top:76px}
+  .work-story-head h2{font-size:clamp(38px,4.8vw,58px)}
+  .work-story-head .section-copy{margin-top:10px}
+  .work-rail-wrap{padding-top:156px}
+  .story-work-card .work-art{min-height:clamp(320px,49vh,390px)}
+}
+
 @media (max-width:900px){
   .story-services-stage,.work-story-stage{min-height:auto}
   .story-services-sticky,.work-story-sticky{position:relative;min-height:auto;display:block;overflow:visible;padding:86px 0}
@@ -117,4 +134,9 @@
   .story-work-card,.story-work-card:first-child{width:auto}
   .story-work-card:first-child{grid-column:1/-1}
   .work-story-progress,.work-story-index{display:none}
+}
+
+@media (max-width:900px) and (prefers-reduced-motion:reduce){
+  .work-rail{grid-template-columns:1fr}
+  .story-work-card:first-child{grid-column:auto}
 }
