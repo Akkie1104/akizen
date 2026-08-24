@@ -22,7 +22,8 @@
   <link rel="stylesheet" href="style.css?v=motion-2">
   <link rel="stylesheet" href="hero-windows.css?v=windows-1">
   <link rel="stylesheet" href="hero-text.css?v=text-1">
-  <script src="script.js?v=motion-2" defer></script>
+  <link rel="stylesheet" href="scroll-story.css?v=story-1">
+  <script src="script.js?v=story-1" defer></script>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -72,9 +73,74 @@
     </div>
   </section>
 
-  <section class="section" id="services"><div class="shell"><div class="section-intro reveal"><p class="eyebrow">Services</p><h2>Only what you actually need.</h2></div><div class="service-list reveal"><article><div class="service-number">01</div><div><h3>Business websites</h3><p>A professional home for your business, services and contact points.</p></div><div class="service-price">From RM1,500</div></article><article><div class="service-number">02</div><div><h3>Website redesigns</h3><p>For an existing website that feels dated, unclear or no longer represents the business well.</p></div><div class="service-price">From RM1,500</div></article><article><div class="service-number">03</div><div><h3>Landing pages</h3><p>One focused page for one campaign, service, product or offer.</p></div><div class="service-price">From RM800</div></article></div></div></section>
+  <section class="story-services" id="services" data-service-story>
+    <div class="story-services-stage">
+      <div class="story-services-sticky">
+        <div class="shell story-services-grid">
+          <div class="story-services-copy">
+            <div class="section-intro">
+              <p class="eyebrow">Services</p>
+              <h2>Only what you actually need.</h2>
+              <p class="section-copy">Three focused ways to get a stronger web presence. Scroll through what each one is built to solve.</p>
+            </div>
+            <div class="story-service-tabs" aria-label="Akizen services">
+              <article class="story-service-tab is-active" data-service-tab="0"><div class="service-number">01</div><div><h3>Business websites</h3><p>A professional home for your business, services and contact points.</p></div><div class="service-price">From RM1,500</div></article>
+              <article class="story-service-tab" data-service-tab="1"><div class="service-number">02</div><div><h3>Website redesigns</h3><p>For a website that feels dated, unclear or no longer represents the business well.</p></div><div class="service-price">From RM1,500</div></article>
+              <article class="story-service-tab" data-service-tab="2"><div class="service-number">03</div><div><h3>Landing pages</h3><p>One focused page for one campaign, service, product or offer.</p></div><div class="service-price">From RM800</div></article>
+            </div>
+          </div>
 
-  <section class="section work" id="work"><div class="shell"><div class="section-intro reveal"><p class="eyebrow">Selected work</p><h2>Three directions.<br>One standard.</h2><p class="section-copy">These are independent concept projects created to demonstrate Akizen’s range. They are not presented as paid client work.</p></div><div class="work-grid"><a class="work-card work-card-large reveal" href="portfolio/northline/"><div class="work-art northline-art" aria-hidden="true"><div class="mini-window"><div class="mini-top"><b>NORTHLINE</b><span>Advisory · Malaysia</span></div><strong>Clarity for decisions that matter.</strong><i></i></div></div><div class="work-meta"><div><span>Concept Project · Professional Services</span><h3>Northline Advisory</h3></div><b>View project ↗</b></div></a><a class="work-card reveal" href="portfolio/hush/"><div class="work-art hush-art" aria-hidden="true"><div><span>HUSH</span><strong>Slow mornings.<br>Good coffee.</strong><small>Local business concept</small></div></div><div class="work-meta"><div><span>Demo Build · Local Business</span><h3>Hush Coffee</h3></div><b>View project ↗</b></div></a><a class="work-card reveal" href="portfolio/room-01/"><div class="work-art room-art" aria-hidden="true"><div><span>ROOM / 01</span><strong>Make room<br>for what matters.</strong><small>Campaign landing page</small></div></div><div class="work-meta"><div><span>Independent Campaign Concept</span><h3>Room / 01</h3></div><b>View project ↗</b></div></a></div></div></section>
+          <div class="story-demo" data-service-demo aria-live="polite">
+            <div class="story-demo-halo" aria-hidden="true"></div>
+            <div class="story-browser">
+              <div class="story-browser-bar"><div class="story-browser-tab"><span class="story-browser-dot"></span><span data-story-url>yourbusiness.my</span></div></div>
+              <div class="story-browser-screen" data-story-screen>
+                <div class="story-browser-nav"><b data-story-brand>YOUR BUSINESS</b><span data-story-meta>Business website</span></div>
+                <div class="story-browser-content"><small class="story-browser-kicker" data-story-kicker>TRUST · CLARITY · CONTACT</small><strong class="story-browser-title" data-story-title>A proper place for your business online.</strong><p class="story-browser-copy" data-story-copy>Clear services, credible presentation and a simple path for customers to contact you.</p></div>
+                <div class="story-browser-foot"><span data-story-foot>Built around what customers need to know</span><i></i></div>
+              </div>
+            </div>
+            <div class="story-demo-caption" data-story-caption><small data-story-count>01 · BUSINESS WEBSITE</small><strong data-story-caption-title>Build credibility from the first visit.</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="work-story" id="work" data-work-story>
+    <div class="work-story-stage">
+      <div class="work-story-sticky">
+        <div class="shell" style="position:relative;width:100%">
+          <div class="work-story-head">
+            <div class="section-intro">
+              <p class="eyebrow">Selected work</p>
+              <h2>Three directions.<br>One standard.</h2>
+              <p class="section-copy">Independent concept projects demonstrating Akizen’s range. Not presented as paid client work.</p>
+            </div>
+          </div>
+
+          <div class="work-rail-wrap">
+            <div class="work-rail" data-work-rail>
+              <a class="story-work-card" href="portfolio/northline/">
+                <div class="work-art northline-art" aria-hidden="true"><div class="mini-window"><div class="mini-top"><b>NORTHLINE</b><span>Advisory · Malaysia</span></div><strong>Clarity for decisions that matter.</strong><i></i></div></div>
+                <div class="work-meta"><div><span>Concept Project · Professional Services</span><h3>Northline Advisory</h3></div><b>View project ↗</b></div>
+              </a>
+              <a class="story-work-card" href="portfolio/hush/">
+                <div class="work-art hush-art" aria-hidden="true"><div><span>HUSH</span><strong>Slow mornings.<br>Good coffee.</strong><small>Local business concept</small></div></div>
+                <div class="work-meta"><div><span>Demo Build · Local Business</span><h3>Hush Coffee</h3></div><b>View project ↗</b></div>
+              </a>
+              <a class="story-work-card" href="portfolio/room-01/">
+                <div class="work-art room-art" aria-hidden="true"><div><span>ROOM / 01</span><strong>Make room<br>for what matters.</strong><small>Campaign landing page</small></div></div>
+                <div class="work-meta"><div><span>Independent Campaign Concept</span><h3>Room / 01</h3></div><b>View project ↗</b></div>
+              </a>
+            </div>
+            <div class="work-story-progress" aria-hidden="true"><span></span></div>
+            <div class="work-story-index" data-work-index>01 / 03 · Northline Advisory</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="section about" id="about"><div class="shell about-grid"><div class="about-copy reveal"><p class="eyebrow">About Akizen</p><h2>Small by design.</h2><p>Akizen is an independent Malaysian web studio. You work directly with the person designing and building your website.</p><p>No account-manager layers. No oversized process. Just a clear scope, direct communication and a website built properly.</p></div><div class="founder reveal"><div class="portrait-placeholder" aria-label="Founder portrait placeholder"><span>MSH</span><small>Portrait coming soon</small></div><div><h3>Muhammad Salman Hakim<br>bin Shaiful Nizam</h3><p>Founder · Web Designer & Developer</p></div></div></div></section>
 
