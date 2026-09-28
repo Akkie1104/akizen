@@ -36,7 +36,7 @@ window.KHIND_PRODUCTS = [
     ],
     "image": "https://cdn.prod.website-files.com/673177735a80fcb0f16f912d/67b6de08e697276c238572df_80470333f122e0f2aadfa0e9527a24db.avif",
     "source": "https://www.khindrto.com.my/products/drymaster-heat-pump-dryer-9kg",
-    "benefits": "Waranti 4 tahun.",
+    "benefits": "Waranti RTO 3 atau 4 tahun bergantung pada pelan; sahkan pelan sebenar.",
     "stock": "",
     "q3": true
   },
