@@ -386,7 +386,7 @@ window.KHIND_PRODUCTS = [
     "plans": [
       {
         "name": "Kombo",
-        "rate": 230
+        "rate": 240
       }
     ],
     "image": "",
@@ -426,7 +426,7 @@ window.KHIND_PRODUCTS = [
     "plans": [
       {
         "name": "Kombo",
-        "rate": 240
+        "rate": 230
       }
     ],
     "image": "",
