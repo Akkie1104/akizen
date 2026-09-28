@@ -120,7 +120,7 @@ function renderCategoryStory(shown,term,cash){
   const visibleCount=shown.length;
   const mode=cash?'Bayaran penuh':'RTO bulanan';
   categoryStory.dataset.category=category;
-  categoryStory.innerHTML=`<div class="story-inner"><div><p class="story-kicker">${meta.kicker}</p><h3 class="story-title">${meta.title}</h3><p class="story-copy">${term?`Carian “${term}” sedang digunakan. `:''}${meta.copy}</p></div><aside class="story-side" aria-label="Ringkasan kategori"><p class="story-number">${meta.number}</p><div class="story-stat"><span>Pilihan dipaparkan</span><b>${visibleCount}</b></div><div class="story-stat"><span>Paparan harga</span><b>${mode}</b></div></aside></div>`;
+  categoryStory.innerHTML=`<div class="story-inner"><div><p class="story-kicker">${meta.kicker}</p><h3 class="story-title">${meta.title}</h3><p class="story-copy">${term?'Carian sedang ditapis. ':''}${meta.copy}</p></div><aside class="story-side" aria-label="Ringkasan kategori"><p class="story-number">${meta.number}</p><div class="story-stat"><span>Pilihan dipaparkan</span><b>${visibleCount}</b></div><div class="story-stat"><span>Paparan harga</span><b>${mode}</b></div></aside></div>`;
   categoryStory.classList.remove('refresh');
   void categoryStory.offsetWidth;
   categoryStory.classList.add('refresh');
