@@ -20,6 +20,57 @@ if(q3) banner.innerHTML='<b>Promosi hingga 30 September 2026</b><span>50% untuk 
 else if(dryerCampaign) banner.innerHTML='<b>Drymaster DHP90 · hingga 31 Disember 2026</b><span>RM29.75 × 6 bulan, kemudian RM85 × 42 bulan.<small>Tertakluk kelayakan dan pengesahan KHIND.</small></span>';
 let category='all';
 const grid=document.querySelector('#products');
+const categoryStory=document.querySelector('#category-story');
+const categoryMeta={
+  all:{
+    number:'00',
+    kicker:'KOLEKSI RUMAH',
+    title:'Pilih ikut rutin, bukan ikut hype.',
+    copy:'Mulakan dengan perkara yang paling kerap digunakan di rumah. Bandingkan fungsi, tempoh dan jumlah komitmen sebelum memilih.',
+    note:'Semua kategori',
+    reverse:false
+  },
+  laundry:{
+    number:'01',
+    kicker:'BASUH & KERING',
+    title:'Kurangkan kerja yang berulang setiap minggu.',
+    copy:'Mesin basuh, pengering dan washer-dryer untuk rutin dobi yang lebih mudah diurus mengikut ruang dan keperluan rumah.',
+    note:'Rutin dobi',
+    reverse:false
+  },
+  fridge:{
+    number:'02',
+    kicker:'PETI SEJUK',
+    title:'Lebih ruang untuk cara rumah anda benar-benar digunakan.',
+    copy:'Bandingkan kapasiti dan pelan untuk simpanan harian, stok keluarga dan keperluan dapur tanpa sekadar mengejar saiz.',
+    note:'Simpanan makanan',
+    reverse:true
+  },
+  cooling:{
+    number:'03',
+    kicker:'PENYAMAN UDARA',
+    title:'Keselesaan yang sesuai dengan ruang, bukan sekadar HP lebih besar.',
+    copy:'Pilih kapasiti berdasarkan bilik dan fahami apa yang termasuk dalam pemasangan, servis serta perlindungan pelan.',
+    note:'Keselesaan ruang',
+    reverse:false
+  },
+  garment:{
+    number:'04',
+    kicker:'PENJAGAAN PAKAIAN',
+    title:'Peralatan kecil, masa yang boleh dijimatkan setiap hari.',
+    copy:'Pilihan untuk memudahkan rutin pakaian apabila fungsi dan penggunaan sebenar lebih penting daripada menambah banyak peralatan.',
+    note:'Penjagaan harian',
+    reverse:true
+  },
+  bundle:{
+    number:'05',
+    kicker:'KOMBO',
+    title:'Dua keperluan rumah dalam satu keputusan.',
+    copy:'Kombo sesuai bila dua peralatan memang diperlukan. Semak kadar selepas promosi dan jumlah keseluruhan kontrak sebelum bersetuju.',
+    note:'Pakej dua peralatan',
+    reverse:true
+  }
+};
 const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 document.documentElement.classList.add('motion-ready');
 const revealObserver=!reduceMotion&&'IntersectionObserver'in window
@@ -64,17 +115,32 @@ function prepareProductMotion(){
   observeMotion(grid);
 }
 
+function renderCategoryStory(shown,term,cash){
+  const meta=categoryMeta[category]||categoryMeta.all;
+  const visibleCount=shown.length;
+  const mode=cash?'Bayaran penuh':'RTO bulanan';
+  categoryStory.dataset.category=category;
+  categoryStory.innerHTML=`<div class="story-inner"><div><p class="story-kicker">${meta.kicker}</p><h3 class="story-title">${meta.title}</h3><p class="story-copy">${term?`Carian “${term}” sedang digunakan. `:''}${meta.copy}</p></div><aside class="story-side" aria-label="Ringkasan kategori"><p class="story-number">${meta.number}</p><div class="story-stat"><span>Pilihan dipaparkan</span><b>${visibleCount}</b></div><div class="story-stat"><span>Paparan harga</span><b>${mode}</b></div></aside></div>`;
+  categoryStory.classList.remove('refresh');
+  void categoryStory.offsetWidth;
+  categoryStory.classList.add('refresh');
+}
+
 function render(){
  const term=document.querySelector('#search').value.trim().toLowerCase();
  const cash=document.querySelector('#payment').value==='cash';
  const shown=products.filter(p=>(category==='all'?p.category!=='bundle':p.category===category) && (p.name+' '+p.id+' '+p.description).toLowerCase().includes(term));
+ renderCategoryStory(shown,term,cash);
  document.querySelector('#count').textContent=shown.length+' '+(category==='bundle'?'kombo':'model');
- grid.innerHTML=shown.map(p=>{
+ grid.classList.toggle('category-view',category!=='all'&&!term);
+ grid.innerHTML=shown.map((p,i)=>{
  const s=p.plans.length?schedule(p,p.plans[0]):null;
  const amount=cash?cashPrice(p):s?.first;
  const price=amount==null?'Semak harga':money(amount);
  const note=cash?(p.cash?'Bayaran penuh'+(cashCampaign&&p.cashPromo&&p.cashPromo<p.cash?' · promosi hingga 30 Sep 2026':''):'Harga bayaran penuh belum disahkan'):(s?(s.discount?`6 bulan pertama; kemudian ${money(p.plans[0].rate)}/bulan. ${p.months} bulan keseluruhan.`:`${p.months} bulan · Pelan ${p.plans[0].name}`):'Pelan belum disahkan');
- return `<article class="card" data-model="${p.id}"><div class="product-art">${p.image?`<img src="${p.image}" alt="${p.name} ${p.id}" loading="lazy">`:`<span class="no-image">${p.category==='bundle'?'02 / KOMBO':p.id}</span>`}<span class="tag">${p.category==='bundle'?'PAKEJ DUA PERALATAN':p.id}</span></div><div class="card-content"><p class="model">${p.category==='cooling'?'ACSON · KHIND RTO':'KHIND'}</p><h3>${p.name}</h3><p class="description">${p.description}</p><div class="price">${price}${amount!=null&&!cash?'<small> / bulan · dari</small>':''}</div><p class="price-note">${note}</p><p class="stock">${p.stock}</p><button data-product="${p.id}">Lihat pelan & butiran <span>↗</span></button></div></article>`;
+ const feature=category!=='all'&&!term&&i===0;
+ const featureClass=feature?' featured'+(categoryMeta[category]?.reverse?' featured--reverse':''):'';
+ return `<article class="card${featureClass}" data-model="${p.id}"><div class="product-art">${p.image?`<img src="${p.image}" alt="${p.name} ${p.id}" loading="lazy">`:`<span class="no-image">${p.category==='bundle'?'02 / KOMBO':p.id}</span>`}<span class="tag">${p.category==='bundle'?'PAKEJ DUA PERALATAN':p.id}</span></div><div class="card-content"><p class="model">${p.category==='cooling'?'ACSON · KHIND RTO':'KHIND'}</p><h3>${p.name}</h3><p class="description">${p.description}</p><div class="price">${price}${amount!=null&&!cash?'<small> / bulan · dari</small>':''}</div><p class="price-note">${note}</p><p class="stock">${p.stock}</p><button data-product="${p.id}">Lihat pelan & butiran <span>↗</span></button></div></article>`;
  }).join('') || '<p class="empty">Tiada model sepadan. Cuba nama model lain atau kategori Semua.</p>';
  grid.querySelectorAll('[data-product]').forEach(b=>b.addEventListener('click',()=>openDetail(products.find(p=>p.id===b.dataset.product))));
  grid.querySelectorAll('img').forEach(img=>img.addEventListener('error',()=>{img.replaceWith(Object.assign(document.createElement('span'),{className:'no-image',textContent:'Gambar tidak tersedia'}));},{once:true}));
