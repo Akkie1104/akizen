@@ -111,3 +111,25 @@ Not implemented. This remains a low-priority convenience feature and is not need
 ## Next checkpoint
 
 The current Q3 promotion ends on **30 September 2026**. Before **1 October 2026**, reconcile WM1248/DHP90 tenure with KHIND and review the October campaign state, displayed pricing, warranty wording and stock notes.
+
+
+## Stitch-inspired visual refresh — 28 September 2026
+
+The Google Stitch concept supplied by the owner was used as a visual reference only, not as replacement production code.
+
+Integrated selectively:
+- compact trust strip directly below the header;
+- app-like rounded catalogue/control surfaces;
+- segmented global RTO / full-payment control while preserving the existing payment state logic;
+- compact mobile category controls rather than the concept's hidden horizontal-only category strip;
+- direct product-level WhatsApp actions in addition to the existing detail dialog;
+- persistent mobile WhatsApp action and four-item bottom navigation;
+- cleaner mobile hero/product highlight treatment;
+- card-style RTO steps and FAQ presentation;
+- WhatsApp green reserved for conversation actions while KHIND yellow remains the core brand accent.
+
+Explicitly not copied:
+- sample 36-month tenures, 12-month promotion periods, invented product specifications, generic Google-hosted product imagery, “Ejen Sah” claims, free-delivery/installation claims, or other unverified commercial copy in the concept;
+- Tailwind CDN, Google Fonts, Material Symbols, or new runtime dependencies.
+
+The current `catalogue.js`, source-conflict warnings, global search aliases, payment comparison logic, dark mode, local Manrope font, accessibility controls and KHIND-safe document/payment handoff remain the production source of truth.
