@@ -476,3 +476,51 @@ window.KHIND_PRODUCTS = [
     "q3": false
   }
 ];
+
+
+/*
+ * Verification metadata added after the 28 Sep 2026 UI/UX audit.
+ * sourceDate = date the linked public source was checked, not necessarily its publish date.
+ * campaignSource = internal source family used for the agent catalogue; retain the actual memo internally.
+ */
+const KHIND_KEYWORDS = {
+  WM1248:['washer','washing machine','mesin basuh','front load','frontload','9kg'],
+  DHP90:['dryer','pengering','heat pump','heatpump','9kg'],
+  WD1468:['washer dryer','washer-dryer','mesin basuh pengering','2 in 1','2-in-1'],
+  RFS600A:['fridge','refrigerator','peti sejuk','side by side','side-by-side','592l'],
+  RFM466A:['fridge','refrigerator','peti sejuk','multidoor','multi door','466l'],
+  RF480:['fridge','refrigerator','peti sejuk','480l'],
+  WM150A:['washer','washing machine','mesin basuh','top load','muatan atas','15kg'],
+  'ACSON-1.0':['aircond','air con','air conditioner','ac','penyaman udara','1hp','1.0hp'],
+  'ACSON-1.5':['aircond','air con','air conditioner','ac','penyaman udara','1.5hp'],
+  'ACSON-2.0':['aircond','air con','air conditioner','ac','penyaman udara','2hp','2.0hp'],
+  SI6029BP:['iron','steam iron','seterika','seterika wap','garment care'],
+  WD1438:['washer dryer','washer-dryer','mesin basuh pengering','2 in 1','2-in-1'],
+  CD12D:['dryer','pengering','vented dryer','air vented','12kg']
+};
+const KHIND_SOURCE_CONFLICTS = {
+  WM1248:{
+    publicTenureMonths:36,
+    publicMonthlyRate:85,
+    publicCashPrice:3500,
+    note:'Halaman rasmi awam KHIND yang disemak pada 28 Sep 2026 menyatakan pemilikan selepas 3 tahun, manakala data kempen ejen yang digunakan di laman ini merekodkan 48 bulan. Sahkan tempoh sebenar dengan KHIND sebelum bersetuju.'
+  },
+  DHP90:{
+    publicTenureMonths:36,
+    publicMonthlyRate:85,
+    publicCashPrice:4000,
+    note:'Halaman rasmi awam KHIND yang disemak pada 28 Sep 2026 menyatakan pemilikan selepas 3 tahun, manakala data kempen ejen yang digunakan di laman ini merekodkan 48 bulan. Sahkan tempoh sebenar dengan KHIND sebelum bersetuju.'
+  }
+};
+window.KHIND_PRODUCTS = window.KHIND_PRODUCTS.map(product=>({
+  ...product,
+  keywords:[
+    ...(KHIND_KEYWORDS[product.id]||[]),
+    ...(product.category==='bundle'?['combo','kombo','bundle','pakej']:[])
+  ],
+  sourceDate:product.source?'2026-09-28':null,
+  campaignSource:'KHIND agent catalogue and campaign memos reviewed 2026-09-27',
+  tenure:product.months,
+  verifiedDate:'2026-09-28',
+  sourceConflict:KHIND_SOURCE_CONFLICTS[product.id]||null
+}));
