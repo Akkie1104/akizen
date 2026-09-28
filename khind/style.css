@@ -161,3 +161,282 @@ details p{animation:faq-enter .28s ease both}
   .steps article::before{display:none}
   details p{animation:none}
 }
+
+
+/* Editorial category stage — gives each product family a distinct visual chapter. */
+.category-story{
+  position:relative;
+  overflow:hidden;
+  min-height:228px;
+  margin:0 0 28px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#eeefe8;
+}
+.category-story::after{
+  content:"";
+  position:absolute;
+  width:360px;
+  height:360px;
+  border:1px solid rgba(37,75,60,.14);
+  border-radius:50%;
+  right:-118px;
+  top:-165px;
+}
+.category-story[data-category="laundry"]{background:#edf1e7}
+.category-story[data-category="fridge"]{background:#e8efed}
+.category-story[data-category="cooling"]{background:#f2eee2}
+.category-story[data-category="garment"]{background:#f0ebe7}
+.category-story[data-category="bundle"]{background:#efe8dc}
+.story-inner{
+  position:relative;
+  z-index:1;
+  min-height:228px;
+  display:grid;
+  grid-template-columns:minmax(0,1.25fr) minmax(240px,.75fr);
+  gap:60px;
+  align-items:end;
+  padding:34px 38px;
+}
+.story-kicker{
+  margin:0 0 9px;
+  font-size:10px;
+  font-weight:750;
+  letter-spacing:1.7px;
+  color:var(--muted);
+}
+.story-title{
+  max-width:760px;
+  margin:0;
+  font-size:clamp(34px,4.25vw,56px);
+  line-height:1.02;
+  letter-spacing:-2px;
+  font-weight:560;
+}
+.story-copy{
+  max-width:690px;
+  margin:16px 0 0;
+  font-size:14px;
+  color:var(--muted);
+}
+.story-side{
+  border-left:1px solid rgba(37,75,60,.18);
+  padding-left:28px;
+}
+.story-number{
+  margin:0 0 26px;
+  font-family:Georgia,serif;
+  font-size:52px;
+  line-height:1;
+  color:var(--green);
+}
+.story-stat{
+  display:flex;
+  justify-content:space-between;
+  gap:20px;
+  padding:9px 0;
+  border-top:1px solid rgba(37,75,60,.14);
+  font-size:11px;
+  letter-spacing:.25px;
+}
+.story-stat span{color:var(--muted)}
+.story-stat b{font-weight:650;text-align:right}
+.category-story.refresh .story-inner{animation:story-enter .5s cubic-bezier(.22,.61,.36,1) both}
+@keyframes story-enter{
+  from{opacity:.25;transform:translateY(8px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+/* Selected categories become editorial spreads instead of another uniform grid. */
+.products.category-view{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card.featured{
+  grid-column:1/-1;
+  grid-row:auto;
+  display:grid;
+  grid-template-columns:minmax(0,1.15fr) minmax(330px,.85fr);
+  grid-template-rows:none;
+  min-height:420px;
+}
+.card.featured .product-art{
+  grid-row:1;
+  min-height:420px;
+  height:auto;
+  padding:54px;
+}
+.card.featured .card-content{
+  grid-row:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding:44px;
+}
+.card.featured .model{
+  margin-bottom:10px;
+  letter-spacing:1.5px;
+}
+.card.featured h3{
+  max-width:520px;
+  margin-bottom:12px;
+  font-size:clamp(30px,3.3vw,46px);
+  line-height:1.04;
+  letter-spacing:-1.5px;
+  font-weight:560;
+}
+.card.featured .description{
+  max-width:480px;
+  margin-bottom:28px;
+  font-size:15px;
+}
+.card.featured .price{
+  font-size:46px;
+  letter-spacing:-1.8px;
+}
+.card.featured .price-note{
+  max-width:520px;
+  margin:11px 0 16px;
+  font-size:13px;
+}
+.card.featured .stock{
+  max-width:520px;
+  margin-bottom:20px;
+}
+.card.featured button{
+  width:min(100%,420px);
+  margin-top:auto;
+  padding:13px 14px;
+}
+.card.featured .no-image{
+  font-size:46px;
+  letter-spacing:-1px;
+  padding:18px 24px;
+}
+.card.featured--reverse .product-art{
+  grid-column:2;
+  grid-row:1;
+}
+.card.featured--reverse .card-content{
+  grid-column:1;
+  grid-row:1;
+}
+.card.featured[data-model="WM1248"] .product-art img{
+  transform:scale(1.58);
+}
+.products.category-view .card:not(.featured){
+  min-height:100%;
+}
+
+@media(max-width:900px){
+  .story-inner{grid-template-columns:1fr;gap:26px}
+  .story-side{
+    display:grid;
+    grid-template-columns:90px 1fr 1fr;
+    gap:18px;
+    align-items:end;
+    border-left:0;
+    border-top:1px solid rgba(37,75,60,.18);
+    padding:18px 0 0;
+  }
+  .story-number{margin:0}
+  .card.featured{
+    grid-template-columns:1fr 1fr;
+  }
+  .card.featured .card-content{padding:32px}
+}
+
+@media(max-width:720px){
+  .filters{
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    scrollbar-width:none;
+    margin-inline:-18px;
+    padding:2px 18px 10px;
+    scroll-snap-type:x proximity;
+  }
+  .filters::-webkit-scrollbar{display:none}
+  .filters button{
+    flex:0 0 auto;
+    scroll-snap-align:start;
+  }
+  .category-story{
+    min-height:0;
+    margin-top:4px;
+    border-radius:10px;
+  }
+  .category-story::after{
+    width:240px;
+    height:240px;
+    right:-112px;
+    top:-110px;
+  }
+  .story-inner{
+    min-height:0;
+    display:block;
+    padding:25px 22px 22px;
+  }
+  .story-title{
+    max-width:92%;
+    font-size:34px;
+    letter-spacing:-1.45px;
+  }
+  .story-copy{
+    max-width:94%;
+    font-size:13px;
+  }
+  .story-side{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:10px 16px;
+    margin-top:22px;
+    padding-top:16px;
+  }
+  .story-number{
+    grid-row:1/3;
+    font-size:40px;
+  }
+  .story-stat{
+    padding:7px 0;
+  }
+
+  .products,
+  .products.category-view{
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+  .card,
+  .card.featured{
+    grid-column:auto;
+    grid-row:auto;
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+  }
+  .card.featured .product-art,
+  .card.featured--reverse .product-art{
+    order:0;
+    grid-column:auto;
+    grid-row:auto;
+    min-height:270px;
+    height:270px;
+    padding:28px 18px;
+  }
+  .card.featured .card-content,
+  .card.featured--reverse .card-content{
+    order:1;
+    grid-column:auto;
+    grid-row:auto;
+    display:flex;
+    padding:22px;
+  }
+  .card.featured h3{
+    font-size:29px;
+    line-height:1.08;
+  }
+  .card.featured .description{font-size:13px;margin-bottom:20px}
+  .card.featured .price{font-size:36px}
+  .card.featured .no-image{font-size:32px}
+  .card.featured[data-model="WM1248"] .product-art img{transform:scale(1.5)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .category-story.refresh .story-inner{animation:none}
+}
