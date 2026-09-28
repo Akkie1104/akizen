@@ -33,3 +33,131 @@
 .card[data-model="WD1468"] .product-art img{transform:scale(1.03)}
 @media(max-width:720px){.card-content{padding:14px}.product-art{height:185px;padding:22px 12px}}
 .card{grid-row:span 8}.card-content{grid-row:span 7}
+
+
+/* Motion system — restrained editorial movement, not decorative clutter. */
+.reveal{--reveal-delay:0ms}
+.motion-ready .reveal{
+  opacity:0;
+  transform:translateY(22px);
+}
+.motion-ready .reveal.is-visible{
+  opacity:1;
+  transform:translateY(0);
+  transition:
+    opacity .68s cubic-bezier(.22,.61,.36,1) var(--reveal-delay),
+    transform .78s cubic-bezier(.22,.61,.36,1) var(--reveal-delay);
+}
+.hero-copy.reveal{transform:translateY(14px)}
+.hero-art.reveal{transform:translateY(18px) scale(.985)}
+.hero-art.reveal.is-visible{transform:translateY(0) scale(1)}
+.section-head.reveal{transform:translateY(16px)}
+
+.card{
+  position:relative;
+  transition:
+    transform .38s cubic-bezier(.22,.61,.36,1),
+    box-shadow .38s ease,
+    border-color .3s ease;
+  will-change:transform;
+}
+.card.reveal.is-visible:hover{
+  transform:translateY(-7px);
+  border-color:#bfc5ba;
+  box-shadow:0 18px 42px rgba(32,38,33,.09);
+}
+.product-art{transition:background-size .7s cubic-bezier(.22,.61,.36,1)}
+.product-art::after{
+  content:"";
+  position:absolute;
+  inset:-35%;
+  z-index:1;
+  pointer-events:none;
+  background:linear-gradient(115deg,transparent 38%,rgba(255,255,255,.36) 49%,transparent 60%);
+  transform:translateX(-72%) rotate(4deg);
+  opacity:0;
+}
+.card:hover .product-art::after{
+  opacity:1;
+  transform:translateX(72%) rotate(4deg);
+  transition:transform .85s cubic-bezier(.22,.61,.36,1),opacity .22s ease;
+}
+.product-art img{
+  transition:
+    translate .52s cubic-bezier(.22,.61,.36,1),
+    scale .52s cubic-bezier(.22,.61,.36,1);
+}
+.card:hover .product-art img{
+  translate:0 -5px;
+  scale:1.025;
+}
+.card button span{
+  display:inline-block;
+  transition:transform .25s ease;
+}
+.card button:hover span{transform:translate(3px,-2px)}
+
+.filters button{
+  position:relative;
+  overflow:hidden;
+  transition:
+    background-color .28s ease,
+    color .28s ease,
+    border-color .28s ease,
+    transform .22s ease;
+}
+.filters button:hover{transform:translateY(-2px)}
+.filters button:active{transform:translateY(0) scale(.98)}
+.filters .active{box-shadow:0 7px 18px rgba(32,38,33,.12)}
+
+.campaign.reveal.is-visible{
+  transition:
+    opacity .65s ease var(--reveal-delay),
+    transform .72s cubic-bezier(.22,.61,.36,1) var(--reveal-delay),
+    box-shadow .55s ease .18s;
+  box-shadow:0 12px 30px rgba(108,91,22,.08);
+}
+
+.steps article{position:relative}
+.steps article::before{
+  content:"";
+  position:absolute;
+  top:-1px;
+  left:0;
+  width:0;
+  height:1px;
+  background:var(--green);
+  transition:width .9s cubic-bezier(.22,.61,.36,1) calc(var(--reveal-delay) + 180ms);
+}
+.steps article.is-visible::before{width:100%}
+
+details summary{transition:color .25s ease,transform .25s ease}
+details summary:hover{
+  color:var(--green);
+  transform:translateX(3px);
+}
+details[open] summary{color:var(--green)}
+details p{animation:faq-enter .28s ease both}
+@keyframes faq-enter{
+  from{opacity:0;transform:translateY(-5px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+@media(max-width:720px){
+  .card.reveal.is-visible:hover{transform:translateY(0);box-shadow:none}
+  .card:hover .product-art img{translate:0;scale:1}
+  .card:hover .product-art::after{display:none}
+  .filters button:hover{transform:none}
+}
+@media(prefers-reduced-motion:reduce){
+  .motion-ready .reveal,
+  .motion-ready .reveal.is-visible{
+    opacity:1;
+    transform:none;
+    transition:none;
+  }
+  .card,.product-art,.product-art img,.filters button,.card button span{transition:none}
+  .product-art::after{display:none}
+  .steps article::before{display:none}
+  details p{animation:none}
+}
