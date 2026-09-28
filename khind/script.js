@@ -20,6 +20,50 @@ if(q3) banner.innerHTML='<b>Promosi hingga 30 September 2026</b><span>50% untuk 
 else if(dryerCampaign) banner.innerHTML='<b>Drymaster DHP90 · hingga 31 Disember 2026</b><span>RM29.75 × 6 bulan, kemudian RM85 × 42 bulan.<small>Tertakluk kelayakan dan pengesahan KHIND.</small></span>';
 let category='all';
 const grid=document.querySelector('#products');
+const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+document.documentElement.classList.add('motion-ready');
+const revealObserver=!reduceMotion&&'IntersectionObserver'in window
+ ?new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },{threshold:.12,rootMargin:'0px 0px -7% 0px'})
+ :null;
+
+function observeMotion(scope=document){
+  scope.querySelectorAll('.reveal:not([data-motion-bound])').forEach(el=>{
+    el.dataset.motionBound='1';
+    if(revealObserver)revealObserver.observe(el);
+    else el.classList.add('is-visible');
+  });
+}
+function prepareStaticMotion(){
+  const heroCopy=document.querySelector('.hero>div:first-child');
+  const heroArt=document.querySelector('.hero-art');
+  if(heroCopy)heroCopy.classList.add('reveal','hero-copy');
+  if(heroArt)heroArt.classList.add('reveal');
+  document.querySelectorAll('.section-head,.campaign,.notice,.faq>div,.contact-panel').forEach(el=>el.classList.add('reveal'));
+  document.querySelectorAll('.trust span').forEach((el,i)=>{
+    el.classList.add('reveal');
+    el.style.setProperty('--reveal-delay',i*80+'ms');
+  });
+  document.querySelectorAll('.steps article').forEach((el,i)=>{
+    el.classList.add('reveal');
+    el.style.setProperty('--reveal-delay',i*90+'ms');
+  });
+  observeMotion();
+}
+function prepareProductMotion(){
+  [...grid.querySelectorAll('.card')].forEach((card,i)=>{
+    card.classList.add('reveal');
+    card.style.setProperty('--reveal-delay',Math.min(i%6,5)*55+'ms');
+  });
+  observeMotion(grid);
+}
+
 function render(){
  const term=document.querySelector('#search').value.trim().toLowerCase();
  const cash=document.querySelector('#payment').value==='cash';
@@ -34,6 +78,7 @@ function render(){
  }).join('') || '<p class="empty">Tiada model sepadan. Cuba nama model lain atau kategori Semua.</p>';
  grid.querySelectorAll('[data-product]').forEach(b=>b.addEventListener('click',()=>openDetail(products.find(p=>p.id===b.dataset.product))));
  grid.querySelectorAll('img').forEach(img=>img.addEventListener('error',()=>{img.replaceWith(Object.assign(document.createElement('span'),{className:'no-image',textContent:'Gambar tidak tersedia'}));},{once:true}));
+ prepareProductMotion();
 }
 document.querySelectorAll('[data-category]').forEach(button=>button.addEventListener('click',()=>{
  category=button.dataset.category;
@@ -69,6 +114,7 @@ function updatePlan(p,value){
  html+=`<a class="button dark modal-cta" href="${enquiry(message)}" target="_blank" rel="noopener">Tanya tentang pilihan ini di WhatsApp ↗</a><p class="fine">Membuka WhatsApp sahaja. Ini bukan permohonan atau pengesahan pembelian.</p>`;
  document.querySelector('#plan-detail').innerHTML=html;
 }
+prepareStaticMotion();
 render();
 
 
