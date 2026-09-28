@@ -239,7 +239,7 @@ function render(){
    const decisions=decisionPoints(p).slice(0,3).map(x=>'<li>'+x+'</li>').join('');
    const categoryResult=term?'<p class="result-category">'+(categoryLabels[p.category]||'Produk')+'</p>':'';
    const promo=promoEligible(p)?'<span class="promo-tag">PROMO · 6 BULAN PERTAMA</span>':'';
-   const conflict=p.sourceConflict?'<p class="verification-flag">Tempoh perlu pengesahan · sumber awam berbeza</p>':'';
+   const conflict=p.sourceConflict?'<p class="verification-flag">Jumlah di atas berdasarkan '+p.tenure+' bulan · halaman rasmi awam menyatakan '+p.sourceConflict.publicTenureMonths+' bulan. Sahkan tempoh dengan KHIND.</p>':'';
    let pricing='',action='Lihat pelan & butiran →',buttonAttr='data-product="'+p.id+'"';
    if(cash){
      const amount=cashPrice(p);
