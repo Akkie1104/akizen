@@ -122,8 +122,7 @@ function render(){
  if(cash&&category==='bundle'&&!term){
    grid.innerHTML='<div class="category-state"><p class="eyebrow">KOMBO · RTO SAHAJA</p><h3>Kombo ditawarkan melalui pelan RTO.</h3><p>Bayaran penuh tidak tersedia untuk kategori ini. Tukar ke paparan RTO untuk melihat kadar bulanan dan jumlah komitmen setiap kombo.</p><button id="show-bundle-rto" class="button dark" type="button">Lihat harga RTO →</button></div>';
    document.querySelector('#show-bundle-rto').addEventListener('click',()=>{
-     document.querySelector('#payment').value='rto';
-     render();
+     setPaymentMode('rto');
    });   return;
  }
 
@@ -154,12 +153,12 @@ function render(){
    }else{
      pricing='<div class="cash-unavailable"><strong>Pelan belum disahkan</strong><span>Hubungi Hakim untuk semakan.</span></div>';
    }
-   return '<article class="card" data-model="'+p.id+'"><div class="product-art">'+productVisual(p)+'</div><div class="card-content">'+categoryResult+'<p class="model">'+(p.category==='bundle'?'PAKEJ DUA PERALATAN':p.id)+'</p><h3>'+p.name+'</h3><p class="description">'+p.description+'</p><ul class="decision-points" aria-label="Maklumat ringkas">'+decisions+'</ul>'+promo+pricing+conflict+'<p class="stock">'+p.stock+'</p><button aria-label="Lihat butiran '+p.name+' '+p.id+'" '+buttonAttr+'>'+action+'</button></div></article>';
+   const askUrl=enquiry('saya berminat dengan '+p.name+' ('+p.id+').');
+   return '<article class="card" data-model="'+p.id+'"><div class="product-art">'+productVisual(p)+'</div><div class="card-content">'+categoryResult+'<p class="model">'+(p.category==='bundle'?'PAKEJ DUA PERALATAN':p.id)+'</p><h3>'+p.name+'</h3><p class="description">'+p.description+'</p><ul class="decision-points" aria-label="Maklumat ringkas">'+decisions+'</ul>'+promo+pricing+conflict+'<p class="stock">'+p.stock+'</p><div class="card-actions"><button aria-label="Lihat butiran '+p.name+' '+p.id+'" '+buttonAttr+'>'+action+'</button><a class="card-whatsapp" href="'+askUrl+'" target="_blank" rel="noopener" aria-label="Tanya Hakim tentang '+p.name+' '+p.id+'"><span class="wa-mark" aria-hidden="true">WA</span><span>Tanya</span></a></div></div></article>';
  }).join('') || '<p class="empty">Tiada model sepadan. Cuba istilah lain seperti aircond, fridge, washer atau dryer.</p>';
  grid.querySelectorAll('[data-product]').forEach(b=>b.addEventListener('click',()=>openDetail(products.find(p=>p.id===b.dataset.product))));
  grid.querySelectorAll('[data-rto-product]').forEach(b=>b.addEventListener('click',()=>{
-   document.querySelector('#payment').value='rto';
-   render();
+   setPaymentMode('rto');
    openDetail(products.find(p=>p.id===b.dataset.rtoProduct));
  }));
  grid.querySelectorAll('img').forEach(img=>img.addEventListener('error',()=>{img.replaceWith(Object.assign(document.createElement('span'),{className:'no-image',textContent:'Gambar tidak tersedia'}));},{once:true}));}
@@ -175,7 +174,23 @@ function syncClearSearch(){clearSearch.hidden=!searchInput.value;}
 searchInput.addEventListener('input',()=>{syncClearSearch();render();});
 clearSearch.addEventListener('click',()=>{searchInput.value='';syncClearSearch();render();searchInput.focus();});
 syncClearSearch();
-document.querySelector('#payment').addEventListener('change',render);
+const paymentSelect=document.querySelector('#payment');
+const paymentModeButtons=[...document.querySelectorAll('[data-payment-mode]')];
+function syncPaymentModeControls(){
+  paymentModeButtons.forEach(button=>{
+    const selected=button.dataset.paymentMode===paymentSelect.value;
+    button.classList.toggle('active',selected);
+    button.setAttribute('aria-pressed',String(selected));
+  });
+}
+function setPaymentMode(mode,shouldRender=true){
+  paymentSelect.value=mode;
+  syncPaymentModeControls();
+  if(shouldRender)render();
+}
+paymentModeButtons.forEach(button=>button.addEventListener('click',()=>setPaymentMode(button.dataset.paymentMode)));
+paymentSelect.addEventListener('change',()=>{syncPaymentModeControls();render();});
+syncPaymentModeControls();
 const dialog=document.querySelector('#detail');
 let lastProductId=null;
 document.querySelector('.close').addEventListener('click',()=>dialog.close());
@@ -215,8 +230,7 @@ function setDetailMode(p,mode,planIndex=0){
       detail.innerHTML='<div class="unavailable-panel"><h3>Bayaran penuh tidak tersedia</h3><p>'+(p.category==='bundle'?'Kombo ditawarkan melalui pelan RTO.':'Harga bayaran penuh belum disahkan untuk model ini.')+'</p></div>'+(p.plans.length?'<button id="switch-detail-rto" class="button secondary-action" type="button">Lihat pilihan RTO →</button>':'')+sourceConflictHtml(p)+'<a class="button dark modal-cta" href="'+enquiry('saya mahu semak harga penuh dan ketersediaan '+p.name+' ('+p.id+').')+'" target="_blank" rel="noopener">Semak dengan Hakim di WhatsApp ↗</a>';
       const switchButton=document.querySelector('#switch-detail-rto');
       if(switchButton)switchButton.addEventListener('click',()=>{
-        document.querySelector('#payment').value='rto';
-        render();
+        setPaymentMode('rto');
         setDetailMode(p,'rto',0);
       });
       return;
@@ -250,8 +264,7 @@ function openDetail(p){
   document.querySelector('#detail-content').innerHTML='<p class="eyebrow">'+p.id+'</p><h2 id="detail-title">'+p.name+'</h2><p>'+p.description+'</p><ul class="decision-points modal-decisions" aria-label="Maklumat ringkas">'+decisions+'</ul><fieldset class="payment-method"><legend>Cara pembayaran</legend><div class="segmented"><button type="button" data-detail-payment="rto" aria-pressed="false">RTO</button><button type="button" data-detail-payment="cash" aria-pressed="false">Bayaran penuh</button></div></fieldset><div id="detail-plan-choice"></div><div id="plan-detail"></div><p class="stock">'+p.stock+'</p><p class="verification-meta">Data kempen: '+p.campaignSource+' · disemak '+p.verifiedDate+'.</p>'+(p.source?'<a class="source" href="'+p.source+'" target="_blank" rel="noopener">Spesifikasi produk rasmi ↗</a>':'');
   document.querySelectorAll('[data-detail-payment]').forEach(button=>button.addEventListener('click',()=>{
     const mode=button.dataset.detailPayment;
-    document.querySelector('#payment').value=mode;
-    render();
+    setPaymentMode(mode);
     setDetailMode(p,mode,0);
   }));
   setDetailMode(p,globalMode,0);
@@ -290,6 +303,21 @@ themeMedia.addEventListener('change',applyTheme);
 
 
 
+
+const mobileNavLinks=[...document.querySelectorAll('.mobile-bottom-nav [data-mobile-nav]')];
+if('IntersectionObserver'in window&&mobileNavLinks.length){
+ const navSections=mobileNavLinks.map(link=>document.getElementById(link.dataset.mobileNav)).filter(Boolean);
+ const mobileNavObserver=new IntersectionObserver(entries=>{
+   const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+   if(!visible)return;
+   mobileNavLinks.forEach(link=>{
+     const active=link.dataset.mobileNav===visible.target.id;
+     link.classList.toggle('active',active);
+     if(active)link.setAttribute('aria-current','page');else link.removeAttribute('aria-current');
+   });
+ },{rootMargin:'-22% 0px -58% 0px',threshold:[0,.15,.35]});
+ navSections.forEach(section=>mobileNavObserver.observe(section));
+}
 
 document.querySelectorAll('.category-image img').forEach(img=>{
  img.addEventListener('error',()=>{img.hidden=true;},{once:true});
