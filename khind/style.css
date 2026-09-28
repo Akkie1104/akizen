@@ -6,7 +6,11 @@
 .khind-brand strong{font-size:27px;letter-spacing:1.5px;font-weight:800}
 .khind-brand span{margin:0;font-size:12px;font-weight:450;letter-spacing:.15px}
 .site-credit{font-size:12px;color:var(--muted);white-space:nowrap}
-.hero-art,.product-art{background:var(--paper) url('assets/studio-sage.png') center center/cover no-repeat}
+.hero-art,.product-art{
+  background:
+    radial-gradient(circle at 72% 24%,rgba(255,255,255,.62),transparent 30%),
+    linear-gradient(145deg,#edf1e8 0%,#dfe7dc 58%,#f3f1e9 100%);
+}
 .hero-art img,.product-art img{mix-blend-mode:multiply}
 .product-art{height:250px;padding:32px}
 .product-art img{object-fit:contain;filter:drop-shadow(0 8px 5px #233d2920)}
@@ -439,4 +443,252 @@ details p{animation:faq-enter .28s ease both}
 
 @media(prefers-reduced-motion:reduce){
   .category-story.refresh .story-inner{animation:none}
+}
+
+
+/* UI/UX audit implementation — interaction clarity, mobile usability and pricing hierarchy. */
+.mobile-section-nav{display:none}
+.agent-disclosure{
+  max-width:520px;
+  margin:10px 0 0;
+  font-size:12px;
+  line-height:1.45;
+  color:var(--muted);
+}
+.catalogue-tools .tool-field,
+.catalogue-tools label{
+  font-size:12px;
+}
+.tool-field{
+  display:grid;
+  gap:5px;
+}
+.search-control{position:relative}
+.search-control input{padding-right:42px}
+#clear-search{
+  position:absolute;
+  right:4px;
+  top:50%;
+  width:34px;
+  height:34px;
+  transform:translateY(-50%);
+  border:0;
+  border-radius:50%;
+  background:transparent;
+  color:var(--muted);
+  font-size:20px;
+  line-height:1;
+}
+#clear-search:hover{background:#e7e8e1;color:var(--ink)}
+#clear-search[hidden]{display:none}
+
+.decision-points{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  list-style:none;
+  padding:0;
+  margin:0 0 16px;
+}
+.decision-points li{
+  padding:5px 8px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:#fafaf7;
+  font-size:11px;
+  line-height:1.25;
+  color:#4f584f;
+}
+.price-block{align-self:start}
+.price-period{
+  margin:5px 0 0;
+  font-size:13px;
+  line-height:1.4;
+  color:var(--muted);
+}
+.next-rate{
+  display:flex;
+  flex-direction:column;
+  gap:1px;
+  margin:12px 0 0;
+  font-size:14px;
+  line-height:1.35;
+}
+.next-rate strong{font-weight:700}
+.next-rate span{font-size:12px;color:var(--muted)}
+.estimated-total{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:2px 14px;
+  align-items:baseline;
+  margin:14px 0 0;
+  padding-top:12px;
+  border-top:1px solid var(--line);
+  font-size:13px;
+}
+.estimated-total span{color:var(--muted)}
+.estimated-total strong{font-size:18px;line-height:1.1}
+.estimated-total small{
+  grid-column:1/-1;
+  font-size:12px;
+  line-height:1.4;
+  color:var(--muted);
+}
+.price-note{
+  min-height:0;
+  margin:9px 0 0;
+  font-size:13px;
+  line-height:1.45;
+}
+.stock{
+  font-size:13px;
+  line-height:1.45;
+}
+.cash-unavailable{
+  display:grid;
+  gap:4px;
+  align-self:start;
+  padding:14px;
+  border:1px solid #d9c9a6;
+  border-radius:6px;
+  background:#fbf5e8;
+  font-size:13px;
+  line-height:1.4;
+}
+.cash-unavailable strong{font-size:14px}
+.cash-unavailable span{color:var(--muted)}
+.unavailable-panel{
+  margin:20px 0;
+  padding:18px;
+  border:1px solid #d9c9a6;
+  border-radius:7px;
+  background:#fbf5e8;
+}
+.unavailable-panel h3{margin:0 0 6px;font-size:18px}
+.unavailable-panel p{margin:0}
+.card button{min-height:44px;align-items:center}
+.close{width:44px;height:44px}
+.fine{font-size:13px;line-height:1.5}
+.hero-image-fallback{
+  max-width:240px;
+  text-align:center;
+  font-size:14px;
+}
+.combo-art{
+  width:100%;
+  height:100%;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:10px;
+  align-items:center;
+}
+.product-art .combo-art img{
+  position:static;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  transform:none!important;
+  clip-path:none!important;
+  translate:0!important;
+  scale:1!important;
+}
+.combo-art .no-image{
+  display:grid;
+  place-items:center;
+  min-height:55%;
+  padding:8px;
+  font-size:13px;
+  text-align:center;
+}
+
+@media(max-width:720px){
+  .mobile-section-nav{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:6px;
+    margin-top:-4px;
+    margin-bottom:4px;
+    padding-bottom:8px;
+  }
+  .mobile-section-nav a{
+    min-height:44px;
+    display:grid;
+    place-items:center;
+    border:1px solid var(--line);
+    border-radius:6px;
+    font-size:12px;
+    font-weight:650;
+    background:#faf9f4;
+  }
+  .mobile-section-nav a:hover{text-decoration:none;background:#eceee7}
+  .agent-disclosure{font-size:12px}
+  .filters{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:7px;
+    overflow:visible;
+    margin:0 0 24px;
+    padding:0;
+    scroll-snap-type:none;
+  }
+  .filters button{
+    width:100%;
+    min-height:44px;
+    padding:7px 8px;
+    white-space:normal;
+    font-size:11px;
+    line-height:1.2;
+    scroll-snap-align:none;
+  }
+  .category-story{
+    min-height:0;
+    margin-top:0;
+    margin-bottom:18px;
+  }
+  .category-story::after{
+    width:180px;
+    height:180px;
+    right:-90px;
+    top:-95px;
+  }
+  .story-inner{
+    min-height:0;
+    display:block;
+    padding:18px 18px 16px;
+  }
+  .story-kicker{margin-bottom:5px}
+  .story-title{
+    max-width:100%;
+    font-size:24px;
+    line-height:1.05;
+    letter-spacing:-.8px;
+  }
+  .story-copy{
+    max-width:100%;
+    margin-top:8px;
+    font-size:13px;
+    line-height:1.4;
+    display:-webkit-box;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    overflow:hidden;
+  }
+  .story-side{display:none}
+  .catalogue-tools .tool-field{flex:1;min-width:170px}
+  .catalogue-tools label{font-size:12px}
+  .price small{font-size:13px}
+  .price-period,
+  .price-note,
+  .stock,
+  .fine,
+  .campaign small{font-size:13px;line-height:1.45}
+  .next-rate{font-size:14px}
+  .next-rate span{font-size:13px}
+  .estimated-total{font-size:13px}
+  .estimated-total strong{font-size:18px}
+  .estimated-total small{font-size:13px}
+  .decision-points{margin-bottom:15px}
+  .decision-points li{font-size:11px}
+  .card button{min-height:44px;padding:11px 10px}
+  #clear-search{width:36px;height:36px}
 }
