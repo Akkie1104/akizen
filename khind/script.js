@@ -1,4 +1,5 @@
 'use strict';
+document.documentElement.classList.add('motion-ready');
 const products = window.KHIND_PRODUCTS;
 const money = value => 'RM' + new Intl.NumberFormat('en-MY',{minimumFractionDigits:Number.isInteger(value)?0:2,maximumFractionDigits:2}).format(value);
 const today = new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kuala_Lumpur',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
