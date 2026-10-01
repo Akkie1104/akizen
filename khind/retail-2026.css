@@ -1181,3 +1181,172 @@ html[data-theme=dark] .decision-cards>div,
 html[data-theme=dark] .faq-list details{
   background:#1d211c!important;
 }
+
+
+
+/* Typography readability pass — October 2026
+   Ecommerce copy should scan comfortably without relying on tiny micro-text. */
+body{
+  font-size:1rem;
+  line-height:1.65;
+}
+.desktop-nav a{font-size:.8125rem}
+.header-actions .contact{font-size:.8125rem}
+.draft{font-size:.6875rem}
+.trust-strip p,.trust-meta{font-size:.6875rem}
+.promo-track span{font-size:.75rem}
+.promo-track b{font-size:.8125rem}
+
+.eyebrow{font-size:.6875rem}
+.hero-kicker{font-size:.75rem}
+.hero-kicker span{font-size:.6875rem}
+.retail-hero .intro{font-size:1.0625rem;line-height:1.7}
+.hero-offers span{font-size:.75rem}
+.hero-offers strong{font-size:.8125rem}
+.hero-assist{font-size:.75rem}
+.hero-price-card>span{font-size:.6875rem}
+.hero-price-card small{font-size:.75rem}
+.hero-price-card p{font-size:.6875rem}
+.retail-hero .hero-caption{font-size:.75rem}
+
+.value-heading>p{font-size:.9375rem}
+.value-grid h3{font-size:1rem}
+.value-grid p{font-size:.84375rem;line-height:1.65}
+
+.section-heading-row>p{font-size:.9375rem;line-height:1.75}
+
+.campaign-label{font-size:.6875rem}
+.campaign-card>p,.campaign-spotlight-copy>p{font-size:.84375rem;line-height:1.7}
+.campaign-meta span{font-size:.6875rem}
+.campaign-card a{font-size:.8125rem}
+.quick-benefits b{font-size:.875rem}
+.quick-benefits p{font-size:.75rem;line-height:1.6}
+.campaign-launch strong{font-size:.8125rem}
+.campaign-launch p{font-size:.75rem;line-height:1.6}
+
+.featured-badge{font-size:.6875rem}
+.featured-model{font-size:.6875rem}
+.featured-card h3{font-size:1.375rem}
+.featured-card .description{font-size:.8125rem}
+.featured-price span{font-size:.75rem}
+.featured-price small{font-size:.75rem}
+.featured-card button{font-size:.8125rem}
+
+.category-heading h3{font-size:1.125rem}
+.category-heading span{font-size:.75rem}
+.filters button b{font-size:.875rem}
+.filters button small{font-size:.6875rem}
+
+.catalogue-tools label,.control-label{font-size:.75rem!important}
+.search-control input{font-size:.9375rem!important}
+.payment-switch button{font-size:.75rem!important}
+#count{font-size:.75rem!important}
+
+.story-title{font-size:1.0625rem!important}
+.story-copy{font-size:.75rem!important}
+
+.card .model,.result-category{font-size:.6875rem!important}
+.card h3{font-size:1.3125rem!important}
+.card .description{font-size:.8125rem!important;line-height:1.6!important}
+.decision-points li{font-size:.6875rem}
+.promo-tag{font-size:.6875rem!important}
+.shop-price-label{font-size:.6875rem}
+.shop-price-main span{font-size:.75rem}
+.shop-price-next{font-size:.75rem;line-height:1.5}
+.shop-price-total{font-size:.6875rem}
+.shop-price-total strong{font-size:.75rem}
+.pricing-foot{font-size:.6875rem!important;line-height:1.5!important}
+.cash-original{font-size:.75rem}
+.verification-flag{font-size:.6875rem!important;line-height:1.55!important}
+.stock{font-size:.75rem!important;line-height:1.5!important}
+.card-actions>button,.card-whatsapp{font-size:.75rem!important}
+
+.retail-steps small{font-size:.6875rem}
+.retail-steps h3{font-size:1.3125rem!important}
+.retail-steps p{font-size:.84375rem!important;line-height:1.7!important}
+.security-note b{font-size:.875rem}
+.security-note p{font-size:.75rem;line-height:1.6}
+
+.decision-copy>p:not(.eyebrow){font-size:.9375rem;line-height:1.8}
+.decision-cards span{font-size:.75rem}
+.decision-cards b{font-size:.875rem}
+.decision-cards p{font-size:.75rem;line-height:1.55}
+
+.faq-intro>p:not(.eyebrow){font-size:.875rem;line-height:1.75}
+.faq-intro .source{font-size:.8125rem}
+.faq-list summary{font-size:.9375rem!important;line-height:1.45!important}
+.faq-list details p{font-size:.84375rem!important;line-height:1.75!important}
+
+.contact-kicker{font-size:.6875rem}
+.retail-contact p{font-size:.875rem;line-height:1.7}
+.retail-footer p,.footer-links a{font-size:.75rem}
+
+@media(max-width:700px){
+  .draft{font-size:.625rem}
+  .khind-brand>span{font-size:.625rem}
+  .promo-track span{font-size:.6875rem}
+  .promo-track b{font-size:.75rem}
+
+  .hero-kicker{font-size:.6875rem}
+  .retail-hero .intro{font-size:.875rem;line-height:1.65}
+  .hero-offers span{font-size:.6875rem}
+  .hero-offers strong{font-size:.75rem}
+  .retail-hero .button{font-size:.75rem}
+  .hero-assist{font-size:.6875rem}
+  .retail-hero .hero-caption{font-size:.6875rem}
+
+  .value-heading>p{font-size:.8125rem}
+  .value-grid h3{font-size:.9375rem}
+  .value-grid p{font-size:.78125rem}
+
+  .section-heading-row>p{font-size:.8125rem}
+  .campaign-card>p,.campaign-spotlight-copy>p{font-size:.8125rem}
+  .campaign-card a{font-size:.75rem}
+  .quick-benefits b{font-size:.8125rem}
+  .quick-benefits p{font-size:.71875rem}
+  .campaign-launch strong{font-size:.75rem}
+  .campaign-launch p{font-size:.6875rem}
+
+  .featured-card h3{font-size:1.125rem}
+  .featured-card .description{font-size:.75rem}
+  .featured-price span,.featured-price small,.featured-card button{font-size:.71875rem}
+
+  .category-heading span{font-size:.6875rem}
+  .filters button b{font-size:.8125rem}
+  .filters button small{font-size:.65625rem}
+
+  .catalogue-tools label,.control-label{font-size:.6875rem!important}
+  .search-control input{font-size:.875rem!important}
+  .payment-switch button{font-size:.71875rem!important}
+  #count{font-size:.6875rem!important}
+  .story-copy{font-size:.71875rem!important}
+
+  .card .model,.result-category{font-size:.65625rem!important}
+  .card h3{font-size:1.1875rem!important}
+  .card .description{font-size:.78125rem!important}
+  .decision-points li{font-size:.65625rem}
+  .promo-tag{font-size:.65625rem!important}
+  .shop-price-label{font-size:.65625rem}
+  .shop-price-main span,.shop-price-next{font-size:.71875rem}
+  .shop-price-total,.pricing-foot,.verification-flag{font-size:.65625rem!important}
+  .stock{font-size:.6875rem!important}
+  .card-actions>button,.card-whatsapp{font-size:.71875rem!important}
+
+  .retail-steps small{font-size:.65625rem}
+  .retail-steps h3{font-size:1.1875rem!important}
+  .retail-steps p{font-size:.8125rem!important}
+  .security-note b{font-size:.8125rem}
+  .security-note p{font-size:.71875rem}
+
+  .decision-copy>p:not(.eyebrow){font-size:.84375rem}
+  .decision-cards b{font-size:.8125rem}
+  .decision-cards p{font-size:.71875rem}
+
+  .faq-intro>p:not(.eyebrow){font-size:.8125rem}
+  .faq-intro .source{font-size:.75rem}
+  .faq-list summary{font-size:.875rem!important}
+  .faq-list details p{font-size:.8125rem!important}
+
+  .retail-contact p{font-size:.8125rem}
+  .retail-footer p,.footer-links a{font-size:.71875rem}
+}
