@@ -5,7 +5,7 @@ const today = new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kuala_Lumpur',year
 const active = (start,end) => today >= start && today <= end;
 const q3 = false; // retired Q3 campaign
 const yearEndCampaign = active('2026-10-01','2026-12-31');
-const cashCampaign = yearEndCampaign;
+const cashCampaign = active('2026-10-01','2026-10-31');
 const dryerCampaign = yearEndCampaign;
 const enquiry = text => 'https://wa.me/60174201247?text=' + encodeURIComponent('Salam Hakim, '+text+' Mohon sahkan stok, kelayakan promosi, jumlah awal dan syarat penuh.');
 const cashPrice = p => cashCampaign && p.cashPromo ? p.cashPromo : p.cash;
@@ -158,7 +158,7 @@ function render(){
          action='Semak harga penuh';
        }
      }else{
-       pricing='<div class="price-block cash-price"><div class="price">'+money(amount)+'</div><p class="price-note">Bayaran penuh'+(cashCampaign&&p.cashPromo&&p.cashPromo<p.cash?' · promosi hingga 31 Dis 2026':'')+'</p></div>';
+       pricing='<div class="price-block cash-price"><div class="price">'+money(amount)+'</div><p class="price-note">Bayaran penuh'+(cashCampaign&&p.cashPromo&&p.cashPromo<p.cash?' · promosi hingga 31 Okt 2026':'')+'</p></div>';
      }
    }else if(sched){
      pricing=rtoCardSummary(p,plan,sched);
@@ -186,6 +186,26 @@ function syncClearSearch(){clearSearch.hidden=!searchInput.value;}
 searchInput.addEventListener('input',()=>{syncClearSearch();render();});
 clearSearch.addEventListener('click',()=>{searchInput.value='';syncClearSearch();render();searchInput.focus();});
 syncClearSearch();
+
+document.querySelectorAll('[data-campaign-category],[data-campaign-search]').forEach(link=>link.addEventListener('click',()=>{
+  const targetCategory=link.dataset.campaignCategory;
+  const targetSearch=link.dataset.campaignSearch;
+  if(targetCategory){
+    const button=document.querySelector('[data-category="'+targetCategory+'"]');
+    if(button)button.click();
+  }else if(targetSearch){
+    category='all';
+    document.querySelectorAll('[data-category]').forEach(b=>{
+      const selected=b.dataset.category==='all';
+      b.classList.toggle('active',selected);
+      b.setAttribute('aria-pressed',String(selected));
+    });
+    searchInput.value=targetSearch;
+    syncClearSearch();
+    render();
+  }
+}));
+
 const paymentSelect=document.querySelector('#payment');
 const paymentModeButtons=[...document.querySelectorAll('[data-payment-mode]')];
 function syncPaymentModeControls(){
@@ -248,7 +268,7 @@ function setDetailMode(p,mode,planIndex=0){
       return;
     }
     const message='saya berminat dengan '+p.name+'. Pilihan bayaran penuh '+money(amount)+'.';
-    detail.innerHTML='<div class="breakdown cash-breakdown"><p>Bayaran penuh</p><div class="price">'+money(amount)+'</div><p>'+(cashCampaign&&p.cashPromo&&p.cashPromo<p.cash?'Promosi akhir tahun hingga 31 Disember 2026. Harga biasa '+money(p.cash)+'.':'Harga rujukan; sahkan harga akhir.')+'</p></div>'+comparisonHtml(p,0)+sourceConflictHtml(p)+'<a class="button dark modal-cta" href="'+enquiry(message)+'" target="_blank" rel="noopener">Tanya tentang pilihan ini di WhatsApp ↗</a><p class="fine">Jangan hantar gambar IC atau butiran kad dalam chat. Gunakan pautan rasmi KHIND untuk dokumen dan pembayaran.</p>';
+    detail.innerHTML='<div class="breakdown cash-breakdown"><p>Bayaran penuh</p><div class="price">'+money(amount)+'</div><p>'+(cashCampaign&&p.cashPromo&&p.cashPromo<p.cash?'Promosi Oktober hingga 31 Oktober 2026. Harga biasa '+money(p.cash)+'.':'Harga rujukan; sahkan harga akhir.')+'</p></div>'+comparisonHtml(p,0)+sourceConflictHtml(p)+'<a class="button dark modal-cta" href="'+enquiry(message)+'" target="_blank" rel="noopener">Tanya tentang pilihan ini di WhatsApp ↗</a><p class="fine">Jangan hantar gambar IC atau butiran kad dalam chat. Gunakan pautan rasmi KHIND untuk dokumen dan pembayaran.</p>';
     return;
   }
 
