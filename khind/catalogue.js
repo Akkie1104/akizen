@@ -1,4 +1,4 @@
-/* Source: KHIND agent catalogue and campaign memos, reviewed 2026-09-27. */
+/* Source: KHIND agent catalogue and October Sales Booster materials, reviewed 2026-10-01. */
 window.KHIND_PRODUCTS = [
   {
     "id": "WM1248",
@@ -519,8 +519,8 @@ window.KHIND_PRODUCTS = window.KHIND_PRODUCTS.map(product=>({
     ...(product.category==='bundle'?['combo','kombo','bundle','pakej']:[])
   ],
   sourceDate:product.source?'2026-09-28':null,
-  campaignSource:'KHIND agent catalogue and campaign memos reviewed 2026-09-27',
+  campaignSource:'KHIND October Sales Booster materials received 2026-10-01',
   tenure:product.months,
-  verifiedDate:'2026-09-28',
+  verifiedDate:'2026-10-01',
   sourceConflict:KHIND_SOURCE_CONFLICTS[product.id]||null
 }));
