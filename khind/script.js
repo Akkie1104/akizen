@@ -116,9 +116,9 @@ function promoEligible(p){
   return yearEndCampaign&&p.plans&&p.plans.length>0;
 }
 function rtoCardSummary(p,plan,sched){
-  const firstLabel=sched.discount?'Bulan 1–6':'Bulan 1–'+p.months;
-  const later=sched.discount?'<div><span>Bulan 7–'+p.months+'</span><strong>'+money(plan.rate)+'</strong></div>':'';
-  return '<div class="card-pricing" aria-label="Ringkasan RTO"><div><span>'+firstLabel+'</span><strong>'+money(sched.first)+'</strong></div>'+later+'<div class="summary-total"><span>Jumlah anggaran</span><strong>'+money(sched.total+1)+'</strong></div></div><p class="pricing-foot">Termasuk fi pemprosesan RM1'+(sched.discount?' · promosi hingga '+sched.end:'')+'</p>';
+  const firstLabel=sched.discount?'6 bulan pertama':'Bulan 1–'+p.months;
+  const next=sched.discount?'Kemudian '+money(plan.rate)+'/bulan · bulan 7–'+p.months:'Kadar bulanan sepanjang '+p.months+' bulan';
+  return '<div class="shop-price" aria-label="Ringkasan RTO"><span class="shop-price-label">'+firstLabel+'</span><div class="shop-price-main"><strong>'+money(sched.first)+'</strong><span>/bulan</span></div><span class="shop-price-next">'+next+'</span><div class="shop-price-total"><span>Jumlah anggaran termasuk fi RM1</span><strong>'+money(sched.total+1)+'</strong></div></div><p class="pricing-foot">'+(sched.discount?'Promosi hingga '+sched.end+' · ':'')+'Tertakluk kelayakan & pengesahan KHIND.</p>';
 }
 function render(){
  const searchInput=document.querySelector('#search');
@@ -138,7 +138,7 @@ function render(){
    });   return;
  }
 
- grid.innerHTML=shown.map(p=>{
+ grid.innerHTML=shown.map((p,index)=>{
    const plan=p.plans[0]||null;
    const sched=plan?schedule(p,plan):null;
    const decisions=decisionPoints(p).slice(0,3).map(x=>'<li>'+x+'</li>').join('');
@@ -158,7 +158,7 @@ function render(){
          action='Semak harga penuh';
        }
      }else{
-       pricing='<div class="price-block cash-price"><div class="price">'+money(amount)+'</div><p class="price-note">Bayaran penuh'+(cashCampaign&&p.cashPromo&&p.cashPromo<p.cash?' · promosi hingga 31 Okt 2026':'')+'</p></div>';
+       pricing='<div class="price-block cash-price"><span class="shop-price-label">Bayaran penuh</span><div><span class="price">'+money(amount)+'</span>'+(cashCampaign&&p.cashPromo&&p.cashPromo<p.cash?'<span class="cash-original">'+money(p.cash)+'</span>':'')+'</div><p class="price-note">'+(cashCampaign&&p.cashPromo&&p.cashPromo<p.cash?'Promosi hingga 31 Okt 2026':'Harga rujukan · sahkan harga akhir')+'</p></div>';
      }
    }else if(sched){
      pricing=rtoCardSummary(p,plan,sched);
@@ -166,7 +166,7 @@ function render(){
      pricing='<div class="cash-unavailable"><strong>Pelan belum disahkan</strong><span>Hubungi Hakim untuk semakan.</span></div>';
    }
    const askUrl=enquiry('saya berminat dengan '+p.name+' ('+p.id+').');
-   return '<article class="card" data-model="'+p.id+'"><div class="product-art">'+productVisual(p)+'</div><div class="card-content">'+categoryResult+'<p class="model">'+(p.category==='bundle'?'PAKEJ DUA PERALATAN':p.id)+'</p><h3>'+p.name+'</h3><p class="description">'+p.description+'</p><ul class="decision-points" aria-label="Maklumat ringkas">'+decisions+'</ul>'+promo+pricing+conflict+'<p class="stock">'+p.stock+'</p><div class="card-actions"><button aria-label="Lihat butiran '+p.name+' '+p.id+'" '+buttonAttr+'>'+action+'</button><a class="card-whatsapp" href="'+askUrl+'" target="_blank" rel="noopener" aria-label="Tanya Hakim tentang '+p.name+' '+p.id+'"><span class="wa-mark" aria-hidden="true">WA</span><span>Tanya</span></a></div></div></article>';
+   return '<article class="card" data-model="'+p.id+'" style="animation-delay:'+Math.min(240,index*45)+'ms"><div class="product-art">'+productVisual(p)+'</div><div class="card-content">'+categoryResult+'<p class="model">'+(p.category==='bundle'?'PAKEJ DUA PERALATAN':p.id)+'</p><h3>'+p.name+'</h3><p class="description">'+p.description+'</p><ul class="decision-points" aria-label="Maklumat ringkas">'+decisions+'</ul>'+promo+pricing+conflict+'<p class="stock">'+p.stock+'</p><div class="card-actions"><button aria-label="Lihat butiran '+p.name+' '+p.id+'" '+buttonAttr+'>'+action+'</button><a class="card-whatsapp" href="'+askUrl+'" target="_blank" rel="noopener" aria-label="Tanya Hakim tentang '+p.name+' '+p.id+'"><span class="wa-mark" aria-hidden="true">WA</span><span>Tanya</span></a></div></div></article>';
  }).join('') || '<p class="empty">Tiada model sepadan. Cuba istilah lain seperti aircond, fridge, washer atau dryer.</p>';
  grid.querySelectorAll('[data-product]').forEach(b=>b.addEventListener('click',()=>openDetail(products.find(p=>p.id===b.dataset.product))));
  grid.querySelectorAll('[data-rto-product]').forEach(b=>b.addEventListener('click',()=>{
@@ -304,7 +304,27 @@ function openDetail(p){
   dialog.scrollTop=0;
   document.body.style.overflow='hidden';
 }
+
+function renderFeaturedProducts(){
+  const host=document.querySelector('#featured-products');
+  if(!host)return;
+  const ids=['DHP90','WM1248','RFM466A'];
+  const featured=ids.map(id=>byId[id]).filter(Boolean);
+  host.innerHTML=featured.map(p=>{
+    const plan=p.plans[0]||null;
+    const sched=plan?schedule(p,plan):null;
+    const promo=sched&&sched.promoLabel?sched.promoLabel:'PILIHAN KHIND';
+    const price=sched?money(sched.first):'Semak';
+    return '<article class="featured-card" data-featured-card="'+p.id+'"><div class="featured-copy"><span class="featured-badge">'+promo+'</span><p class="featured-model">'+p.id+'</p><h3>'+p.name+'</h3><p class="description">'+p.description+'</p><div class="featured-price"><span>'+(sched&&sched.discount?'6 bulan pertama':'Kadar bulanan')+'</span><strong>'+price+'</strong>'+(sched?'<small>/bulan</small>':'')+'</div><button type="button" data-featured-product="'+p.id+'">Lihat pelan & butiran →</button></div><div class="featured-visual">'+productVisual(p)+'</div></article>';
+  }).join('');
+  host.querySelectorAll('[data-featured-product]').forEach(button=>button.addEventListener('click',()=>{
+    const p=byId[button.dataset.featuredProduct];
+    if(p)openDetail(p);
+  }));
+}
+
 render();
+renderFeaturedProducts();
 document.querySelector('#browse-laundry').addEventListener('click',()=>{
   searchInput.value='';
   syncClearSearch();
@@ -336,6 +356,33 @@ themeMedia.addEventListener('change',applyTheme);
 
 
 
+
+const revealItems=[...document.querySelectorAll('.reveal')];
+if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const revealObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },{threshold:.08,rootMargin:'0px 0px -7% 0px'});
+  revealItems.forEach(item=>revealObserver.observe(item));
+}else{
+  revealItems.forEach(item=>item.classList.add('is-visible'));
+}
+
+const desktopNavLinks=[...document.querySelectorAll('.desktop-nav a[href^="#"]')];
+if('IntersectionObserver' in window && desktopNavLinks.length){
+  const desktopSections=desktopNavLinks.map(link=>document.querySelector(link.getAttribute('href'))).filter(Boolean);
+  const navObserver=new IntersectionObserver(entries=>{
+    const visible=entries.filter(entry=>entry.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+    if(!visible)return;
+    desktopNavLinks.forEach(link=>link.classList.toggle('is-active',link.getAttribute('href')==='#'+visible.target.id));
+  },{rootMargin:'-25% 0px -60% 0px',threshold:[0,.12,.3]});
+  desktopSections.forEach(section=>navObserver.observe(section));
+}
+
 const mobileNavLinks=[...document.querySelectorAll('.mobile-bottom-nav [data-mobile-nav]')];
 if('IntersectionObserver'in window&&mobileNavLinks.length){
  const navSections=mobileNavLinks.map(link=>document.getElementById(link.dataset.mobileNav)).filter(Boolean);
@@ -352,5 +399,9 @@ if('IntersectionObserver'in window&&mobileNavLinks.length){
 }
 
 document.querySelectorAll('.category-image img').forEach(img=>{
- img.addEventListener('error',()=>{img.hidden=true;},{once:true});
+ img.addEventListener('error',()=>{
+   img.hidden=true;
+   const box=img.closest('.category-image');
+   if(box)box.classList.add('image-missing');
+ },{once:true});
 });
