@@ -3,9 +3,10 @@ const products = window.KHIND_PRODUCTS;
 const money = value => 'RM' + new Intl.NumberFormat('en-MY',{minimumFractionDigits:Number.isInteger(value)?0:2,maximumFractionDigits:2}).format(value);
 const today = new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Kuala_Lumpur',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
 const active = (start,end) => today >= start && today <= end;
-const q3 = active('2026-07-01','2026-09-30');
-const cashCampaign = active('2026-08-18','2026-09-30');
-const dryerCampaign = active('2026-10-01','2026-12-31');
+const q3 = false; // retired Q3 campaign
+const yearEndCampaign = active('2026-10-01','2026-12-31');
+const cashCampaign = yearEndCampaign;
+const dryerCampaign = yearEndCampaign;
 const enquiry = text => 'https://wa.me/60174201247?text=' + encodeURIComponent('Salam Hakim, '+text+' Mohon sahkan stok, kelayakan promosi, jumlah awal dan syarat penuh.');
 const cashPrice = p => cashCampaign && p.cashPromo ? p.cashPromo : p.cash;
 const byId = Object.fromEntries(products.map(p=>[p.id,p]));
@@ -44,10 +45,22 @@ const bundleParts = {
   'COMBO-10':['WM150A','RFS600A']
 };
 function schedule(p,plan){
- let first=plan.rate,discount=false,end='';
- if(q3 && p.q3){first=p.category==='bundle'?65:plan.rate/2;discount=true;end='30 September 2026';}
- if(dryerCampaign && p.id==='DHP90'){first=29.75;discount=true;end='31 Disember 2026';}
- return {first,discount,end,total:discount?first*6+plan.rate*(p.months-6):plan.rate*p.months};
+ let first=plan.rate,discount=false,end='',promoLabel='';
+ if(yearEndCampaign){
+   discount=true;
+   end='31 Disember 2026';
+   if(p.id==='DHP90'){
+     first=30;
+     promoLabel='65% OFF · 6 BULAN PERTAMA';
+   }else if(p.category==='bundle'){
+     first=65;
+     promoLabel='RM65 · 6 BULAN PERTAMA';
+   }else{
+     first=plan.rate/2;
+     promoLabel='50% OFF · 6 BULAN PERTAMA';
+   }
+ }
+ return {first,discount,end,promoLabel,total:discount?first*6+plan.rate*(p.months-6):plan.rate*p.months};
 }
 const heroImage=document.querySelector('#hero-image');
 const heroProduct=byId.DHP90||products[0];
@@ -68,8 +81,7 @@ if(heroImage){
   else heroImage.addEventListener('error',showHeroFallback,{once:true});
 }
 const banner=document.querySelector('#campaign');
-if(q3) banner.innerHTML='<b>Promosi hingga 30 September 2026</b><span>50% untuk 6 bulan pertama bagi model terpilih.<small>Kadar biasa bermula bulan ke-7. Kombo terpilih: RM65 sebulan untuk 6 bulan pertama. Tertakluk pengesahan KHIND.</small></span>';
-else if(dryerCampaign) banner.innerHTML='<b>Drymaster DHP90 · hingga 31 Disember 2026</b><span>RM29.75 × 6 bulan, kemudian RM85 × 42 bulan.<small>Tertakluk kelayakan dan pengesahan KHIND.</small></span>';
+if(yearEndCampaign) banner.innerHTML='<b>Promosi 1 Okt – 31 Dis 2026</b><span>Produk individu: 50% untuk 6 bulan pertama · Kombo: RM65 untuk 6 bulan pertama · DHP90: dari RM30 untuk 6 bulan pertama.<small>Kadar biasa bersambung selepas tempoh promosi. Tertakluk kelayakan, stok dan pengesahan KHIND.</small></span>';
 let category='all';
 const grid=document.querySelector('#products');
 const categoryStory=document.querySelector('#category-story');
@@ -101,7 +113,7 @@ function searchableText(p){
   return [p.name,p.id,p.description,categoryLabels[p.category],...(p.keywords||[])].filter(Boolean).join(' ').toLowerCase();
 }
 function promoEligible(p){
-  return (q3&&p.q3)||(dryerCampaign&&p.id==='DHP90');
+  return yearEndCampaign&&p.plans&&p.plans.length>0;
 }
 function rtoCardSummary(p,plan,sched){
   const firstLabel=sched.discount?'Bulan 1–6':'Bulan 1–'+p.months;
@@ -131,7 +143,7 @@ function render(){
    const sched=plan?schedule(p,plan):null;
    const decisions=decisionPoints(p).slice(0,3).map(x=>'<li>'+x+'</li>').join('');
    const categoryResult=term?'<p class="result-category">'+(categoryLabels[p.category]||'Produk')+'</p>':'';
-   const promo=promoEligible(p)?'<span class="promo-tag">PROMO · 6 BULAN PERTAMA</span>':'';
+   const promo=promoEligible(p)&&sched?'<span class="promo-tag">'+sched.promoLabel+'</span>':'';
    const conflict=p.sourceConflict?'<p class="verification-flag">Jumlah di atas berdasarkan '+p.tenure+' bulan · halaman rasmi awam menyatakan '+p.sourceConflict.publicTenureMonths+' bulan. Sahkan tempoh dengan KHIND.</p>':'';
    let pricing='',action='Lihat pelan & butiran',buttonAttr='data-product="'+p.id+'"';
    if(cash){
@@ -146,7 +158,7 @@ function render(){
          action='Semak harga penuh';
        }
      }else{
-       pricing='<div class="price-block cash-price"><div class="price">'+money(amount)+'</div><p class="price-note">Bayaran penuh'+(cashCampaign&&p.cashPromo&&p.cashPromo<p.cash?' · promosi hingga 30 Sep 2026':'')+'</p></div>';
+       pricing='<div class="price-block cash-price"><div class="price">'+money(amount)+'</div><p class="price-note">Bayaran penuh'+(cashCampaign&&p.cashPromo&&p.cashPromo<p.cash?' · promosi hingga 31 Dis 2026':'')+'</p></div>';
      }
    }else if(sched){
      pricing=rtoCardSummary(p,plan,sched);
@@ -236,7 +248,7 @@ function setDetailMode(p,mode,planIndex=0){
       return;
     }
     const message='saya berminat dengan '+p.name+'. Pilihan bayaran penuh '+money(amount)+'.';
-    detail.innerHTML='<div class="breakdown cash-breakdown"><p>Bayaran penuh</p><div class="price">'+money(amount)+'</div><p>'+(cashCampaign&&p.cashPromo&&p.cashPromo<p.cash?'Promosi hingga 30 September 2026. Harga biasa '+money(p.cash)+'.':'Harga rujukan; sahkan harga akhir.')+'</p></div>'+comparisonHtml(p,0)+sourceConflictHtml(p)+'<a class="button dark modal-cta" href="'+enquiry(message)+'" target="_blank" rel="noopener">Tanya tentang pilihan ini di WhatsApp ↗</a><p class="fine">Jangan hantar gambar IC atau butiran kad dalam chat. Gunakan pautan rasmi KHIND untuk dokumen dan pembayaran.</p>';
+    detail.innerHTML='<div class="breakdown cash-breakdown"><p>Bayaran penuh</p><div class="price">'+money(amount)+'</div><p>'+(cashCampaign&&p.cashPromo&&p.cashPromo<p.cash?'Promosi akhir tahun hingga 31 Disember 2026. Harga biasa '+money(p.cash)+'.':'Harga rujukan; sahkan harga akhir.')+'</p></div>'+comparisonHtml(p,0)+sourceConflictHtml(p)+'<a class="button dark modal-cta" href="'+enquiry(message)+'" target="_blank" rel="noopener">Tanya tentang pilihan ini di WhatsApp ↗</a><p class="fine">Jangan hantar gambar IC atau butiran kad dalam chat. Gunakan pautan rasmi KHIND untuk dokumen dan pembayaran.</p>';
     return;
   }
 
@@ -255,7 +267,7 @@ function setDetailMode(p,mode,planIndex=0){
   }
   const plan=p.plans[selected],sched=schedule(p,plan);
   const message='saya berminat dengan '+p.name+'. Pelan '+plan.name+': '+(sched.discount?money(sched.first)+' × 6 bulan, kemudian ':'')+money(plan.rate)+' × '+(sched.discount?p.months-6:p.months)+' bulan. Jumlah sewaan '+money(sched.total)+' + fi RM1.';
-  detail.innerHTML='<div class="breakdown"><dl>'+(sched.discount?'<div><dt>Bulan 1–6</dt><dd>'+money(sched.first)+' / bulan</dd></div><div><dt>Bulan 7–'+p.months+'</dt><dd>'+money(plan.rate)+' / bulan</dd></div>':'<div><dt>Bulan 1–'+p.months+'</dt><dd>'+money(plan.rate)+' / bulan</dd></div>')+'<div><dt>Jumlah sewaan</dt><dd>'+money(sched.total)+'</dd></div><div><dt>Fi pemprosesan</dt><dd>RM1</dd></div><div class="total"><dt>Jumlah anggaran</dt><dd>'+money(sched.total+1)+'</dd></div></dl></div><div class="plan-benefits"><h3>Termasuk dalam pelan</h3><p>'+p.benefits+'</p></div>'+comparisonHtml(p,selected)+sourceConflictHtml(p)+'<p class="fine">'+(sched.discount?'Promosi hingga '+sched.end+'. ':'')+'Anggaran tidak termasuk caj kerja tambahan, caj lewat atau penamatan awal. Jumlah bayaran pertama dan kelayakan promosi perlu disahkan oleh KHIND.</p>'+(p.id==='DHP90'&&today<'2026-10-01'?'<p class="future-offer"><b>Akan datang · 1 Oktober–31 Disember 2026:</b> RM29.75 × 6 bulan, kemudian RM85 × 42 bulan. Maklumat kempen ini masih tertakluk kepada pengesahan KHIND.</p>':'')+(p.category==='cooling'?'<p><b>Trade-in:</b> varian Semenanjung menawarkan RM150 Touch ’n Go setiap unit. Tempoh, syarat dan gabungan promosi belum disahkan; tanya dahulu.</p>':'')+'<a class="button dark modal-cta" href="'+enquiry(message)+'" target="_blank" rel="noopener">Tanya tentang pilihan ini di WhatsApp ↗</a><p class="fine">Jangan hantar gambar IC atau butiran kad dalam chat. Gunakan pautan rasmi KHIND untuk dokumen dan pembayaran.</p>';
+  detail.innerHTML='<div class="breakdown"><dl>'+(sched.discount?'<div><dt>Bulan 1–6</dt><dd>'+money(sched.first)+' / bulan</dd></div><div><dt>Bulan 7–'+p.months+'</dt><dd>'+money(plan.rate)+' / bulan</dd></div>':'<div><dt>Bulan 1–'+p.months+'</dt><dd>'+money(plan.rate)+' / bulan</dd></div>')+'<div><dt>Jumlah sewaan</dt><dd>'+money(sched.total)+'</dd></div><div><dt>Fi pemprosesan</dt><dd>RM1</dd></div><div class="total"><dt>Jumlah anggaran</dt><dd>'+money(sched.total+1)+'</dd></div></dl></div><div class="plan-benefits"><h3>Termasuk dalam pelan</h3><p>'+p.benefits+'</p></div>'+comparisonHtml(p,selected)+sourceConflictHtml(p)+'<p class="fine">'+(sched.discount?'Promosi hingga '+sched.end+'. ':'')+'Anggaran tidak termasuk caj kerja tambahan, caj lewat atau penamatan awal. Jumlah bayaran pertama dan kelayakan promosi perlu disahkan oleh KHIND.</p>'+(p.id==='DHP90'&&today<'2026-10-01'?'<p class="future-offer"><b>Akan datang · 1 Oktober–31 Disember 2026:</b> RM29.75 × 6 bulan, kemudian RM85 × 42 bulan. Maklumat kempen ini masih tertakluk kepada pengesahan KHIND.</p>':'')+(p.category==='cooling'?'<p><b>Trade-in aircond:</b> 1 Oktober–31 Disember 2026 untuk unit Sejuk Syiok terpilih di Semenanjung Malaysia. Trade-in 1 unit menerima RM150 Touch ’n Go eWallet; 2 unit menerima RM300, tertakluk terma kempen.</p>':'')+'<a class="button dark modal-cta" href="'+enquiry(message)+'" target="_blank" rel="noopener">Tanya tentang pilihan ini di WhatsApp ↗</a><p class="fine">Jangan hantar gambar IC atau butiran kad dalam chat. Gunakan pautan rasmi KHIND untuk dokumen dan pembayaran.</p>';
 }
 function openDetail(p){
   lastProductId=p.id;
