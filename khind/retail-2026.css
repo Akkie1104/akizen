@@ -821,3 +821,363 @@ html[data-theme=dark] .retail-footer .site-credit{color:#f2f4ef}
   .reveal{opacity:1!important;transform:none!important;transition:none!important}
   .card,.campaign-card,.featured-card,.value-grid article{transition:none!important}
 }
+
+
+
+/* Graphite refinement — KHIND yellow becomes an accent, not the canvas.
+   Visual rule: calm catalogue surfaces, expressive campaign surfaces. */
+:root{
+  --retail-yellow:#f6c900;
+  --retail-yellow-2:#ffe164;
+  --retail-graphite:#151714;
+  --retail-graphite-2:#20231e;
+  --retail-paper:#f6f7f3;
+  --retail-panel:#ffffff;
+  --retail-soft:#ecefe9;
+}
+
+/* Keep the catalogue calm. Patterns are reserved for brand/campaign moments. */
+body{
+  background:
+    radial-gradient(circle at 1px 1px,rgba(24,27,22,.025) 1px,transparent 1.2px) 0 0/28px 28px,
+    var(--retail-paper);
+}
+.catalogue-section,
+.featured-section,
+.value-props,
+.retail-faq,
+.decision-help{
+  position:relative;
+}
+.catalogue-section:before,
+.featured-section:before,
+.value-props:before,
+.retail-faq:before,
+.decision-help:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(var(--retail-paper),var(--retail-paper));
+  z-index:-1;
+}
+
+/* Header + announcement: black uniform, yellow stripe. */
+.draft{
+  background:var(--retail-graphite)!important;
+  color:#f7f7f3!important;
+  border-bottom:3px solid var(--retail-yellow);
+}
+.draft-dot{
+  background:var(--retail-yellow)!important;
+  box-shadow:0 0 0 4px rgba(246,201,0,.12)!important;
+}
+.site-header{
+  background:rgba(247,248,244,.92)!important;
+}
+.header-actions .contact{
+  background:var(--retail-graphite)!important;
+}
+.header-actions .contact:hover{background:#2b2f28!important}
+.desktop-nav a:hover,.desktop-nav a.is-active{
+  background:#fff6c4!important;
+  color:#5a4a00!important;
+}
+
+/* Promo ticker stays energetic without becoming a yellow wall. */
+.promo-marquee{
+  background:var(--retail-graphite)!important;
+  color:#f4f5f1!important;
+  border-bottom:1px solid #30342d!important;
+}
+.promo-marquee:before{
+  background:linear-gradient(90deg,var(--retail-graphite),transparent)!important
+}
+.promo-marquee:after{
+  background:linear-gradient(-90deg,var(--retail-graphite),transparent)!important
+}
+.promo-track span{
+  border-right-color:rgba(255,255,255,.12)!important;
+  color:#d9ddd5!important
+}
+.promo-track b{color:var(--retail-yellow)!important}
+
+/* HERO — graphite dominates, KHIND yellow behaves like the uniform stripe. */
+.retail-hero{
+  border:1px solid #30342d!important;
+  border-top:6px solid var(--retail-yellow)!important;
+  background:
+    linear-gradient(125deg,rgba(255,255,255,.025) 1px,transparent 1px) 0 0/24px 24px,
+    radial-gradient(circle at 14% 12%,rgba(255,255,255,.08),transparent 26%),
+    linear-gradient(122deg,#141612 0%,#1c1f1a 58%,#232720 100%)!important;
+  box-shadow:0 26px 70px rgba(15,18,14,.18)!important;
+}
+.retail-hero .hero-copy{color:#fff}
+.hero-kicker{color:#d2d7ce!important}
+.hero-kicker span{
+  background:var(--retail-yellow)!important;
+  color:#171812!important;
+}
+.retail-hero h1{color:#f8f9f5!important}
+.retail-hero h1 em{
+  color:var(--retail-yellow)!important;
+  text-shadow:none!important;
+}
+.retail-hero .intro{color:#c6cbc2!important}
+.hero-offers span{
+  border-color:rgba(255,255,255,.12)!important;
+  background:rgba(255,255,255,.055)!important;
+  color:#d6dbd1!important;
+}
+.hero-offers strong{color:var(--retail-yellow)!important}
+.hero-primary{
+  background:var(--retail-yellow)!important;
+  color:#171812!important;
+}
+.hero-primary:hover{background:#ffda27!important;color:#171812!important}
+.hero-secondary{
+  background:rgba(255,255,255,.06)!important;
+  border-color:rgba(255,255,255,.14)!important;
+  color:#f7f8f5!important;
+}
+.hero-secondary:hover{background:rgba(255,255,255,.12)!important}
+.hero-assist{color:#abb1a7!important}
+
+/* Product stage becomes a showroom panel, not more yellow. */
+.retail-hero .hero-art{
+  margin:24px 24px 24px 0;
+  min-height:512px!important;
+  border:1px solid rgba(255,255,255,.1)!important;
+  border-radius:24px!important;
+  background:
+    radial-gradient(circle at 50% 45%,rgba(255,255,255,.98),rgba(245,246,241,.92) 48%,rgba(226,229,221,.96) 100%)!important;
+}
+.hero-orbit{border-color:rgba(41,44,37,.09)!important}
+.orbit-two{border-color:rgba(41,44,37,.06)!important}
+.hero-sale-badge{
+  background:var(--retail-yellow)!important;
+  color:#171812!important;
+  box-shadow:0 14px 34px rgba(20,22,18,.18)!important;
+}
+.hero-price-card{
+  background:rgba(255,255,255,.9)!important;
+  border-color:rgba(32,35,29,.08)!important;
+}
+.retail-hero .hero-caption{
+  background:#11130f!important;
+  border-top-color:#30342d!important;
+  color:#aeb4a9!important;
+}
+.retail-hero .hero-caption a{color:var(--retail-yellow)!important}
+
+/* Campaign section gets a restrained patterned backdrop. */
+.campaign-hub{
+  position:relative;
+}
+.campaign-hub:before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:48px -22px 0;
+  border-radius:32px;
+  background:
+    linear-gradient(135deg,rgba(20,23,18,.035) 1px,transparent 1px) 0 0/34px 34px,
+    #f0f2ec;
+}
+.campaign-card-dark{
+  background:linear-gradient(145deg,#171915,#23261f)!important;
+  border-color:#2e332a!important;
+}
+.campaign-card-yellow{
+  background:#ffffff!important;
+  color:var(--retail-graphite)!important;
+  border-top:5px solid var(--retail-yellow)!important;
+}
+.campaign-card-yellow .campaign-icon{
+  background:#fff4ad!important;
+  color:#655200!important;
+}
+.campaign-card-air{
+  background:#f8faf8!important;
+  border-color:#dce3dd!important;
+  border-top:5px solid #8fc8df!important;
+}
+.campaign-card-spotlight{
+  background:
+    radial-gradient(circle at 82% 48%,rgba(246,201,0,.18),transparent 24%),
+    linear-gradient(125deg,#fdfdfb 0%,#f4f5f0 100%)!important;
+  color:var(--retail-graphite)!important;
+  border:1px solid #dfe2d9!important;
+  border-left:6px solid var(--retail-yellow)!important;
+}
+.campaign-card-spotlight .campaign-icon{
+  background:#fff2a2!important;
+  color:#5e4d00!important;
+}
+.campaign-card-spotlight .campaign-product:before{
+  background:#eceee8!important;
+}
+.campaign-card-spotlight .campaign-label,
+.campaign-card-spotlight p{color:#62675e!important}
+.campaign-card-spotlight h3{color:var(--retail-graphite)!important}
+.campaign-card-spotlight a{color:#5a4a00!important}
+
+/* Yellow is a cue, not a blanket. */
+.icon-box,
+.featured-badge,
+.decision-cards span{
+  background:#fff4ad!important;
+}
+.filters button.active,.filters button[aria-pressed=true]{
+  background:#fffdf2!important;
+  border-color:#c9ad2c!important;
+  box-shadow:inset 0 4px 0 var(--retail-yellow),0 12px 30px rgba(32,35,29,.07)!important;
+}
+.promo-tag{
+  background:#fff3a8!important;
+  color:#625000!important;
+}
+.campaign{
+  background:#fffdf1!important;
+  border-color:#eadc99!important;
+}
+.campaign-launch{
+  background:#fbfbf7!important;
+  border-color:#dfe2d9!important;
+  border-left:4px solid var(--retail-yellow)!important;
+}
+
+/* Cards stay clean so photos, prices and CTAs win. */
+.value-grid article,
+.featured-card,
+.card,
+.catalogue-tools,
+.quick-benefits,
+.decision-cards>div,
+.faq-list details{
+  background:#fff!important;
+}
+.product-art{
+  background:linear-gradient(145deg,#f5f6f1,#ebeee6)!important;
+}
+.shop-price,.cash-price{
+  background:#f3f5ef!important;
+}
+.card-actions>button{
+  background:#f4f5f1!important;
+}
+.card-actions>button:hover{
+  background:#fff8d7!important;
+}
+.card-whatsapp{background:#0a9b62!important}
+.card-whatsapp:hover{background:#087e51!important}
+
+/* Process + footer carry the brand's dark foundation. */
+.how{
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.025) 1px,transparent 1px) 0 0/26px 26px,
+    var(--retail-graphite)!important;
+}
+.step-icon{
+  background:var(--retail-yellow)!important;
+  color:#171812!important;
+}
+.retail-contact{
+  border:1px solid #30342d!important;
+  border-left:6px solid var(--retail-yellow)!important;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.024) 1px,transparent 1px) 0 0/26px 26px,
+    linear-gradient(120deg,#171915,#23261f)!important;
+  box-shadow:0 20px 58px rgba(15,18,14,.16)!important;
+}
+.retail-contact h2{color:#fff!important}
+.retail-contact .contact-kicker{color:var(--retail-yellow)!important}
+.retail-contact p{color:#b9beb5!important}
+.contact-main{
+  background:var(--retail-yellow)!important;
+  color:#171812!important;
+}
+.contact-main:hover{background:#ffda27!important;color:#171812!important}
+.retail-footer{
+  border-top:1px solid var(--retail-line)!important;
+}
+
+/* Decorative rule: subtle only; no pattern behind the actual product grid. */
+.catalogue-section{
+  background:var(--retail-paper)!important;
+}
+.products,
+.catalogue-tools,
+.filters{
+  position:relative;
+  z-index:1;
+}
+
+/* Mobile: preserve the black/yellow-uniform idea without crushing space. */
+@media(max-width:700px){
+  body{
+    background:var(--retail-paper)!important;
+  }
+  .retail-hero{
+    border-top-width:5px!important;
+  }
+  .retail-hero .hero-art{
+    margin:0 14px 14px!important;
+    min-height:320px!important;
+  }
+  .retail-hero .hero-caption{
+    background:#121410!important;
+  }
+  .campaign-hub:before{
+    inset:44px -7px 0;
+    border-radius:24px;
+  }
+  .campaign-card-yellow{
+    border-top-width:4px!important;
+  }
+  .campaign-card-spotlight{
+    border-left:1px solid #dfe2d9!important;
+    border-top:5px solid var(--retail-yellow)!important;
+  }
+  .retail-contact{
+    border-left:1px solid #30342d!important;
+    border-top:5px solid var(--retail-yellow)!important;
+  }
+}
+
+/* Dark mode already uses graphite; keep yellow as the same restrained accent. */
+html[data-theme=dark] body{
+  background:#151814!important;
+}
+html[data-theme=dark] .site-header{
+  background:rgba(21,24,20,.94)!important;
+}
+html[data-theme=dark] .campaign-hub:before{
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.025) 1px,transparent 1px) 0 0/34px 34px,
+    #191d18!important;
+}
+html[data-theme=dark] .campaign-card-yellow,
+html[data-theme=dark] .campaign-card-air,
+html[data-theme=dark] .campaign-card-spotlight{
+  background:#1d211c!important;
+  color:#f1f3ee!important;
+}
+html[data-theme=dark] .campaign-card-yellow h3,
+html[data-theme=dark] .campaign-card-air h3,
+html[data-theme=dark] .campaign-card-spotlight h3{
+  color:#f1f3ee!important;
+}
+html[data-theme=dark] .campaign-card-spotlight p,
+html[data-theme=dark] .campaign-card-spotlight .campaign-label{
+  color:#abb1a7!important;
+}
+html[data-theme=dark] .value-grid article,
+html[data-theme=dark] .featured-card,
+html[data-theme=dark] .card,
+html[data-theme=dark] .catalogue-tools,
+html[data-theme=dark] .quick-benefits,
+html[data-theme=dark] .decision-cards>div,
+html[data-theme=dark] .faq-list details{
+  background:#1d211c!important;
+}
