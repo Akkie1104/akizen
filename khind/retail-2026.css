@@ -49,6 +49,8 @@ p{color:var(--retail-muted)}
 .draft-dot{width:7px;height:7px;border-radius:50%;background:var(--retail-yellow);box-shadow:0 0 0 4px rgba(246,201,0,.13)}
 
 .site-header{
+  display:block;
+  min-height:0;
   position:sticky;
   top:0;
   z-index:70;
@@ -597,8 +599,9 @@ dialog::backdrop{background:rgba(18,21,17,.7)!important}
 .modal-cta,.secondary-action{border-radius:999px!important}
 
 /* REVEAL MOTION */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
-.reveal.is-visible{opacity:1;transform:none}
+.reveal{opacity:1;transform:none}
+.motion-ready .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.motion-ready .reveal.is-visible{opacity:1;transform:none}
 .card{animation:card-in .45s both}
 @keyframes card-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
