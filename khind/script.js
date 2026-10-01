@@ -6,7 +6,11 @@ const ALLOWED_SOURCE_HOSTS = new Set(['khindrto.com.my','www.khindrto.com.my','k
 const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, char => ({
   '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
 }[char]));
-const positiveNumber = value => Number.isFinite(Number(value)) && Number(value) >= 0 ? Number(value) : null;
+const positiveNumber = value => {
+  if(value===null||value===undefined||value==='')return null;
+  const number=Number(value);
+  return Number.isFinite(number)&&number>=0?number:null;
+};
 function safeHttpsUrl(value, allowedHosts){
   if(!value)return '';
   try{
@@ -25,7 +29,7 @@ function normalizeProduct(product){
   const id=String(product.id??'').trim();
   const name=String(product.name??'').trim();
   const category=String(product.category??'').trim();
-  if(!id||!name||!ALLOWED_PRODUCT_CATEGORIES.has(category))return null;
+  if(!/^[A-Za-z0-9._-]+$/.test(id)||!name||!ALLOWED_PRODUCT_CATEGORIES.has(category))return null;
   const plans=Array.isArray(product.plans)?product.plans.map(plan=>{
     const rate=positiveNumber(plan?.rate);
     if(rate===null)return null;
@@ -33,6 +37,7 @@ function normalizeProduct(product){
   }).filter(Boolean):[];
   const monthsRaw=positiveNumber(product.months);
   const months=monthsRaw===null?null:Math.trunc(monthsRaw);
+  if(plans.length&&(!months||months<1))return null;
   return {
     ...product,
     id,
@@ -164,7 +169,7 @@ function productVisual(p){
     return '<div class="combo-art">'+parts.map(id=>{
       const item=byId[id];
       return item&&item.image
-        ? '<img src="'+item.image+'" alt="" loading="lazy">'
+        ? '<img src="'+item.image+'" alt="" loading="lazy" decoding="async" referrerpolicy="no-referrer">'
         : '<span class="no-image" aria-hidden="true">Gambar tidak tersedia</span>';
     }).join('')+'</div>';
   }
@@ -362,7 +367,7 @@ function openDetail(p){
   lastProductId=p.id;
   const globalMode=document.querySelector('#payment').value;
   const decisions=decisionPoints(p).slice(0,3).map(x=>'<li>'+escapeHTML(x)+'</li>').join('');
-  document.querySelector('#detail-content').innerHTML='<p class="eyebrow">'+escapeHTML(p.id)+'</p><h2 id="detail-title">'+escapeHTML(p.name)+'</h2><p>'+escapeHTML(p.description)+'</p><ul class="decision-points modal-decisions" aria-label="Maklumat ringkas">'+decisions+'</ul><fieldset class="payment-method"><legend>Cara pembayaran</legend><div class="segmented"><button type="button" data-detail-payment="rto" aria-pressed="false">RTO</button><button type="button" data-detail-payment="cash" aria-pressed="false">Bayaran penuh</button></div></fieldset><div id="detail-plan-choice"></div><div id="plan-detail"></div><p class="stock">'+p.stock+'</p><p class="verification-meta">Data kempen: '+p.campaignSource+' · disemak '+p.verifiedDate+'.</p>'+(p.source?'<a class="source" href="'+p.source+'" target="_blank" rel="noopener noreferrer">Spesifikasi produk rasmi ↗</a>':'');
+  document.querySelector('#detail-content').innerHTML='<p class="eyebrow">'+escapeHTML(p.id)+'</p><h2 id="detail-title">'+escapeHTML(p.name)+'</h2><p>'+escapeHTML(p.description)+'</p><ul class="decision-points modal-decisions" aria-label="Maklumat ringkas">'+decisions+'</ul><fieldset class="payment-method"><legend>Cara pembayaran</legend><div class="segmented"><button type="button" data-detail-payment="rto" aria-pressed="false">RTO</button><button type="button" data-detail-payment="cash" aria-pressed="false">Bayaran penuh</button></div></fieldset><div id="detail-plan-choice"></div><div id="plan-detail"></div><p class="stock">'+escapeHTML(p.stock)+'</p><p class="verification-meta">Data kempen: '+escapeHTML(p.campaignSource)+' · disemak '+escapeHTML(p.verifiedDate)+'.</p>'+(p.source?'<a class="source" href="'+p.source+'" target="_blank" rel="noopener noreferrer">Spesifikasi produk rasmi ↗</a>':'');
   document.querySelectorAll('[data-detail-payment]').forEach(button=>button.addEventListener('click',()=>{
     const mode=button.dataset.detailPayment;
     setPaymentMode(mode);
@@ -384,7 +389,7 @@ function renderFeaturedProducts(){
     const sched=plan?schedule(p,plan):null;
     const promo=sched&&sched.promoLabel?sched.promoLabel:'PILIHAN KHIND';
     const price=sched?money(sched.first):'Semak';
-    return '<article class="featured-card" data-featured-card="'+p.id+'"><div class="featured-copy"><span class="featured-badge">'+promo+'</span><p class="featured-model">'+p.id+'</p><h3>'+p.name+'</h3><p class="description">'+p.description+'</p><div class="featured-price"><span>'+(sched&&sched.discount?'6 bulan pertama':'Kadar bulanan')+'</span><strong>'+price+'</strong>'+(sched?'<small>/bulan</small>':'')+'</div><button type="button" data-featured-product="'+p.id+'">Lihat pelan & butiran →</button></div><div class="featured-visual">'+productVisual(p)+'</div></article>';
+    return '<article class="featured-card" data-featured-card="'+escapeHTML(p.id)+'"><div class="featured-copy"><span class="featured-badge">'+escapeHTML(promo)+'</span><p class="featured-model">'+escapeHTML(p.id)+'</p><h3>'+escapeHTML(p.name)+'</h3><p class="description">'+escapeHTML(p.description)+'</p><div class="featured-price"><span>'+(sched&&sched.discount?'6 bulan pertama':'Kadar bulanan')+'</span><strong>'+price+'</strong>'+(sched?'<small>/bulan</small>':'')+'</div><button type="button" data-featured-product="'+escapeHTML(p.id)+'">Lihat pelan & butiran →</button></div><div class="featured-visual">'+productVisual(p)+'</div></article>';
   }).join('');
   host.querySelectorAll('[data-featured-product]').forEach(button=>button.addEventListener('click',()=>{
     const p=byId[button.dataset.featuredProduct];
