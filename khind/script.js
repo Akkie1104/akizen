@@ -307,7 +307,7 @@ let lastProductId=null;
 document.querySelector('.close').addEventListener('click',()=>dialog.close());
 dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close();}});
 dialog.addEventListener('close',()=>{
- document.body.style.overflow='';
+ document.body.classList.remove('modal-open');
  const trigger=[...grid.querySelectorAll('button')].find(button=>button.dataset.product===lastProductId||button.dataset.rtoProduct===lastProductId);
  (trigger||searchInput).focus({preventScroll:true});
 });
@@ -365,7 +365,9 @@ function setDetailMode(p,mode,planIndex=0){
     planChoice.innerHTML='<p class="single-plan"><span>Pelan RTO</span><b>'+escapeHTML(p.plans[0].name)+' · '+money(p.plans[0].rate)+'/bulan kadar biasa</b></p>';
   }
   const plan=p.plans[selected],sched=schedule(p,plan);
-  const message='saya berminat dengan '+p.name+'. Pelan '+plan.name+': '+(sched.discount?money(sched.first)+' × 6 bulan, kemudian ':'')+money(plan.rate)+' × '+(sched.discount?p.months-6:p.months)+' bulan. Jumlah sewaan '+money(sched.total)+' + fi RM1.';
+  const message=p.sourceConflict
+    ? 'saya berminat dengan '+p.name+'. Pelan '+plan.name+': '+(sched.discount?money(sched.first)+' untuk 6 bulan pertama, kemudian ':'')+money(plan.rate)+'/bulan. Saya faham tempoh dan jumlah akhir perlu disahkan dengan KHIND.'
+    : 'saya berminat dengan '+p.name+'. Pelan '+plan.name+': '+(sched.discount?money(sched.first)+' × 6 bulan, kemudian ':'')+money(plan.rate)+' × '+(sched.discount?p.months-6:p.months)+' bulan. Jumlah sewaan '+money(sched.total)+' + fi RM1.';
   const paymentRows=sched.discount
     ? '<div><dt>Bulan 1–6</dt><dd>'+money(sched.first)+' / bulan</dd></div><div><dt>Selepas promosi</dt><dd>'+money(plan.rate)+' / bulan</dd></div>'
     : '<div><dt>Kadar bulanan</dt><dd>'+money(plan.rate)+' / bulan</dd></div>';
@@ -387,29 +389,10 @@ function openDetail(p){
   setDetailMode(p,globalMode,0);
   dialog.showModal();
   dialog.scrollTop=0;
-  document.body.style.overflow='hidden';
-}
-
-function renderFeaturedProducts(){
-  const host=document.querySelector('#featured-products');
-  if(!host)return;
-  const ids=['DHP90','WM1248','RFM466A'];
-  const featured=ids.map(id=>byId[id]).filter(Boolean);
-  host.innerHTML=featured.map(p=>{
-    const plan=p.plans[0]||null;
-    const sched=plan?schedule(p,plan):null;
-    const promo=sched&&sched.promoLabel?sched.promoLabel:'PILIHAN KHIND';
-    const price=sched?money(sched.first):'Semak';
-    return '<article class="featured-card" data-featured-card="'+escapeHTML(p.id)+'"><div class="featured-copy"><span class="featured-badge">'+escapeHTML(promo)+'</span><p class="featured-model">'+escapeHTML(p.id)+'</p><h3>'+escapeHTML(p.name)+'</h3><p class="description">'+escapeHTML(p.description)+'</p><div class="featured-price"><span>'+(sched&&sched.discount?'6 bulan pertama':'Kadar bulanan')+'</span><strong>'+price+'</strong>'+(sched?'<small>/bulan</small>':'')+'</div><button type="button" data-featured-product="'+escapeHTML(p.id)+'">Lihat pelan & butiran →</button></div><div class="featured-visual">'+productVisual(p)+'</div></article>';
-  }).join('');
-  host.querySelectorAll('[data-featured-product]').forEach(button=>button.addEventListener('click',()=>{
-    const p=byId[button.dataset.featuredProduct];
-    if(p)openDetail(p);
-  }));
+  document.body.classList.add('modal-open');
 }
 
 render();
-renderFeaturedProducts();
 document.querySelector('#browse-laundry').addEventListener('click',()=>{
   searchInput.value='';
   syncClearSearch();
@@ -441,22 +424,6 @@ themeMedia.addEventListener('change',applyTheme);
 
 
 
-
-document.documentElement.classList.add('motion-ready');
-const revealItems=[...document.querySelectorAll('.reveal')];
-if('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-  const revealObserver=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        entry.target.classList.add('is-visible');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  },{threshold:.08,rootMargin:'0px 0px -7% 0px'});
-  revealItems.forEach(item=>revealObserver.observe(item));
-}else{
-  revealItems.forEach(item=>item.classList.add('is-visible'));
-}
 
 const desktopNavLinks=[...document.querySelectorAll('.desktop-nav a[href^="#"]')];
 if('IntersectionObserver' in window && desktopNavLinks.length){
