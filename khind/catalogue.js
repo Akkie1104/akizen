@@ -283,6 +283,7 @@ window.KHIND_PRODUCTS = [
     "benefits": "Waranti 48 bulan. Standard termasuk 1 servis penjagaan, insurans, relokasi dan pelupusan mengikut skop pelan.",
     "stock": "Sahkan stok dan syarat akhir sebelum memohon.",
     "campaignSource": "Pelan KHIND CD12D",
+    "yearEndPromo": false,
     "verifiedDate": "2026-10-12",
     "q3": false
   },

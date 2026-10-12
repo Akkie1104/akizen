@@ -54,6 +54,7 @@ function normalizeProduct(product){
     stock:String(product.stock??''),
     keywords:Array.isArray(product.keywords)?product.keywords.map(value=>String(value)):[],
     campaignSource:String(product.campaignSource??''),
+    yearEndPromo:product.yearEndPromo!==false,
     verifiedDate:String(product.verifiedDate??''),
     sourceConflict:product.sourceConflict&&typeof product.sourceConflict==='object'?{
       ...product.sourceConflict,
@@ -112,7 +113,7 @@ const bundleParts = {
 };
 function schedule(p,plan){
  let first=plan.rate,discount=false,end='',promoLabel='';
- if(yearEndCampaign){
+ if(yearEndCampaign&&p.yearEndPromo){
    discount=true;
    end='31 Disember 2026';
    if(p.id==='DHP90'){
@@ -149,7 +150,7 @@ if(heroImage&&heroProduct){
   showHeroFallback();
 }
 const banner=document.querySelector('#campaign');
-if(yearEndCampaign) banner.innerHTML='<b>Promosi 1 Okt – 31 Dis 2026</b><span>Produk individu: 50% untuk 6 bulan pertama · Kombo: RM65 untuk 6 bulan pertama · DHP90: dari RM30 untuk 6 bulan pertama.<small>Kadar biasa bersambung selepas tempoh promosi. Tertakluk kelayakan, stok dan pengesahan KHIND.</small></span>';
+if(yearEndCampaign) banner.innerHTML='<b>Promosi 1 Okt – 31 Dis 2026</b><span>Produk individu terpilih: 50% untuk 6 bulan pertama · Kombo: RM65 untuk 6 bulan pertama · DHP90: dari RM30 untuk 6 bulan pertama.<small>Kadar biasa bersambung selepas tempoh promosi. Tertakluk kelayakan, stok dan pengesahan KHIND.</small></span>';
 let category='all';
 const grid=document.querySelector('#products');
 const categoryStory=document.querySelector('#category-story');
