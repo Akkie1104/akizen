@@ -17,9 +17,9 @@ Reviewed 28 September 2026. Local branch: codex/khind-showroom-redesign. Not dep
 - WM1248 cash-mode dialog closes with focus restored to its product button.
 - SI6029BP Premium plan selection retains focus on the plan selector.
 - Sticky close control remains visible near the bottom of a long dialog.
-- CD12D missing cash price offers an enquiry link; no message was sent.
+- CD12D now shows its live-checked outright and Standard-plan prices; no message was sent.
 - FAQ expands and changes its indicator to minus.
-- Product catalogue data unchanged. Commercial claims remain unverified pending owner review.
+- Other commercial claims remain unverified pending owner review.
 
 ## Release boundary
 

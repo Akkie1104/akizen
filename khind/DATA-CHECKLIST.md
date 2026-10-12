@@ -6,7 +6,7 @@ The visual redesign is prepared locally. Akizen will reconfirm commercial data a
 - [ ] Confirm campaign dates, eligibility, first payment and processing fee; September promotion ends 30 September 2026.
 - [ ] Confirm the DHP90 October–December offer before it becomes current.
 - [ ] Confirm WD1438 Sabah availability and offer.
-- [ ] Confirm CD12D price and plans. Official product-list imagery for CD12D and WD1438 was checked on 2026-10-12.
+- [x] CD12D checked on 2026-10-12: outright RM3,100; Standard RM75 × 48 months; RM1 processing fee; 48-month warranty. Official product-list imagery for CD12D and WD1438 was checked on 2026-10-12.
 - [ ] Confirm stock, service area, warranty scope, installation exclusions and early termination terms.
 - [ ] Confirm independent agent page wording and any required KHIND advertising approval.
 

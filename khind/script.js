@@ -96,7 +96,7 @@ const decisionMeta = {
   'ACSON-2.0':['2.0HP','5 servis tahunan','10 kaki paip standard'],
   SI6029BP:['Seterika wap','Papan seterika (Premium)','Waranti 2 tahun'],
   WD1438:['10kg basuh','6kg kering','Sabah sahaja'],
-  CD12D:['12kg','Air-vented','Harga belum disahkan']
+  CD12D:['12kg','Air-vented','RM75 × 48 bulan']
 };
 const bundleParts = {
   'COMBO-1':['WM1248','DHP90'],

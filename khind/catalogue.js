@@ -269,15 +269,20 @@ window.KHIND_PRODUCTS = [
     "name": "Pengering air-vented",
     "description": "12kg · Kering",
     "category": "laundry",
-    "cash": null,
+    "cash": 3100,
     "cashPromo": null,
-    "months": null,
-    "plans": [],
+    "months": 48,
+    "plans": [
+      {
+        "name": "Standard",
+        "rate": 75
+      }
+    ],
     "image": "https://dtrfh4tzb23hn.cloudfront.net/agent-pos/attachment/13/attachments/1789113095_5697.jpg",
-    "source": "https://easyr2o.khind.com.my/product-list/",
-    "benefits": "Manfaat dan harga belum disahkan.",
-    "stock": "Hubungi untuk semakan harga dan ketersediaan.",
-    "campaignSource": "Senarai produk KHIND",
+    "source": "https://easyr2o.khind.com.my/product-details?product_id=16",
+    "benefits": "Waranti 48 bulan. Standard termasuk 1 servis penjagaan, insurans, relokasi dan pelupusan mengikut skop pelan.",
+    "stock": "Sahkan stok dan syarat akhir sebelum memohon.",
+    "campaignSource": "Pelan KHIND CD12D",
     "verifiedDate": "2026-10-12",
     "q3": false
   },
