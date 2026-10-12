@@ -1,4 +1,4 @@
-/* Source: KHIND agent catalogue and October Sales Booster materials, reviewed 2026-10-01. */
+/* Product codes, images and SI6029BP availability checked against the KHIND product list on 2026-10-12. Pricing and RTO terms remain from the 2026-10-01 agent materials. */
 window.KHIND_PRODUCTS = [
   {
     "id": "WM1248",
@@ -237,7 +237,9 @@ window.KHIND_PRODUCTS = [
     "image": "https://cdn.prod.website-files.com/673177735a80fcb0f16f912d/685292ca4e8a14b4981801d6_carousel1.png",
     "source": "https://www.khindrto.com.my/products/steamgen-si6029bp",
     "benefits": "Waranti 2 tahun. Premium termasuk papan seterika; Basic tidak termasuk.",
-    "stock": "Semenanjung: menunggu stok. Sabah/Sarawak: semak ketersediaan.",
+    "stock": "Stok habis. ETA WM: 21 Okt; ETA KK & KU: Dis. Sahkan stok sebelum memohon.",
+    "campaignSource": "Senarai produk KHIND",
+    "verifiedDate": "2026-10-12",
     "q3": false
   },
   {
@@ -254,10 +256,12 @@ window.KHIND_PRODUCTS = [
         "rate": 99
       }
     ],
-    "image": "",
-    "source": "",
+    "image": "https://dtrfh4tzb23hn.cloudfront.net/agent-pos/attachment/1/attachments/1762161556_7170.png",
+    "source": "https://easyr2o.khind.com.my/product-list/",
     "benefits": "Waranti RTO 3 tahun; kapsul 1 tahun.",
     "stock": "Sabah sahaja mengikut pelan. Sahkan stok.",
+    "campaignSource": "Senarai produk KHIND",
+    "verifiedDate": "2026-10-12",
     "q3": true
   },
   {
@@ -269,10 +273,12 @@ window.KHIND_PRODUCTS = [
     "cashPromo": null,
     "months": null,
     "plans": [],
-    "image": "",
-    "source": "",
+    "image": "https://dtrfh4tzb23hn.cloudfront.net/agent-pos/attachment/13/attachments/1789113095_5697.jpg",
+    "source": "https://easyr2o.khind.com.my/product-list/",
     "benefits": "Manfaat dan harga belum disahkan.",
     "stock": "Hubungi untuk semakan harga dan ketersediaan.",
+    "campaignSource": "Senarai produk KHIND",
+    "verifiedDate": "2026-10-12",
     "q3": false
   },
   {
@@ -518,9 +524,9 @@ window.KHIND_PRODUCTS = window.KHIND_PRODUCTS.map(product=>({
     ...(KHIND_KEYWORDS[product.id]||[]),
     ...(product.category==='bundle'?['combo','kombo','bundle','pakej']:[])
   ],
-  sourceDate:product.source?'2026-09-28':null,
-  campaignSource:'KHIND October Sales Booster materials received 2026-10-01',
+ sourceDate:product.source?'2026-09-28':null,
+ campaignSource:product.campaignSource||'KHIND October Sales Booster materials received 2026-10-01',
   tenure:product.months,
-  verifiedDate:'2026-10-01',
+ verifiedDate:product.verifiedDate||'2026-10-01',
   sourceConflict:KHIND_SOURCE_CONFLICTS[product.id]||null
 }));

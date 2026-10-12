@@ -83,7 +83,7 @@ Do not increase paid promotion until this status is known.
 
 Confirm stock, final first-payment amount, promotional eligibility, tenure, warranty wording and fee exclusions against current KHIND documentation. No promotional stacking is assumed. CD12D still has no confirmed price. WD1438's separate Sabah offer remains unverified. No exact delivery date, guaranteed approval or Shariah certification is claimed.
 
-Public product photographs are referenced directly from KHIND's CDN. WD1438 and CD12D use model-name fallbacks because no matching public image has been verified. ACSON photographs represent the Kool series rather than verified visual differences between horsepower variants.
+Public product photographs are referenced directly from KHIND's CDN. WD1438 and CD12D use matching images from the KHIND product list, checked 12 October 2026. ACSON photographs represent the Kool series rather than verified visual differences between horsepower variants.
 
 ## Validation
 

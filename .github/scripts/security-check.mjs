@@ -42,7 +42,8 @@ function sourceChecks(){
     "form-action 'none'",
     "connect-src 'none'",
     "frame-src 'none'",
-    "https://cdn.prod.website-files.com"
+    "https://cdn.prod.website-files.com",
+    "https://dtrfh4tzb23hn.cloudfront.net"
   ]){
     assert(csp.includes(directive),`CSP is missing required directive: ${directive}`);
   }
@@ -83,13 +84,13 @@ function sourceChecks(){
   }
 
   const catalogue=read('khind/catalogue.js');
-  const allowedImageHost='cdn.prod.website-files.com';
+  const allowedImageHosts=new Set(['cdn.prod.website-files.com','dtrfh4tzb23hn.cloudfront.net']);
   const imageUrls=[...catalogue.matchAll(/"image":\s*"(https:\/\/[^"]+)"/g)].map(match=>match[1]);
   for(const url of imageUrls){
     const host=(url.match(/^https:\/\/([^/]+)/i)||[])[1]||'';
-    assert(host===allowedImageHost,`Unexpected external image host in catalogue: ${host||url}`);
+    assert(allowedImageHosts.has(host),`Unexpected external image host in catalogue: ${host||url}`);
   }
-  const allowedSourceHosts=new Set(['khindrto.com.my','www.khindrto.com.my','khind.com.my','www.khind.com.my']);
+  const allowedSourceHosts=new Set(['khindrto.com.my','www.khindrto.com.my','khind.com.my','www.khind.com.my','easyr2o.khind.com.my']);
   const sourceUrls=[...catalogue.matchAll(/"source":\s*"(https:\/\/[^"]+)"/g)].map(match=>match[1]);
   for(const url of sourceUrls){
     const host=(url.match(/^https:\/\/([^/]+)/i)||[])[1]||'';

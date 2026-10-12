@@ -1,8 +1,8 @@
 'use strict';
 
 const ALLOWED_PRODUCT_CATEGORIES = new Set(['laundry','fridge','cooling','garment','bundle']);
-const ALLOWED_IMAGE_HOSTS = new Set(['cdn.prod.website-files.com']);
-const ALLOWED_SOURCE_HOSTS = new Set(['khindrto.com.my','www.khindrto.com.my','khind.com.my','www.khind.com.my']);
+const ALLOWED_IMAGE_HOSTS = new Set(['cdn.prod.website-files.com','dtrfh4tzb23hn.cloudfront.net']);
+const ALLOWED_SOURCE_HOSTS = new Set(['khindrto.com.my','www.khindrto.com.my','khind.com.my','www.khind.com.my','easyr2o.khind.com.my']);
 const escapeHTML = value => String(value ?? '').replace(/[&<>"']/g, char => ({
   '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
 }[char]));
