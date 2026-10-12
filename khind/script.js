@@ -142,7 +142,7 @@ function showHeroFallback(){
 if(heroImage&&heroProduct){
   heroImage.src=heroProduct.image||'';
   heroImage.alt=heroProduct.name+' '+heroProduct.id;
-  heroImage.closest('.hero-art').dataset.model=heroProduct.id;
+  heroImage.closest('.hero-product-image').dataset.model=heroProduct.id;
   if(!heroProduct.image)showHeroFallback();
   else heroImage.addEventListener('error',showHeroFallback,{once:true});
 }else if(heroImage){
