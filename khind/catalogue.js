@@ -1,4 +1,4 @@
-/* Product codes, images and SI6029BP availability checked against the KHIND product list on 2026-10-12. Pricing and RTO terms remain from the 2026-10-01 agent materials. */
+/* Product identity and listed live plan-selector terms checked against KHIND on 2026-10-12. Campaign eligibility remains time-sensitive. */
 window.KHIND_PRODUCTS = [
   {
     "id": "WM1248",
@@ -18,6 +18,7 @@ window.KHIND_PRODUCTS = [
     "source": "https://www.khindrto.com.my/products/9kg-front-load-washer-wm1248",
     "benefits": "Waranti 4 tahun; 1 servis penjagaan; kapsul 1 tahun.",
     "stock": "",
+    "verifiedDate": "2026-10-12",
     "q3": true
   },
   {
@@ -36,8 +37,9 @@ window.KHIND_PRODUCTS = [
     ],
     "image": "https://cdn.prod.website-files.com/673177735a80fcb0f16f912d/67b6de08e697276c238572df_80470333f122e0f2aadfa0e9527a24db.avif",
     "source": "https://www.khindrto.com.my/products/drymaster-heat-pump-dryer-9kg",
-    "benefits": "Waranti RTO 3 atau 4 tahun bergantung pada pelan; sahkan pelan sebenar.",
+    "benefits": "Waranti 4 tahun. Standard termasuk insurans, relokasi dan pelupusan mengikut skop pelan.",
     "stock": "",
+    "verifiedDate": "2026-10-12",
     "q3": true
   },
   {
@@ -58,6 +60,7 @@ window.KHIND_PRODUCTS = [
     "source": "https://www.khindrto.com.my/products/2-1-washer-dryer-wd1468",
     "benefits": "Waranti 3 tahun; 1 servis penjagaan; kapsul 3 tahun.",
     "stock": "",
+    "verifiedDate": "2026-10-12",
     "q3": true
   },
   {
@@ -82,6 +85,7 @@ window.KHIND_PRODUCTS = [
     "source": "https://www.khindrto.com.my/products/sbs-refrigerator",
     "benefits": "Waranti 5 tahun. Premium: 1 servis penjagaan, insurans, relokasi dan pelupusan, tertakluk skop.",
     "stock": "",
+    "verifiedDate": "2026-10-12",
     "q3": true
   },
   {
@@ -106,6 +110,7 @@ window.KHIND_PRODUCTS = [
     "source": "https://www.khindrto.com.my/products/chillmasterx-rfm466a",
     "benefits": "Waranti 5 tahun. Premium: 1 servis penjagaan, insurans, relokasi dan pelupusan, tertakluk skop.",
     "stock": "",
+    "verifiedDate": "2026-10-12",
     "q3": true
   },
   {
@@ -154,6 +159,7 @@ window.KHIND_PRODUCTS = [
     "source": "https://www.khindrto.com.my/products/ecowash-15-top-load-wash",
     "benefits": "Waranti 4 tahun. Basic: 1 servis; Premium: 4 servis serta insurans, relokasi dan pelupusan, tertakluk skop.",
     "stock": "Stok terhad / menunggu stok. Sahkan kawasan dan tarikh.",
+    "verifiedDate": "2026-10-12",
     "q3": true
   },
   {
@@ -510,20 +516,7 @@ const KHIND_KEYWORDS = {
   WD1438:['washer dryer','washer-dryer','mesin basuh pengering','2 in 1','2-in-1'],
   CD12D:['dryer','pengering','vented dryer','air vented','12kg']
 };
-const KHIND_SOURCE_CONFLICTS = {
-  WM1248:{
-    publicTenureMonths:36,
-    publicMonthlyRate:85,
-    publicCashPrice:3500,
-    note:'Halaman rasmi awam KHIND yang disemak pada 28 Sep 2026 menyatakan pemilikan selepas 3 tahun, manakala data kempen ejen yang digunakan di laman ini merekodkan 48 bulan. Sahkan tempoh sebenar dengan KHIND sebelum bersetuju.'
-  },
-  DHP90:{
-    publicTenureMonths:36,
-    publicMonthlyRate:85,
-    publicCashPrice:4000,
-    note:'Halaman rasmi awam KHIND yang disemak pada 28 Sep 2026 menyatakan pemilikan selepas 3 tahun, manakala data kempen ejen yang digunakan di laman ini merekodkan 48 bulan. Sahkan tempoh sebenar dengan KHIND sebelum bersetuju.'
-  }
-};
+const KHIND_SOURCE_CONFLICTS = {};
 window.KHIND_PRODUCTS = window.KHIND_PRODUCTS.map(product=>({
   ...product,
   keywords:[

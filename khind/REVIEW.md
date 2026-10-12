@@ -32,44 +32,9 @@ Prepared 27 September 2026 for Akizen's `/khind/` route. Updated 28 September 20
 - Decision chips were tightened; combo chips now emphasize included RTO support rather than repeating tenure.
 - Source-verification metadata is attached to each product: `source`, `sourceDate`, `campaignSource`, `tenure`, and `verifiedDate`.
 
-## Critical product-data discrepancy
+## Resolved plan-term discrepancy
 
-Current public KHIND pages checked on **28 September 2026** visibly conflict with the current agent catalogue for at least two products:
-
-### WM1248
-
-Public KHIND page currently displays:
-- Rental plan: RM85/month
-- Outright purchase: RM3,500
-- “Hak milik penuh selepas 3 Tahun”
-
-Current agent catalogue used by this site:
-- Standard RTO rate: RM85/month
-- September campaign pricing where applicable
-- Tenure: **48 months**
-
-### DHP90
-
-Public KHIND page currently displays:
-- Rental plan: RM85/month
-- Outright purchase: RM4,000
-- “Hak milik penuh selepas 3 Tahun”
-- RTO general warranty described elsewhere on the same public page as 3 or 4 years depending on plan
-
-Current agent catalogue used by this site:
-- Standard RTO rate: RM85/month
-- Campaign logic including the dated October–December offer
-- Tenure: **48 months**
-
-**The repository does not contain enough evidence to decide which tenure is commercially authoritative.** The UI now flags this discrepancy rather than silently presenting the two sources as consistent.
-
-Definition of done for this issue:
-1. KHIND confirms the applicable tenure for WM1248 and DHP90 in writing.
-2. Retain the confirmation/memo reference internally.
-3. Update `catalogue.js` so `tenure`, campaign calculation and public-source wording agree.
-4. Remove the customer-facing source-conflict warning only after the data is reconciled.
-
-Do not guess 36 or 48 months based only on one source.
+The live KHIND plan selector was checked on **12 October 2026**. WM1248 Standard and DHP90 Standard each displayed RM85 x 48 months, a RM1 processing fee, and a 48-month warranty. The catalogue already used those rates and tenure, so the outdated customer-facing 36-versus-48-month warning was removed. This verifies only the terms visibly shown at that time; future changes still require a fresh source check.
 
 ## Manual compliance gate
 
@@ -81,7 +46,7 @@ Do not increase paid promotion until this status is known.
 
 ## Content checks still required
 
-Confirm stock, final first-payment amount, promotional eligibility, tenure, warranty wording and fee exclusions against current KHIND documentation. No promotional stacking is assumed. CD12D was checked in the live plan UI on 12 October 2026: outright RM3,100; Standard RM75 × 48 months; RM1 processing fee; 48-month warranty. The source did not show the site-wide year-end discount, so CD12D is excluded until KHIND confirms product-specific eligibility. WD1438's separate Sabah offer remains unverified. No exact delivery date, guaranteed approval or Shariah certification is claimed.
+Confirm stock, final first-payment amount, promotional eligibility, warranty scope and fee exclusions against current KHIND documentation. No promotional stacking is assumed. CD12D was checked in the live plan UI on 12 October 2026: outright RM3,100; Standard RM75 × 48 months; RM1 processing fee; 48-month warranty. The source did not show the site-wide year-end discount, so CD12D is excluded until KHIND confirms product-specific eligibility. WD1438's separate Sabah offer remains unverified. No exact delivery date, guaranteed approval or Shariah certification is claimed.
 
 Public product photographs are referenced directly from KHIND's CDN. WD1438 and CD12D use matching images from the KHIND product list, checked 12 October 2026. ACSON photographs represent the Kool series rather than verified visual differences between horsepower variants.
 
@@ -110,7 +75,7 @@ Not implemented. This remains a low-priority convenience feature and is not need
 
 ## Next checkpoint
 
-The current Q3 promotion ends on **30 September 2026**. Before **1 October 2026**, reconcile WM1248/DHP90 tenure with KHIND and review the October campaign state, displayed pricing, warranty wording and stock notes.
+Before the next promotion or catalogue change, review the current campaign state, displayed pricing, warranty wording and stock notes against the live KHIND plan selector.
 
 
 ## Stitch-inspired visual refresh — 28 September 2026

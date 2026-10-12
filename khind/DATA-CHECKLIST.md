@@ -2,7 +2,7 @@
 
 The visual redesign is prepared locally. Akizen will reconfirm commercial data against the Markdown sources on his home PC. Product data and pricing calculations were preserved during the visual review.
 
-- [ ] Confirm WM1248 and DHP90 term: agent data uses 48 months; public source records mention 36 months.
+- [x] Live plan selector checked on 2026-10-12: WM1248 Standard and DHP90 Standard each display RM85 x 48 months, a RM1 processing fee and a 48-month warranty. The old 36-month source-conflict notice was removed.
 - [ ] Confirm campaign dates, eligibility, first payment and processing fee; September promotion ends 30 September 2026.
 - [ ] Confirm the DHP90 October–December offer before it becomes current.
 - [ ] Confirm WD1438 Sabah availability and offer.
