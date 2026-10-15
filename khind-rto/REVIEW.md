@@ -4,7 +4,7 @@ Prepared 27 September 2026 for Akizen's `/khind/` route. Updated 28 September 20
 
 ## Current state
 
-- Published at `https://akizen.my/khind-catalogue/`.
+- Published at `https://akizen.my/khind-rto/`.
 - Search indexing is enabled intentionally.
 - Single-page funnel remains: discovery → products → details → WhatsApp → KHIND process.
 - Bahasa Melayu catalogue: 13 individual models and 10 bundle choices.

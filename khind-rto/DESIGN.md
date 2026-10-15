@@ -2,7 +2,7 @@
 
 Audience: Malaysian households comparing appliance needs and payment commitments.
 Surface mode: Persuade, with an accessible product-selection workflow.
-Scope: deeper visual overhaul of /khind-catalogue/; preserve catalogue truth, URLs, main navigation, payment calculations, disclosures and enquiry destinations.
+Scope: deeper visual overhaul of /khind-rto/; preserve catalogue truth, URLs, main navigation, payment calculations, disclosures and enquiry destinations.
 
 The first pass used yellow/charcoal, platform typography, a restrained split hero, outlined category tiles and three-column products. Retire its generic display font, decorative eyebrows, faux brand dot, excessive lead-in text and timid appliance composition.
 
