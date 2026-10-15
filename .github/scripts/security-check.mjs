@@ -24,8 +24,8 @@ function walk(dir){
 }
 
 function sourceChecks(){
-  const html=read('khind/index.html');
-  const script=read('khind/script.js');
+  const html=read('khind-catalogue/index.html');
+  const script=read('khind-catalogue/script.js');
   const workflow=read('.github/workflows/static.yml');
 
   const cspMatch=html.match(/<meta\s+http-equiv="Content-Security-Policy"\s+content="([^"]+)">/i);
@@ -83,7 +83,7 @@ function sourceChecks(){
     assert(script.includes(requiredEscape),`Expected output escaping is missing: ${requiredEscape}`);
   }
 
-  const catalogue=read('khind/catalogue.js');
+  const catalogue=read('khind-catalogue/catalogue.js');
   const allowedImageHosts=new Set(['cdn.prod.website-files.com','dtrfh4tzb23hn.cloudfront.net']);
   const imageUrls=[...catalogue.matchAll(/"image":\s*"(https:\/\/[^"]+)"/g)].map(match=>match[1]);
   for(const url of imageUrls){
@@ -147,7 +147,7 @@ function artifactChecks(artifactPath){
   assert(fs.existsSync(artifact),`Staged artifact does not exist: ${artifactPath}`);
   if(!fs.existsSync(artifact))return;
 
-  const required=['index.html','404.html','khind/index.html','khind/script.js','khind/catalogue.js','khind/style.css','khind/retail-2026.css'];
+  const required=['index.html','404.html','khind-catalogue/index.html','khind-catalogue/script.js','khind-catalogue/catalogue.js','khind-catalogue/style.css','khind-catalogue/retail-2026.css'];
   for(const rel of required){
     assert(fs.existsSync(path.join(artifact,rel)),`Required public file missing from artifact: ${rel}`);
   }
@@ -160,7 +160,7 @@ function artifactChecks(artifactPath){
     if(rel==='README.md'||rel==='test.html')fail(`Internal file must not be published: ${rel}`);
     if(/\.md$/i.test(rel))fail(`Markdown project documentation must not be published: ${rel}`);
     if(/\.py$/i.test(rel))fail(`Development Python helper must not be published: ${rel}`);
-    if(/^khind\/[^/]+\.png$/i.test(rel))fail(`KHIND review screenshot must not be published: ${rel}`);
+    if(/^khind-catalogue\/[^/]+\.png$/i.test(rel))fail(`KHIND review screenshot must not be published: ${rel}`);
   }
 }
 
